@@ -15,8 +15,11 @@ export default defineConfig(({ command, mode }) => {
         tailwindcss(),
         dts({
           include: ['src/**/*'],
-          exclude: ['src/**/*.test.*', 'src/**/*.spec.*'],
+          exclude: ['src/**/*.test.*', 'src/**/*.spec.*', 'src/App.tsx', 'src/main.tsx', 'src/pages/**/*'],
           outDir: 'dist/types',
+          rollupTypes: true,
+          insertTypesEntry: true,
+          tsconfigPath: resolve(__dirname, 'tsconfig.lib.json'),
         }),
       ],
       resolve: {
