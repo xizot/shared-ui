@@ -1,0 +1,1 @@
+{"version":3,"file":"use-memoized-callback.d.ts","sourceRoot":"","sources":["../../../src/hooks/use-memoized-callback.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,cAAc,EAAE,MAAM,OAAO,CAAC;AAG5C,wBAAgB,mBAAmB,CAAC,CAAC,SAAS,CAAC,GAAG,IAAI,EAAE,OAAO,EAAE,KAAK,OAAO,EAC3E,QAAQ,EAAE,CAAC,EACX,IAAI,EAAE,cAAc,GACnB,CAAC,CAGH"}

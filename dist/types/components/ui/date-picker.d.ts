@@ -1,0 +1,34 @@
+import { type Locale } from 'date-fns';
+import * as React from 'react';
+import type { DayPickerSingleProps } from 'react-day-picker';
+import { Button } from '@/components/ui/button';
+import { PopoverContent } from '@/components/ui/popover';
+import { type FormSize } from '@/constants/form-sizes';
+import type { ComponentProps } from 'react';
+export type DatePickerProps = Omit<DayPickerSingleProps, 'selected' | 'onSelect' | 'mode' | 'required'> & {
+    value?: Date;
+    onChange?: (date: Date | undefined) => void;
+    placeholder?: string;
+    dateFormat?: string;
+    showTime?: boolean;
+    timeOnly?: boolean;
+    mode?: 'single' | 'month';
+    label?: string | React.ReactNode;
+    error?: string;
+    required?: boolean;
+    disabled?: boolean;
+    disabledPast?: boolean;
+    disabledFuture?: boolean;
+    onDisabled?: (date: Date) => boolean;
+    size?: FormSize;
+    className?: ComponentProps<'div'>['className'];
+    triggerClassName?: ComponentProps<typeof Button>['className'];
+    popoverClassName?: ComponentProps<typeof PopoverContent>['className'];
+    locale?: string | Locale;
+    cancelText?: string;
+    applyText?: string;
+    monthNames?: string[];
+};
+declare function DatePicker({ value, onChange, placeholder, dateFormat, showTime, timeOnly, mode, label, error, required, disabled, disabledPast, disabledFuture, onDisabled, size, className, triggerClassName, popoverClassName, locale, cancelText, applyText, monthNames, ...calendarProps }: DatePickerProps): import("react/jsx-runtime").JSX.Element;
+export { DatePicker };
+//# sourceMappingURL=date-picker.d.ts.map

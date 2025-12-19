@@ -1,0 +1,1 @@
+{"version":3,"file":"DesignSystemSidebar.d.ts","sourceRoot":"","sources":["../../../../src/pages/components/DesignSystemSidebar.tsx"],"names":[],"mappings":"AAaA,UAAU,wBAAwB;IAChC,mBAAmB,CAAC,EAAE,MAAM,CAAC;IAC7B,iBAAiB,EAAE,CAAC,WAAW,EAAE,MAAM,GAAG,SAAS,KAAK,IAAI,CAAC;CAC9D;AAED,wBAAgB,mBAAmB,CAAC,EAClC,mBAAmB,EACnB,iBAAiB,GAClB,EAAE,wBAAwB,2CAgI1B"}
