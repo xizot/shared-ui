@@ -35,8 +35,8 @@ This library requires the following peer dependencies. You need to install them 
 # Required peer dependencies
 npm install react react-dom
 
-# Optional peer dependencies (only if you use RHF components or date pickers)
-npm install react-hook-form date-fns react-day-picker
+# Optional peer dependencies (only if you use specific features)
+npm install react-hook-form date-fns react-day-picker @tanstack/react-table
 ```
 
 **Peer Dependencies:**
@@ -45,6 +45,7 @@ npm install react-hook-form date-fns react-day-picker
 - `react-hook-form` ^7.0.0 (optional - only for RHF components)
 - `date-fns` ^2.0.0 || ^3.0.0 (optional - only for date pickers)
 - `react-day-picker` ^9.0.0 (optional - only for date pickers)
+- `@tanstack/react-table` ^8.0.0 || ^9.0.0 (optional - only for DataTable component)
 
 ### Setup in Your Project
 
@@ -266,9 +267,10 @@ function App() {
 - **calendar** - Date picker calendar
 - **carousel** - Image/content carousel
 - **chart** - Chart components
+- **data-table** - Advanced data table with sorting, filtering, and pagination (TanStack Table)
 - **empty** - Empty state
 - **kbd** - Keyboard key display
-- **table** - Data table
+- **table** - Basic table component
 - **toggle** - Toggle button
 - **toggle-group** - Toggle button group
 
@@ -442,6 +444,325 @@ shared-ui/
     - `ChartConfig`
     - `DeepPartial`, `RequiredFields`, `OptionalFields`, `Prettify`
     - `StatusType`, `Breakpoint`, `DateFormat`
+    - `ColumnDef` (from @tanstack/react-table)
+
+## DataTable Usage Guide
+
+The `DataTable` component is built on top of [TanStack Table](https://tanstack.com/table) and provides powerful features for displaying and manipulating tabular data.
+
+### Installation
+
+DataTable requires `@tanstack/react-table` as a peer dependency:
+
+```bash
+npm install @tanstack/react-table
+```
+
+### 1. Basic Usage
+
+Simple table without any features:
+
+```tsx
+import { DataTable, type ColumnDef } from 'shared-ui'
+
+type User = {
+  id: string
+  name: string
+  email: string
+  role: string
+}
+
+const columns: ColumnDef<User, unknown>[] = [
+  {
+    accessorKey: 'name',
+    header: 'Name',
+  },
+  {
+    accessorKey: 'email',
+    header: 'Email',
+  },
+  {
+    accessorKey: 'role',
+    header: 'Role',
+  },
+]
+
+const data: User[] = [
+  { id: '1', name: 'John Doe', email: 'john@example.com', role: 'Admin' },
+  { id: '2', name: 'Jane Smith', email: 'jane@example.com', role: 'User' },
+]
+
+function UsersTable() {
+  return <DataTable data={data} columns={columns} />
+}
+```
+
+### 2. With Global Search
+
+Enable search functionality to filter across all columns or a specific column:
+
+```tsx
+<DataTable
+  data={data}
+  columns={columns}
+  searchable
+  searchPlaceholder="Search users..."
+  searchKey="name" // Optional: search only in 'name' column. Omit to search all columns
+/>
+```
+
+### 3. With Column Sorting
+
+Enable sorting on specific columns:
+
+```tsx
+const columns: ColumnDef<User, unknown>[] = [
+  {
+    accessorKey: 'name',
+    header: 'Name',
+    enableSorting: true, // Enable sorting for this column
+  },
+  {
+    accessorKey: 'email',
+    header: 'Email',
+    enableSorting: true,
+  },
+  {
+    accessorKey: 'role',
+    header: 'Role',
+    enableSorting: false, // Disable sorting for this column
+  },
+]
+
+<DataTable data={data} columns={columns} />
+```
+
+### 4. With Custom Cell Rendering
+
+Customize how cells are rendered:
+
+```tsx
+import { Badge } from 'shared-ui'
+
+const columns: ColumnDef<User, unknown>[] = [
+  {
+    accessorKey: 'name',
+    header: 'Name',
+  },
+  {
+    accessorKey: 'role',
+    header: 'Role',
+    cell: ({ row }) => {
+      const role = row.original.role
+      return (
+        <Badge variant={role === 'Admin' ? 'default' : 'secondary'}>
+          {role}
+        </Badge>
+      )
+    },
+  },
+  {
+    accessorKey: 'email',
+    header: 'Email',
+    cell: ({ row }) => (
+      <a href={`mailto:${row.original.email}`} className="text-primary hover:underline">
+        {row.original.email}
+      </a>
+    ),
+  },
+]
+```
+
+### 5. With Pagination
+
+Configure pagination settings:
+
+```tsx
+<DataTable
+  data={data}
+  columns={columns}
+  pagination={{
+    pageSize: 20, // Items per page
+    showPagination: true, // Show/hide pagination controls
+  }}
+/>
+```
+
+### 6. With Row Click Handler
+
+Handle row clicks and dynamic row styling:
+
+```tsx
+<DataTable
+  data={data}
+  columns={columns}
+  onRowClick={(row) => {
+    console.log('Clicked row:', row)
+    // Navigate to detail page, open modal, etc.
+  }}
+  rowClassName={(row) => {
+    // Dynamic row styling
+    return row.role === 'Admin' ? 'bg-muted' : ''
+  }}
+/>
+```
+
+### 7. With Custom Filter Function
+
+Implement custom global filter logic:
+
+```tsx
+import type { FilterFn } from '@tanstack/react-table'
+
+const customFilter: FilterFn<User> = (row, columnId, filterValue) => {
+  // Custom filtering logic
+  const searchValue = String(filterValue).toLowerCase()
+  return (
+    row.original.name.toLowerCase().includes(searchValue) ||
+    row.original.email.toLowerCase().includes(searchValue)
+  )
+}
+
+<DataTable
+  data={data}
+  columns={columns}
+  searchable
+  globalFilterFn={customFilter}
+/>
+```
+
+### 8. Complete Example with All Features
+
+```tsx
+import { DataTable, type ColumnDef, Badge, Button } from 'shared-ui'
+import { useState } from 'react'
+
+type User = {
+  id: string
+  name: string
+  email: string
+  role: string
+  status: 'active' | 'inactive'
+}
+
+function UsersTable() {
+  const [users] = useState<User[]>([
+    { id: '1', name: 'John Doe', email: 'john@example.com', role: 'Admin', status: 'active' },
+    { id: '2', name: 'Jane Smith', email: 'jane@example.com', role: 'User', status: 'active' },
+  ])
+
+  const columns: ColumnDef<User, unknown>[] = [
+    {
+      accessorKey: 'name',
+      header: 'Name',
+      enableSorting: true,
+    },
+    {
+      accessorKey: 'email',
+      header: 'Email',
+      enableSorting: true,
+    },
+    {
+      accessorKey: 'role',
+      header: 'Role',
+      cell: ({ row }) => (
+        <Badge variant={row.original.role === 'Admin' ? 'default' : 'secondary'}>
+          {row.original.role}
+        </Badge>
+      ),
+    },
+    {
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => (
+        <Badge variant={row.original.status === 'active' ? 'default' : 'outline'}>
+          {row.original.status}
+        </Badge>
+      ),
+    },
+    {
+      id: 'actions',
+      header: 'Actions',
+      cell: ({ row }) => (
+        <Button size="sm" onClick={() => handleEdit(row.original)}>
+          Edit
+        </Button>
+      ),
+    },
+  ]
+
+  return (
+    <DataTable
+      data={users}
+      columns={columns}
+      searchable
+      searchPlaceholder="Search users..."
+      searchKey="name"
+      pagination={{ pageSize: 10 }}
+      onRowClick={(user) => console.log('Selected:', user)}
+      emptyMessage="No users found"
+    />
+  )
+}
+```
+
+### 9. With Internationalization
+
+Customize labels for different languages:
+
+```tsx
+<DataTable
+  data={data}
+  columns={columns}
+  searchable
+  searchPlaceholder="Tìm kiếm..."
+  emptyMessage="Không có dữ liệu"
+  labels={{
+    previous: 'Trước',
+    next: 'Sau',
+    showing: 'Hiển thị',
+    to: 'đến',
+    of: 'trong',
+    results: 'kết quả',
+    page: 'Trang',
+  }}
+/>
+```
+
+### Advanced: Using TanStack Table Features
+
+Since `DataTable` uses TanStack Table's `ColumnDef`, you can leverage all TanStack Table features:
+
+```tsx
+import { ColumnDef } from '@tanstack/react-table'
+
+const columns: ColumnDef<User, unknown>[] = [
+  {
+    accessorKey: 'name',
+    header: 'Name',
+    enableSorting: true,
+    enableColumnFilter: true,
+    filterFn: 'includesString', // Built-in filter function
+    sortingFn: 'alphanumeric', // Built-in sorting function
+  },
+  {
+    id: 'actions',
+    header: 'Actions',
+    cell: ({ row }) => (
+      <div className="flex gap-2">
+        <Button size="sm" onClick={() => handleEdit(row.original)}>
+          Edit
+        </Button>
+        <Button size="sm" variant="destructive" onClick={() => handleDelete(row.original.id)}>
+          Delete
+        </Button>
+      </div>
+    ),
+  },
+]
+```
+
+For more advanced features, refer to the [TanStack Table documentation](https://tanstack.com/table/latest).
 
 ## Dependencies
 
@@ -468,6 +789,22 @@ MIT
 ## Contributing
 
 This is a shared UI library. Feel free to customize components as needed for your projects.
+
+## Design System Preview
+
+The library includes an interactive Design System documentation page. See [PREVIEW.md](./PREVIEW.md) for details on building and deploying the preview site.
+
+### Quick Start
+
+```bash
+# Build preview site
+npm run build:preview
+
+# Preview locally
+npm run preview:design
+```
+
+The preview site is built separately from the library to avoid increasing the library bundle size.
 
 ## Resources
 

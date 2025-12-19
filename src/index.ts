@@ -58,9 +58,9 @@ export * from './components/ui/toggle-group';
 export * from './components/ui/tooltip';
 
 // Export utilities
-export { cn, get, hasValue } from './lib/utils';
-export { toast } from './lib/toast';
 export * from './lib/format';
+export { toast } from './lib/toast';
+export { cn, get, hasValue } from './lib/utils';
 export * from './lib/validate';
 
 // Export hooks
@@ -70,23 +70,26 @@ export * from './hooks';
 export * from './components/rhf';
 
 // Export new UI components
-export * from './components/ui/container';
-export * from './components/ui/stack';
-export * from './components/ui/grid';
-export * from './components/ui/divider';
-export * from './components/ui/loading-button';
 export * from './components/ui/confirm-dialog';
-export * from './components/ui/delete-confirm-dialog';
-export * from './components/ui/empty-state';
-export * from './components/ui/loading-state';
-export * from './components/ui/error-boundary';
-export * from './components/ui/status-badge';
+export * from './components/ui/container';
 export * from './components/ui/data-table';
+export * from './components/ui/delete-confirm-dialog';
+export * from './components/ui/divider';
+export * from './components/ui/empty-state';
+export * from './components/ui/error-boundary';
+export * from './components/ui/grid';
+export * from './components/ui/loading-button';
+export * from './components/ui/loading-state';
+export * from './components/ui/stack';
+export * from './components/ui/status-badge';
 
 // Export constants
 export * from './constants/breakpoints';
-export * from './constants/regex';
 export * from './constants/date-formats';
+export * from './constants/regex';
 
 // Export types
 export type { ChartConfig } from './components/ui/chart';
+
+// Note: Design System is NOT exported here to keep library bundle size small
+// Design System is only available in the preview site (dist-preview/)
