@@ -1,6 +1,6 @@
 'use client';
 
-import RHFFileUpload from '@/components/rhf/rhf-file-upload';
+import { RHFFileUpload } from '@/components/rhf/rhf-file-upload';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { FileUpload, type FileUploadFile } from '@/components/ui/file-upload';

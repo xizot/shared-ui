@@ -7,7 +7,7 @@ import type { Control, FieldValues, Path } from 'react-hook-form';
 import { get } from '@/lib/utils';
 import { Upload } from 'lucide-react';
 
-type RHFUploadProps<T extends FieldValues = FieldValues> = {
+export type RHFUploadProps<T extends FieldValues = FieldValues> = {
   control: Control<T>;
   name: Path<T>;
   label?: string;
@@ -19,7 +19,7 @@ type RHFUploadProps<T extends FieldValues = FieldValues> = {
   className?: ComponentProps<'input'>['className'];
 };
 
-export default function RHFUpload<T extends FieldValues = FieldValues>({
+export function RHFUpload<T extends FieldValues = FieldValues>({
   control,
   name,
   label,

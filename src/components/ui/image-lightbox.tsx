@@ -201,6 +201,7 @@ function ImageLightbox({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         className={cn('max-w-[95vw] max-h-[95vh] p-0', className)}
+        showCloseButton={false}
         data-slot="image-lightbox"
       >
         <DialogHeader className="sr-only">

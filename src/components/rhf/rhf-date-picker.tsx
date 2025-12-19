@@ -6,7 +6,7 @@ import type { ComponentProps } from 'react';
 import type { Control, FieldValues, Path } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 
-type RHFDatePickerProps<T extends FieldValues = FieldValues> = Omit<
+export type RHFDatePickerProps<T extends FieldValues = FieldValues> = Omit<
   DatePickerProps,
   'value' | 'onChange' | 'label' | 'error' | 'required'
 > & {
@@ -19,7 +19,7 @@ type RHFDatePickerProps<T extends FieldValues = FieldValues> = Omit<
   callback?: (value: Date | undefined) => void;
 };
 
-export default function RHFDatePicker<T extends FieldValues = FieldValues>({
+export function RHFDatePicker<T extends FieldValues = FieldValues>({
   control,
   name,
   label,

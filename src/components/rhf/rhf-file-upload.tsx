@@ -1,14 +1,13 @@
 'use client';
 
-import { Controller, useFormState } from 'react-hook-form';
-import type { ComponentProps } from 'react';
-import type { Control, FieldValues, Path } from 'react-hook-form';
-import { get } from '@/lib/utils';
 import { FileUpload, type FileUploadProps } from '@/components/ui/file-upload';
 import { Label } from '@/components/ui/label';
-import { cn } from '@/lib/utils';
+import { cn, get } from '@/lib/utils';
+import type { ComponentProps } from 'react';
+import type { Control, FieldValues, Path } from 'react-hook-form';
+import { Controller, useFormState } from 'react-hook-form';
 
-type RHFFileUploadProps<T extends FieldValues = FieldValues> = Omit<
+export type RHFFileUploadProps<T extends FieldValues = FieldValues> = Omit<
   FileUploadProps,
   'value' | 'onChange' | 'onError'
 > & {
@@ -20,7 +19,7 @@ type RHFFileUploadProps<T extends FieldValues = FieldValues> = Omit<
   wrapperClassName?: ComponentProps<'div'>['className'];
 };
 
-function RHFFileUpload<T extends FieldValues = FieldValues>({
+export function RHFFileUpload<T extends FieldValues = FieldValues>({
   control,
   name,
   label,
@@ -76,5 +75,4 @@ function RHFFileUpload<T extends FieldValues = FieldValues>({
   );
 }
 
-export default RHFFileUpload;
 

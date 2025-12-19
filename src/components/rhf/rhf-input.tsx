@@ -5,7 +5,7 @@ import type { ComponentProps } from 'react';
 import type { Control, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import { get } from '@/lib/utils';
 
-type RHFInputProps<T extends FieldValues = FieldValues> = Omit<
+export type RHFInputProps<T extends FieldValues = FieldValues> = Omit<
   ComponentProps<typeof Input>,
   'label' | 'error' | 'required'
 > & {
@@ -17,7 +17,7 @@ type RHFInputProps<T extends FieldValues = FieldValues> = Omit<
   required?: boolean;
 };
 
-export default function RHFInput<T extends FieldValues = FieldValues>({
+export function RHFInput<T extends FieldValues = FieldValues>({
   control,
   register,
   name,

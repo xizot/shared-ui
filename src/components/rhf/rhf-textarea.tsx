@@ -6,7 +6,7 @@ import { useController, useFormState } from 'react-hook-form';
 import type { Control, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import { get } from '@/lib/utils';
 
-type RHFTextAreaProps<T extends FieldValues = FieldValues> = Omit<
+export type RHFTextAreaProps<T extends FieldValues = FieldValues> = Omit<
   ComponentProps<typeof Textarea>,
   'label' | 'error' | 'required'
 > & {
@@ -19,7 +19,7 @@ type RHFTextAreaProps<T extends FieldValues = FieldValues> = Omit<
   showMaxLength?: boolean;
 };
 
-export default function RHFTextArea<T extends FieldValues = FieldValues>({
+export function RHFTextArea<T extends FieldValues = FieldValues>({
   control,
   register,
   name,

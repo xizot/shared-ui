@@ -5,7 +5,7 @@ import type { ComponentProps } from 'react';
 import { Controller } from 'react-hook-form';
 import type { Control, FieldPathValue, FieldValues, Path } from 'react-hook-form';
 
-type RHFRadioGroupProps<T extends FieldValues = FieldValues> = Omit<
+export type RHFRadioGroupProps<T extends FieldValues = FieldValues> = Omit<
   ComponentProps<typeof RadioGroup>,
   'onValueChange' | 'value'
 > & {
@@ -24,7 +24,7 @@ type RHFRadioGroupProps<T extends FieldValues = FieldValues> = Omit<
   callback?: (newValue: string) => void;
 };
 
-export default function RHFRadioGroup<T extends FieldValues = FieldValues>({
+export function RHFRadioGroup<T extends FieldValues = FieldValues>({
   control,
   name,
   label,

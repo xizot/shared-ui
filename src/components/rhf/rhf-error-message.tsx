@@ -2,13 +2,13 @@ import { cn, get, hasValue } from '@/lib/utils';
 import { useFormState } from 'react-hook-form';
 import type { Control, FieldValues, Path } from 'react-hook-form';
 
-type RHFErrorMessageProps<T extends FieldValues> = {
+export type RHFErrorMessageProps<T extends FieldValues> = {
   name: Path<T>;
   control: Control<T>;
   showErrorWithTooltip?: boolean;
 };
 
-const RHFErrorMessage = <T extends FieldValues = FieldValues>({
+export function RHFErrorMessage<T extends FieldValues = FieldValues>({
   name,
   control,
 }: RHFErrorMessageProps<T>) => {
@@ -30,4 +30,3 @@ const RHFErrorMessage = <T extends FieldValues = FieldValues>({
   );
 };
 
-export default RHFErrorMessage;

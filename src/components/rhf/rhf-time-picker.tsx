@@ -5,7 +5,7 @@ import type { ComponentProps } from 'react';
 import type { Control, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import { get } from '@/lib/utils';
 
-type RHFTimePickerProps<T extends FieldValues = FieldValues> = Omit<
+export type RHFTimePickerProps<T extends FieldValues = FieldValues> = Omit<
   ComponentProps<typeof Input>,
   'label' | 'error' | 'required' | 'type'
 > & {
@@ -17,7 +17,7 @@ type RHFTimePickerProps<T extends FieldValues = FieldValues> = Omit<
   required?: boolean;
 };
 
-export default function RHFTimePicker<T extends FieldValues = FieldValues>({
+export function RHFTimePicker<T extends FieldValues = FieldValues>({
   control,
   register,
   name,

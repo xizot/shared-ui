@@ -5,13 +5,13 @@ import type { ComponentProps } from 'react';
 import type { Control, FieldValues, Path } from 'react-hook-form';
 import { Controller, useFormState } from 'react-hook-form';
 
-type RHFCheckboxGroupOption = {
+export type RHFCheckboxGroupOption = {
   value: string;
   label: string;
   disabled?: boolean;
 };
 
-type RHFCheckboxGroupProps<T extends FieldValues = FieldValues> = {
+export type RHFCheckboxGroupProps<T extends FieldValues = FieldValues> = {
   control: Control<T>;
   name: Path<T>;
   options: RHFCheckboxGroupOption[];
@@ -22,7 +22,7 @@ type RHFCheckboxGroupProps<T extends FieldValues = FieldValues> = {
   orientation?: 'horizontal' | 'vertical';
 };
 
-export default function RHFCheckboxGroup<T extends FieldValues = FieldValues>({
+export function RHFCheckboxGroup<T extends FieldValues = FieldValues>({
   control,
   name,
   options,

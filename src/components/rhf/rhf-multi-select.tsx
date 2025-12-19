@@ -13,13 +13,13 @@ import type { ComponentProps } from 'react';
 import type { Control, FieldValues, Path } from 'react-hook-form';
 import { Controller, useFormState } from 'react-hook-form';
 
-type RHFMultiSelectOption = {
+export type RHFMultiSelectOption = {
   value: string;
   label: string;
   disabled?: boolean;
 };
 
-type RHFMultiSelectProps<T extends FieldValues = FieldValues> = {
+export type RHFMultiSelectProps<T extends FieldValues = FieldValues> = {
   control: Control<T>;
   name: Path<T>;
   options: RHFMultiSelectOption[];
@@ -30,7 +30,7 @@ type RHFMultiSelectProps<T extends FieldValues = FieldValues> = {
   wrapperClassName?: ComponentProps<'div'>['className'];
 };
 
-export default function RHFMultiSelect<T extends FieldValues = FieldValues>({
+export function RHFMultiSelect<T extends FieldValues = FieldValues>({
   control,
   name,
   options,

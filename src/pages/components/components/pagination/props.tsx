@@ -13,8 +13,8 @@ export default function PaginationProps() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Pagination Props</CardTitle>
-          <CardDescription>Props for the Pagination component</CardDescription>
+          <CardTitle>Pagination</CardTitle>
+          <CardDescription>Root pagination container component</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
@@ -28,101 +28,16 @@ export default function PaginationProps() {
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell className="font-mono font-medium">currentPage</TableCell>
-                <TableCell className="font-mono text-sm">number</TableCell>
-                <TableCell className="font-mono text-sm">-</TableCell>
-                <TableCell>
-                  Current page number (controlled mode). If not provided, component uses internal
-                  state.
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">totalPages</TableCell>
-                <TableCell className="font-mono text-sm">number</TableCell>
-                <TableCell className="font-mono text-sm">-</TableCell>
-                <TableCell>
-                  Total number of pages. If not provided, calculated from totalItems and pageSize.
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">onPageChange</TableCell>
-                <TableCell className="font-mono text-sm">(page: number) =&gt; void</TableCell>
-                <TableCell className="font-mono text-sm">-</TableCell>
-                <TableCell>Callback when page changes</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">pageSize</TableCell>
-                <TableCell className="font-mono text-sm">number</TableCell>
-                <TableCell className="font-mono text-sm">10</TableCell>
-                <TableCell>Number of items per page</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">totalItems</TableCell>
-                <TableCell className="font-mono text-sm">number</TableCell>
-                <TableCell className="font-mono text-sm">0</TableCell>
-                <TableCell>
-                  Total number of items. Used to calculate totalPages if totalPages is not provided.
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">onPageSizeChange</TableCell>
-                <TableCell className="font-mono text-sm">(pageSize: number) =&gt; void</TableCell>
-                <TableCell className="font-mono text-sm">-</TableCell>
-                <TableCell>Callback when page size changes</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">showFirstLast</TableCell>
-                <TableCell className="font-mono text-sm">boolean</TableCell>
-                <TableCell className="font-mono text-sm">true</TableCell>
-                <TableCell>Show first and last page buttons</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">showPrevNext</TableCell>
-                <TableCell className="font-mono text-sm">boolean</TableCell>
-                <TableCell className="font-mono text-sm">true</TableCell>
-                <TableCell>Show previous and next buttons</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">maxVisiblePages</TableCell>
-                <TableCell className="font-mono text-sm">number</TableCell>
-                <TableCell className="font-mono text-sm">5</TableCell>
-                <TableCell>Maximum number of page buttons to display</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">showPageSize</TableCell>
-                <TableCell className="font-mono text-sm">boolean</TableCell>
-                <TableCell className="font-mono text-sm">false</TableCell>
-                <TableCell>Show page size selector</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">showJumpToPage</TableCell>
-                <TableCell className="font-mono text-sm">boolean</TableCell>
-                <TableCell className="font-mono text-sm">false</TableCell>
-                <TableCell>Show jump to page input</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">showInfo</TableCell>
-                <TableCell className="font-mono text-sm">boolean</TableCell>
-                <TableCell className="font-mono text-sm">true</TableCell>
-                <TableCell>Show info text (e.g., "Showing 1-10 of 100")</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">size</TableCell>
-                <TableCell className="font-mono text-sm">'sm' | 'md' | 'lg'</TableCell>
-                <TableCell className="font-mono text-sm">'md'</TableCell>
-                <TableCell>Size of buttons and text</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">variant</TableCell>
-                <TableCell className="font-mono text-sm">'default' | 'outline' | 'ghost'</TableCell>
-                <TableCell className="font-mono text-sm">'default'</TableCell>
-                <TableCell>Button variant</TableCell>
-              </TableRow>
-              <TableRow>
                 <TableCell className="font-mono font-medium">className</TableCell>
                 <TableCell className="font-mono text-sm">string</TableCell>
                 <TableCell className="font-mono text-sm">-</TableCell>
                 <TableCell>Additional CSS classes</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono font-medium">...props</TableCell>
+                <TableCell className="font-mono text-sm">React.ComponentProps{'<'}'nav'{'>'}</TableCell>
+                <TableCell className="font-mono text-sm">-</TableCell>
+                <TableCell>All standard nav HTML attributes</TableCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -131,8 +46,8 @@ export default function PaginationProps() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Label Props</CardTitle>
-          <CardDescription>Customizable text labels</CardDescription>
+          <CardTitle>PaginationContent</CardTitle>
+          <CardDescription>List container for pagination items</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
@@ -146,69 +61,252 @@ export default function PaginationProps() {
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell className="font-mono font-medium">previousLabel</TableCell>
+                <TableCell className="font-mono font-medium">className</TableCell>
                 <TableCell className="font-mono text-sm">string</TableCell>
-                <TableCell className="font-mono text-sm">"Previous"</TableCell>
-                <TableCell>Label for previous button</TableCell>
+                <TableCell className="font-mono text-sm">-</TableCell>
+                <TableCell>Additional CSS classes</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-mono font-medium">nextLabel</TableCell>
-                <TableCell className="font-mono text-sm">string</TableCell>
-                <TableCell className="font-mono text-sm">"Next"</TableCell>
-                <TableCell>Label for next button</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">firstLabel</TableCell>
-                <TableCell className="font-mono text-sm">string</TableCell>
-                <TableCell className="font-mono text-sm">"First"</TableCell>
-                <TableCell>Label for first button</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">lastLabel</TableCell>
-                <TableCell className="font-mono text-sm">string</TableCell>
-                <TableCell className="font-mono text-sm">"Last"</TableCell>
-                <TableCell>Label for last button</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">pageSizeLabel</TableCell>
-                <TableCell className="font-mono text-sm">string</TableCell>
-                <TableCell className="font-mono text-sm">"Items per page"</TableCell>
-                <TableCell>Label for page size selector</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">jumpToPageLabel</TableCell>
-                <TableCell className="font-mono text-sm">string</TableCell>
-                <TableCell className="font-mono text-sm">"Go to page"</TableCell>
-                <TableCell>Label for jump to page input</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">showingLabel</TableCell>
-                <TableCell className="font-mono text-sm">string</TableCell>
-                <TableCell className="font-mono text-sm">"Showing"</TableCell>
-                <TableCell>Label prefix for info text</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">ofLabel</TableCell>
-                <TableCell className="font-mono text-sm">string</TableCell>
-                <TableCell className="font-mono text-sm">"of"</TableCell>
-                <TableCell>Label separator in info text</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">resultsLabel</TableCell>
-                <TableCell className="font-mono text-sm">string</TableCell>
-                <TableCell className="font-mono text-sm">"results"</TableCell>
-                <TableCell>Label suffix for info text</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-mono font-medium">pageLabel</TableCell>
-                <TableCell className="font-mono text-sm">string</TableCell>
-                <TableCell className="font-mono text-sm">"Page"</TableCell>
-                <TableCell>Label prefix for page buttons</TableCell>
+                <TableCell className="font-mono font-medium">...props</TableCell>
+                <TableCell className="font-mono text-sm">React.ComponentProps{'<'}'ul'{'>'}</TableCell>
+                <TableCell className="font-mono text-sm">-</TableCell>
+                <TableCell>All standard ul HTML attributes</TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </CardContent>
       </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>PaginationItem</CardTitle>
+          <CardDescription>Individual pagination item wrapper</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Prop</TableHead>
+                <TableHead>Type</TableHead>
+                <TableHead>Default</TableHead>
+                <TableHead>Description</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-mono font-medium">...props</TableCell>
+                <TableCell className="font-mono text-sm">React.ComponentProps{'<'}'li'{'>'}</TableCell>
+                <TableCell className="font-mono text-sm">-</TableCell>
+                <TableCell>All standard li HTML attributes</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>PaginationLink</CardTitle>
+          <CardDescription>Clickable page number link</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Prop</TableHead>
+                <TableHead>Type</TableHead>
+                <TableHead>Default</TableHead>
+                <TableHead>Description</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-mono font-medium">isActive</TableCell>
+                <TableCell className="font-mono text-sm">boolean</TableCell>
+                <TableCell className="font-mono text-sm">false</TableCell>
+                <TableCell>Whether this link represents the current active page</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono font-medium">size</TableCell>
+                <TableCell className="font-mono text-sm">
+                  "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "icon" | "icon-xxs" | "icon-xs" | "icon-sm" | "icon-md" | "icon-lg" | "icon-xl" | "icon-xxl"
+                </TableCell>
+                <TableCell className="font-mono text-sm">"icon"</TableCell>
+                <TableCell>Size of the pagination link button</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono font-medium">className</TableCell>
+                <TableCell className="font-mono text-sm">string</TableCell>
+                <TableCell className="font-mono text-sm">-</TableCell>
+                <TableCell>Additional CSS classes</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono font-medium">...props</TableCell>
+                <TableCell className="font-mono text-sm">React.ComponentProps{'<'}'a'{'>'}</TableCell>
+                <TableCell className="font-mono text-sm">-</TableCell>
+                <TableCell>All standard anchor HTML attributes</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>PaginationPrevious</CardTitle>
+          <CardDescription>Previous page navigation button</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Prop</TableHead>
+                <TableHead>Type</TableHead>
+                <TableHead>Default</TableHead>
+                <TableHead>Description</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-mono font-medium">isActive</TableCell>
+                <TableCell className="font-mono text-sm">boolean</TableCell>
+                <TableCell className="font-mono text-sm">false</TableCell>
+                <TableCell>Whether this link is active (inherited from PaginationLink)</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono font-medium">size</TableCell>
+                <TableCell className="font-mono text-sm">
+                  "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "icon" | "icon-xxs" | "icon-xs" | "icon-sm" | "icon-md" | "icon-lg" | "icon-xl" | "icon-xxl"
+                </TableCell>
+                <TableCell className="font-mono text-sm">"md"</TableCell>
+                <TableCell>Size of the button (defaults to "md")</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono font-medium">className</TableCell>
+                <TableCell className="font-mono text-sm">string</TableCell>
+                <TableCell className="font-mono text-sm">-</TableCell>
+                <TableCell>Additional CSS classes</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono font-medium">...props</TableCell>
+                <TableCell className="font-mono text-sm">React.ComponentProps{'<'}'typeof PaginationLink'{'>'}</TableCell>
+                <TableCell className="font-mono text-sm">-</TableCell>
+                <TableCell>All PaginationLink props</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>PaginationNext</CardTitle>
+          <CardDescription>Next page navigation button</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Prop</TableHead>
+                <TableHead>Type</TableHead>
+                <TableHead>Default</TableHead>
+                <TableHead>Description</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-mono font-medium">isActive</TableCell>
+                <TableCell className="font-mono text-sm">boolean</TableCell>
+                <TableCell className="font-mono text-sm">false</TableCell>
+                <TableCell>Whether this link is active (inherited from PaginationLink)</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono font-medium">size</TableCell>
+                <TableCell className="font-mono text-sm">
+                  "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "icon" | "icon-xxs" | "icon-xs" | "icon-sm" | "icon-md" | "icon-lg" | "icon-xl" | "icon-xxl"
+                </TableCell>
+                <TableCell className="font-mono text-sm">"md"</TableCell>
+                <TableCell>Size of the button (defaults to "md")</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono font-medium">className</TableCell>
+                <TableCell className="font-mono text-sm">string</TableCell>
+                <TableCell className="font-mono text-sm">-</TableCell>
+                <TableCell>Additional CSS classes</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono font-medium">...props</TableCell>
+                <TableCell className="font-mono text-sm">React.ComponentProps{'<'}'typeof PaginationLink'{'>'}</TableCell>
+                <TableCell className="font-mono text-sm">-</TableCell>
+                <TableCell>All PaginationLink props</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>PaginationEllipsis</CardTitle>
+          <CardDescription>Ellipsis indicator for skipped pages</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Prop</TableHead>
+                <TableHead>Type</TableHead>
+                <TableHead>Default</TableHead>
+                <TableHead>Description</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-mono font-medium">className</TableCell>
+                <TableCell className="font-mono text-sm">string</TableCell>
+                <TableCell className="font-mono text-sm">-</TableCell>
+                <TableCell>Additional CSS classes</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono font-medium">...props</TableCell>
+                <TableCell className="font-mono text-sm">React.ComponentProps{'<'}'span'{'>'}</TableCell>
+                <TableCell className="font-mono text-sm">-</TableCell>
+                <TableCell>All standard span HTML attributes</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Usage Notes</CardTitle>
+          <CardDescription>Important considerations when using Pagination</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+            <li>
+              All pagination links should have proper <code className="rounded bg-muted px-1 py-0.5 text-sm">href</code> attributes for navigation
+            </li>
+            <li>
+              Use <code className="rounded bg-muted px-1 py-0.5 text-sm">isActive</code> prop on PaginationLink to indicate the current page
+            </li>
+            <li>
+              PaginationPrevious and PaginationNext include responsive text labels that hide on mobile
+            </li>
+            <li>
+              Disable previous/next buttons at the first/last page by adding <code className="rounded bg-muted px-1 py-0.5 text-sm">pointer-events-none opacity-50</code> classes
+            </li>
+            <li>
+              Use PaginationEllipsis to indicate skipped pages in large page ranges
+            </li>
+            <li>
+              The component uses semantic HTML with proper ARIA labels for accessibility
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
     </div>
   );
 }
+

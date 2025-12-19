@@ -164,11 +164,11 @@ function DataTable<T extends Record<string, unknown>>({
                               onClick={header.column.getToggleSortingHandler()}
                             >
                               {isSorted === 'asc' ? (
-                                <ArrowUp className="h-3 w-3" />
+                                <ArrowUp className="size-3.5 text-primary" />
                               ) : isSorted === 'desc' ? (
-                                <ArrowDown className="h-3 w-3" />
+                                <ArrowDown className="size-3.5 text-primary" />
                               ) : (
-                                <ArrowUpDown className="h-3 w-3" />
+                                <ArrowUpDown className="size-3.5" />
                               )}
                             </Button>
                           )}

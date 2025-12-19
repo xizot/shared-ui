@@ -7,7 +7,7 @@ import { Controller, useFormState } from 'react-hook-form';
 // Re-export for backward compatibility
 export type { ComboboxBaseOption } from '@/components/ui/combobox';
 
-type RHFComboboxProps<T extends FieldValues = FieldValues> = Omit<
+export type RHFComboboxProps<T extends FieldValues = FieldValues> = Omit<
   ComponentProps<typeof Combobox>,
   'value' | 'onChange' | 'label' | 'error' | 'required'
 > & {
@@ -18,7 +18,7 @@ type RHFComboboxProps<T extends FieldValues = FieldValues> = Omit<
   callback?: (newValue: string, newOption: ComboboxOption | undefined) => void;
 };
 
-export default function RHFCombobox<T extends FieldValues = FieldValues>({
+export function RHFCombobox<T extends FieldValues = FieldValues>({
   control,
   name,
   label,

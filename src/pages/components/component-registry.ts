@@ -143,6 +143,13 @@ export const componentRegistry: ComponentMetadata[] = [
     icon: Upload,
   },
   {
+    id: 'editor',
+    name: 'Editor',
+    category: 'Form',
+    description: 'Rich text editor component with WYSIWYG editing',
+    icon: FileText,
+  },
+  {
     id: 'form',
     name: 'Form',
     category: 'Form',
@@ -440,6 +447,13 @@ export const componentRegistry: ComponentMetadata[] = [
     name: 'Carousel',
     category: 'Media',
     description: 'Carousel component',
+    icon: Image,
+  },
+  {
+    id: 'image-preview',
+    name: 'Image Preview',
+    category: 'Media',
+    description: 'Image grid preview component with lightbox support',
     icon: Image,
   },
   // Other Components

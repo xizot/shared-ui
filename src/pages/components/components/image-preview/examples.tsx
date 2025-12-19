@@ -1,9 +1,9 @@
 'use client';
 
-import * as React from 'react';
-import { ImagePreview, type ImagePreviewItem } from '@/components/ui/image-preview';
-import { ImageLightbox } from '@/components/ui/image-lightbox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ImageLightbox } from '@/components/ui/image-lightbox';
+import { ImagePreview, type ImagePreviewItem } from '@/components/ui/image-preview';
+import * as React from 'react';
 
 export default function ImagePreviewExamples() {
   const [lightboxOpen, setLightboxOpen] = React.useState(false);
@@ -21,8 +21,29 @@ export default function ImagePreviewExamples() {
   const [images] = React.useState<ImagePreviewItem[]>(sampleImages);
   const [removableImages, setRemovableImages] = React.useState<ImagePreviewItem[]>(sampleImages);
 
-  const handleImageClick = (index: number) => {
-    setLightboxIndex(index);
+  const getImageUrl = (image: ImagePreviewItem): string => {
+    if (typeof image === 'string') {
+      return image;
+    }
+    if (image instanceof File) {
+      return URL.createObjectURL(image);
+    }
+    return image.url;
+  };
+
+  const handleImageClick = (index: number, image: ImagePreviewItem) => {
+    const imageUrl = getImageUrl(image);
+    const foundIndex = sampleImages.findIndex((img) => {
+      if (typeof img === 'string') {
+        return img === imageUrl;
+      }
+      return false;
+    });
+    if (foundIndex !== -1) {
+      setLightboxIndex(foundIndex);
+    } else {
+      setLightboxIndex(index);
+    }
     setLightboxOpen(true);
   };
 
@@ -38,7 +59,12 @@ export default function ImagePreviewExamples() {
           <CardDescription>Simple image grid with 3 columns</CardDescription>
         </CardHeader>
         <CardContent>
-          <ImagePreview images={sampleImages.slice(0, 6)} columns={3} />
+          <ImagePreview
+            images={sampleImages.slice(0, 6)}
+            columns={3}
+            onClick={handleImageClick}
+            showRemove={false}
+          />
         </CardContent>
       </Card>
 
@@ -50,15 +76,30 @@ export default function ImagePreviewExamples() {
         <CardContent className="space-y-6">
           <div>
             <h4 className="text-sm font-medium mb-2">2 Columns</h4>
-            <ImagePreview images={sampleImages.slice(0, 4)} columns={2} />
+            <ImagePreview
+              images={sampleImages.slice(0, 4)}
+              columns={2}
+              onClick={handleImageClick}
+              showRemove={false}
+            />
           </div>
           <div>
             <h4 className="text-sm font-medium mb-2">4 Columns</h4>
-            <ImagePreview images={sampleImages.slice(0, 4)} columns={4} />
+            <ImagePreview
+              images={sampleImages.slice(0, 4)}
+              columns={4}
+              onClick={handleImageClick}
+              showRemove={false}
+            />
           </div>
           <div>
             <h4 className="text-sm font-medium mb-2">6 Columns</h4>
-            <ImagePreview images={sampleImages.slice(0, 6)} columns={6} />
+            <ImagePreview
+              images={sampleImages.slice(0, 6)}
+              columns={6}
+              onClick={handleImageClick}
+              showRemove={false}
+            />
           </div>
         </CardContent>
       </Card>
@@ -75,12 +116,6 @@ export default function ImagePreviewExamples() {
             onClick={handleImageClick}
             showRemove={false}
           />
-          <ImageLightbox
-            images={images}
-            open={lightboxOpen}
-            onOpenChange={setLightboxOpen}
-            initialIndex={lightboxIndex}
-          />
         </CardContent>
       </Card>
 
@@ -95,12 +130,6 @@ export default function ImagePreviewExamples() {
             columns={3}
             onRemove={handleRemove}
             onClick={handleImageClick}
-          />
-          <ImageLightbox
-            images={removableImages}
-            open={lightboxOpen}
-            onOpenChange={setLightboxOpen}
-            initialIndex={lightboxIndex}
           />
           {removableImages.length === 0 && (
             <div className="mt-4 text-sm text-muted-foreground text-center">
@@ -136,9 +165,21 @@ export default function ImagePreviewExamples() {
           <CardDescription>Vertical list layout</CardDescription>
         </CardHeader>
         <CardContent>
-          <ImagePreview images={sampleImages.slice(0, 3)} columns={1} />
+          <ImagePreview
+            images={sampleImages.slice(0, 3)}
+            columns={1}
+            onClick={handleImageClick}
+            showRemove={false}
+          />
         </CardContent>
       </Card>
+
+      <ImageLightbox
+        images={sampleImages}
+        open={lightboxOpen}
+        onOpenChange={setLightboxOpen}
+        initialIndex={lightboxIndex}
+      />
     </div>
   );
 }

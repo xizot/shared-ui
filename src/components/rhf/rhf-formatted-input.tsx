@@ -5,9 +5,9 @@ import { Controller, useFormState } from 'react-hook-form';
 import type { Control, FieldValues, Path } from 'react-hook-form';
 import { get } from '@/lib/utils';
 
-type FormatType = 'text' | 'integer' | 'decimal' | 'currency';
+export type FormatType = 'text' | 'integer' | 'decimal' | 'currency';
 
-type RHFFormattedInputProps<T extends FieldValues = FieldValues> = Omit<
+export type RHFFormattedInputProps<T extends FieldValues = FieldValues> = Omit<
   ComponentProps<typeof Input>,
   'value' | 'onChange' | 'type' | 'label' | 'error' | 'required'
 > & {
@@ -34,7 +34,7 @@ const formatValue = (value: string, format: FormatType): string => {
   return value;
 };
 
-export default function RHFFormattedInput<T extends FieldValues = FieldValues>({
+export function RHFFormattedInput<T extends FieldValues = FieldValues>({
   control,
   name,
   label,
