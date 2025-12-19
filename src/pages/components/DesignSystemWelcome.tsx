@@ -47,24 +47,36 @@ export function DesignSystemWelcome() {
               </div>
             </div>
             <div className="space-y-2">
-              <h4 className="font-medium">Usage</h4>
+              <h4 className="font-medium">Peer Dependencies</h4>
               <div className="bg-muted p-4 rounded-md font-mono text-sm">
-                <div className="text-muted-foreground">
-                  import {'{'} Button, Card {'}'} from 'shared-ui'
-                </div>
-                <div className="mt-2">
-                  <div className="text-muted-foreground">{'<'}</div>
-                  <div className="ml-4">
-                    {'<'}Button{'>'}Click me{'</'}Button{'>'}
-                  </div>
-                  <div className="text-muted-foreground">{'</'}</div>
-                </div>
+                <div className="text-muted-foreground mb-2"># npm</div>
+                <div>npm install react react-dom react-hook-form date-fns react-day-picker @tanstack/react-table</div>
+                <div className="text-muted-foreground mt-4 mb-2"># yarn</div>
+                <div>yarn add react react-dom react-hook-form date-fns react-day-picker @tanstack/react-table</div>
+                <div className="text-muted-foreground mt-4 mb-2"># pnpm</div>
+                <div>pnpm add react react-dom react-hook-form date-fns react-day-picker @tanstack/react-table</div>
               </div>
             </div>
             <div className="space-y-2">
-              <h4 className="font-medium">Styles</h4>
-              <div className="bg-muted p-4 rounded-md font-mono text-sm">
+              <h4 className="font-medium">Setup</h4>
+              <div className="bg-muted p-4 rounded-md font-mono text-sm space-y-2">
+                <div className="text-muted-foreground"># 1. Import styles in your entry file</div>
                 <div>import 'shared-ui/styles.css'</div>
+                <div className="text-muted-foreground mt-3"># 2. Import components</div>
+                <div>import {'{'} Button, Card, Toaster {'}'} from 'shared-ui'</div>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <h4 className="font-medium">Basic Example</h4>
+              <div className="bg-muted p-4 rounded-md font-mono text-sm space-y-1">
+                <div className="text-muted-foreground">function App() {'{'}</div>
+                <div className="ml-4">return (</div>
+                <div className="ml-8">{'<>'}</div>
+                <div className="ml-12">{'<'}Toaster /{'>'}</div>
+                <div className="ml-12">{'<'}Button{'>'}Click me{'</'}Button{'>'}</div>
+                <div className="ml-8">{'</>'}</div>
+                <div className="ml-4">)</div>
+                <div>{'}'}</div>
               </div>
             </div>
           </CardContent>

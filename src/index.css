@@ -225,6 +225,12 @@
 }
 
 /* Toast Custom Styling - AAA Contrast Compliant */
+@layer utilities {
+  .text-default {
+    font-size: var(--default-text-size);
+  }
+}
+
 @layer components {
   [data-sonner-toast] {
     @apply border-2 shadow-lg;

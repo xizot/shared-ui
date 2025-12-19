@@ -76,6 +76,22 @@ export default function InputExamples() {
           <Input label="URL" type="url" placeholder="https://example.com" />
         </CardContent>
       </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Sizes</CardTitle>
+          <CardDescription>Different input sizes</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <Input size="xxs" placeholder="XXS size" />
+          <Input size="xs" placeholder="XS size" />
+          <Input size="sm" placeholder="SM size" />
+          <Input size="md" placeholder="MD size (default)" />
+          <Input size="lg" placeholder="LG size" />
+          <Input size="xl" placeholder="XL size" />
+          <Input size="xxl" placeholder="XXL size" />
+        </CardContent>
+      </Card>
     </div>
   );
 }

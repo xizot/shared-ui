@@ -29,19 +29,35 @@ export default function ButtonExamples() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-wrap items-center gap-2">
-            <Button size="sm">Small</Button>
-            <Button size="default">Default</Button>
-            <Button size="lg">Large</Button>
+            <Button size="xxs">XXS</Button>
+            <Button size="xs">XS</Button>
+            <Button size="sm">SM</Button>
+            <Button size="md">MD</Button>
+            <Button size="lg">LG</Button>
+            <Button size="xl">XL</Button>
+            <Button size="xxl">XXL</Button>
           </div>
           <div className="flex flex-wrap items-center gap-2">
+            <Button size="icon-xxs">
+              <Plus className="h-3 w-3" />
+            </Button>
+            <Button size="icon-xs">
+              <Plus className="h-3.5 w-3.5" />
+            </Button>
             <Button size="icon-sm">
               <Plus className="h-4 w-4" />
             </Button>
-            <Button size="icon">
+            <Button size="icon-md">
               <Plus className="h-4 w-4" />
             </Button>
             <Button size="icon-lg">
-              <Plus className="h-4 w-4" />
+              <Plus className="h-5 w-5" />
+            </Button>
+            <Button size="icon-xl">
+              <Plus className="h-5 w-5" />
+            </Button>
+            <Button size="icon-xxl">
+              <Plus className="h-6 w-6" />
             </Button>
           </div>
         </CardContent>

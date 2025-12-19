@@ -11,6 +11,7 @@ export { default as RHFNumberInput } from './rhf-number-input';
 export { default as RHFCheckboxGroup } from './rhf-checkbox-group';
 export { default as RHFMultiSelect } from './rhf-multi-select';
 export { default as RHFUpload } from './rhf-upload';
+export { default as RHFFileUpload } from './rhf-file-upload';
 export { default as RHFTimePicker } from './rhf-time-picker';
 export type { ComboboxBaseOption } from './rhf-combobox';
 export type { ComboboxOption } from '@/components/ui/combobox';

@@ -1,12 +1,11 @@
 import { Combobox, type ComboboxOption } from '@/components/ui/combobox';
-import { cn } from '@/lib/utils';
-import { useFormState } from 'react-hook-form';
+import { cn, get } from '@/lib/utils';
 import type { ComponentProps } from 'react';
-import { Controller } from 'react-hook-form';
 import type { Control, FieldValues, Path } from 'react-hook-form';
-import { get } from '@/lib/utils';
+import { Controller, useFormState } from 'react-hook-form';
 
-export type ComboboxBaseOption = ComboboxOption;
+// Re-export for backward compatibility
+export type { ComboboxBaseOption } from '@/components/ui/combobox';
 
 type RHFComboboxProps<T extends FieldValues = FieldValues> = Omit<
   ComponentProps<typeof Combobox>,

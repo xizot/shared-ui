@@ -55,7 +55,7 @@ export default function ButtonOverview() {
         <h3 className="text-xl font-semibold">Key Features</h3>
         <ul className="list-disc list-inside space-y-2 text-muted-foreground">
           <li>Multiple variants: default, destructive, outline, secondary, ghost, link</li>
-          <li>Multiple sizes: default, sm, lg, icon, icon-sm, icon-lg</li>
+          <li>Multiple sizes: xxs, xs, sm, md (default), lg, xl, xxl, and icon variants</li>
           <li>Full keyboard accessibility</li>
           <li>Disabled state support</li>
           <li>Can be used as a link with asChild prop</li>

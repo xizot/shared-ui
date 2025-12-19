@@ -70,6 +70,45 @@ export default function SwitchExamples() {
           </div>
         </CardContent>
       </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Sizes</CardTitle>
+          <CardDescription>Different switch sizes</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex flex-wrap items-center gap-6">
+            <div className="flex items-center space-x-2">
+              <Switch id="switch-xxs" size="xxs" />
+              <Label htmlFor="switch-xxs">XXS</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Switch id="switch-xs" size="xs" />
+              <Label htmlFor="switch-xs">XS</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Switch id="switch-sm" size="sm" />
+              <Label htmlFor="switch-sm">SM</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Switch id="switch-md" size="md" />
+              <Label htmlFor="switch-md">MD (default)</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Switch id="switch-lg" size="lg" />
+              <Label htmlFor="switch-lg">LG</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Switch id="switch-xl" size="xl" />
+              <Label htmlFor="switch-xl">XL</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Switch id="switch-xxl" size="xxl" />
+              <Label htmlFor="switch-xxl">XXL</Label>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

@@ -77,10 +77,11 @@ export default function SelectOverview() {
         <h3 className="text-xl font-semibold">Key Features</h3>
         <ul className="list-disc list-inside space-y-2 text-muted-foreground">
           <li>Built-in label, error, and required support</li>
-          <li>Keyboard navigation</li>
+          <li>Keyboard navigation and accessibility</li>
           <li>Accessible ARIA attributes</li>
-          <li>Multiple sizes (sm, default)</li>
+          <li>Multiple sizes: xxs, xs, sm, md (default), lg, xl, xxl</li>
           <li>Disabled state support</li>
+          <li>Consistent styling with design system</li>
         </ul>
       </div>
     </div>

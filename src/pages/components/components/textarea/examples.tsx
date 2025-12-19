@@ -56,6 +56,22 @@ export default function TextareaExamples() {
           <Textarea label="Disabled with Value" disabled value="Read-only content" />
         </CardContent>
       </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Sizes</CardTitle>
+          <CardDescription>Different textarea sizes</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <Textarea size="xxs" placeholder="XXS size" />
+          <Textarea size="xs" placeholder="XS size" />
+          <Textarea size="sm" placeholder="SM size" />
+          <Textarea size="md" placeholder="MD size (default)" />
+          <Textarea size="lg" placeholder="LG size" />
+          <Textarea size="xl" placeholder="XL size" />
+          <Textarea size="xxl" placeholder="XXL size" />
+        </CardContent>
+      </Card>
     </div>
   );
 }

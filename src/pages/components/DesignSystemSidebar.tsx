@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
-import { Search } from 'lucide-react';
+import { Rocket, Search } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import {
   componentCategories,
@@ -13,7 +13,7 @@ import {
 
 interface DesignSystemSidebarProps {
   selectedComponentId?: string;
-  onComponentSelect: (componentId: string) => void;
+  onComponentSelect: (componentId: string | undefined) => void;
 }
 
 export function DesignSystemSidebar({
@@ -51,6 +51,10 @@ export function DesignSystemSidebar({
         grouped[comp.category].push(comp);
       }
     });
+    // Sort components alphabetically by name within each category
+    componentCategories.forEach((cat) => {
+      grouped[cat].sort((a, b) => a.name.localeCompare(b.name));
+    });
     return grouped;
   }, [filteredComponents]);
 
@@ -83,6 +87,19 @@ export function DesignSystemSidebar({
 
       <ScrollArea className="flex-1 overflow-hidden">
         <div className="p-2">
+          <div className="mb-4">
+            <Button
+              variant={selectedComponentId === undefined ? 'secondary' : 'ghost'}
+              className={cn(
+                'w-full justify-start gap-2 px-2 font-medium',
+                selectedComponentId === undefined && 'bg-secondary font-medium'
+              )}
+              onClick={() => onComponentSelect(undefined)}
+            >
+              <Rocket className="h-4 w-4" />
+              <span>Quick Start</span>
+            </Button>
+          </div>
           {componentCategories.map((category) => {
             const components = componentsByCategory[category];
             if (components.length === 0) return null;

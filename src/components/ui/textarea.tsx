@@ -1,24 +1,36 @@
 import * as React from 'react';
 
-import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
+import { FORM_SIZES, formSizeVariants, type FormSize } from '@/constants/form-sizes';
+import { cn } from '@/lib/utils';
 
 interface TextareaProps extends React.ComponentProps<'textarea'> {
   label?: string | React.ReactNode;
   error?: string;
   required?: boolean;
+  size?: FormSize;
 }
 
-function Textarea({ className, label, error, required, id, ...props }: TextareaProps) {
+function Textarea({ className, label, error, required, id, size = 'md', ...props }: TextareaProps) {
   const hasLabelOrError = label || error;
 
   const textareaElement = (
     <textarea
       id={id}
       data-slot="textarea"
+      data-size={size}
       aria-invalid={!!error}
       className={cn(
-        'border-input placeholder:text-muted-foreground dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+        'border-input placeholder:text-muted-foreground dark:bg-input/30 flex field-sizing-content w-full rounded-md border bg-transparent shadow-xs transition-[color,box-shadow] outline-none disabled:cursor-not-allowed disabled:opacity-50',
+        formSizeVariants({ size }),
+        size && FORM_SIZES[size]?.padding,
+        size === 'xxs' && 'min-h-16',
+        size === 'xs' && 'min-h-20',
+        size === 'sm' && 'min-h-24',
+        size === 'md' && 'min-h-28',
+        size === 'lg' && 'min-h-32',
+        size === 'xl' && 'min-h-36',
+        size === 'xxl' && 'min-h-40',
         error
           ? 'focus-visible:border-destructive focus-visible:ring-destructive focus-visible:ring-[3px] border-destructive'
           : 'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
@@ -43,7 +55,7 @@ function Textarea({ className, label, error, required, id, ...props }: TextareaP
       )}
       {textareaElement}
       {error && (
-        <div className="text-destructive text-sm" role="alert">
+        <div className={`text-destructive text-sm`} role="alert">
           {error}
         </div>
       )}

@@ -93,8 +93,8 @@ export default function SelectExamples() {
         </CardHeader>
         <CardContent className="space-y-4">
           <Select>
-            <SelectTrigger size="sm">
-              <SelectValue placeholder="Small" />
+            <SelectTrigger size="xxs">
+              <SelectValue placeholder="XXS" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="1">Option 1</SelectItem>
@@ -102,8 +102,53 @@ export default function SelectExamples() {
             </SelectContent>
           </Select>
           <Select>
-            <SelectTrigger size="default">
-              <SelectValue placeholder="Default" />
+            <SelectTrigger size="xs">
+              <SelectValue placeholder="XS" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="1">Option 1</SelectItem>
+              <SelectItem value="2">Option 2</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select>
+            <SelectTrigger size="sm">
+              <SelectValue placeholder="SM" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="1">Option 1</SelectItem>
+              <SelectItem value="2">Option 2</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select>
+            <SelectTrigger size="md">
+              <SelectValue placeholder="MD (default)" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="1">Option 1</SelectItem>
+              <SelectItem value="2">Option 2</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select>
+            <SelectTrigger size="lg">
+              <SelectValue placeholder="LG" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="1">Option 1</SelectItem>
+              <SelectItem value="2">Option 2</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select>
+            <SelectTrigger size="xl">
+              <SelectValue placeholder="XL" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="1">Option 1</SelectItem>
+              <SelectItem value="2">Option 2</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select>
+            <SelectTrigger size="xxl">
+              <SelectValue placeholder="XXL" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="1">Option 1</SelectItem>

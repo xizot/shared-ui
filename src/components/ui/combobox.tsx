@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckIcon, ChevronDownIcon } from 'lucide-react';
+import { CheckIcon, ChevronDown, XCircle } from 'lucide-react';
 import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -14,20 +14,28 @@ import {
 } from '@/components/ui/command';
 import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { type FormSize } from '@/constants/form-sizes';
 import { cn } from '@/lib/utils';
 import type { ComponentProps } from 'react';
 
-type ComboboxOption = {
+type ComboboxBaseOption = {
   id: string;
-  code?: string;
+  code?: string | number;
   name: string;
   disabled?: boolean;
 };
 
-type ComboboxProps = {
-  options: ComboboxOption[];
-  value?: string | number;
-  onChange?: (value: string, option: ComboboxOption | undefined) => void;
+type ComboboxValue = string | number;
+
+type ComboboxOnChange<T extends ComboboxBaseOption> = (
+  value: string,
+  option: T | undefined,
+) => void;
+
+type ComboboxProps<TOptions extends readonly ComboboxBaseOption[]> = {
+  options: TOptions;
+  value?: ComboboxValue;
+  onChange?: ComboboxOnChange<TOptions[number]>;
   label?: string | React.ReactNode;
   error?: string;
   required?: boolean;
@@ -35,12 +43,20 @@ type ComboboxProps = {
   searchPlaceholder?: string;
   emptyMessage?: string;
   disabled?: boolean;
+  readonly?: boolean;
+  size?: FormSize;
+  showClearIcon?: boolean;
+  showArrowIcon?: boolean;
+  suffix?: React.ReactNode;
   className?: ComponentProps<'div'>['className'];
   triggerClassName?: ComponentProps<typeof Button>['className'];
   popoverClassName?: ComponentProps<typeof PopoverContent>['className'];
 };
 
-function Combobox({
+// Backward compatibility type alias
+type ComboboxOption = ComboboxBaseOption;
+
+function Combobox<TOptions extends readonly ComboboxBaseOption[]>({
   options,
   value,
   onChange,
@@ -51,20 +67,35 @@ function Combobox({
   searchPlaceholder = 'Search...',
   emptyMessage = 'No results found.',
   disabled = false,
+  readonly = false,
+  size = 'md',
+  showClearIcon = true,
+  showArrowIcon = true,
+  suffix,
   className,
   triggerClassName,
   popoverClassName,
-}: ComboboxProps) {
+}: ComboboxProps<TOptions>) {
   const [open, setOpen] = React.useState(false);
 
   const selectedOption = React.useMemo(
-    () => options.find((opt) => opt.id === value),
+    () => options.find((opt) => opt.id === value) as TOptions[number] | undefined,
     [options, value],
   );
 
-  const handleSelect = (option: ComboboxOption) => {
+  const canClear = !disabled && !readonly && !!value;
+
+  const handleSelect = (option: TOptions[number]) => {
     onChange?.(option.id, option);
     setOpen(false);
+  };
+
+  const handleClear = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (canClear) {
+      onChange?.('', undefined);
+    }
   };
 
   const triggerElement = (
@@ -75,18 +106,45 @@ function Combobox({
           role="combobox"
           aria-expanded={open}
           disabled={disabled}
+          size={size}
           className={cn(
-            'w-full justify-between',
+            'w-full justify-between group/combobox',
             !value && 'text-muted-foreground',
             error && 'border-destructive',
             triggerClassName,
           )}
         >
-          {selectedOption ? selectedOption.name : placeholder}
-          <ChevronDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <span className="flex-1 text-left truncate">
+            {selectedOption ? selectedOption.name : placeholder}
+          </span>
+          <div className="flex items-center gap-1 shrink-0 ml-2">
+            {value && canClear ? (
+              <span
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                onClick={handleClear}
+                className="cursor-pointer"
+              >
+                {showClearIcon && (
+                  <XCircle className="text-muted-foreground hidden group-hover/combobox:block h-4 w-4" />
+                )}
+                {showArrowIcon && (
+                  <ChevronDown className="text-muted-foreground block group-hover/combobox:hidden h-4 w-4" />
+                )}
+              </span>
+            ) : (
+              showArrowIcon && <ChevronDown className="text-muted-foreground h-4 w-4" />
+            )}
+            {suffix}
+          </div>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className={cn('w-full p-0', popoverClassName)} align="start">
+      <PopoverContent
+        className={cn('w-(--radix-popover-trigger-width) p-0', popoverClassName)}
+        align="start"
+      >
         <Command>
           <CommandInput placeholder={searchPlaceholder} />
           <CommandList>
@@ -98,14 +156,15 @@ function Combobox({
                   value={option.name}
                   disabled={option.disabled}
                   onSelect={() => handleSelect(option)}
+                  className="flex items-center justify-between gap-2"
                 >
+                  <span className="flex-1 truncate">{option.name}</span>
                   <CheckIcon
                     className={cn(
-                      'mr-2 h-4 w-4',
+                      'h-4 w-4 shrink-0 text-primary',
                       value === option.id ? 'opacity-100' : 'opacity-0',
                     )}
                   />
-                  {option.name}
                 </CommandItem>
               ))}
             </CommandGroup>
@@ -129,7 +188,7 @@ function Combobox({
       )}
       <div className={label ? 'mt-1' : ''}>{triggerElement}</div>
       {error && (
-        <div className="text-destructive text-sm mt-1.5" role="alert">
+        <div className={`text-destructive text-sm mt-1.5`} role="alert">
           {error}
         </div>
       )}
@@ -137,5 +196,12 @@ function Combobox({
   );
 }
 
-export { Combobox, type ComboboxOption };
+export {
+  Combobox,
+  type ComboboxBaseOption,
+  type ComboboxOnChange,
+  type ComboboxOption,
+  type ComboboxProps,
+  type ComboboxValue
+};
 

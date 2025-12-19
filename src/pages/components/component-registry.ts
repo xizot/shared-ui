@@ -21,6 +21,7 @@ import {
   Table,
   ToggleLeft,
   Type,
+  Upload,
 } from 'lucide-react';
 
 export type ComponentCategory =
@@ -65,13 +66,6 @@ export const componentRegistry: ComponentMetadata[] = [
     icon: FileText,
   },
   {
-    id: 'select',
-    name: 'Select',
-    category: 'Form',
-    description: 'Dropdown select component',
-    icon: ChevronDown,
-  },
-  {
     id: 'checkbox',
     name: 'Checkbox',
     category: 'Form',
@@ -100,6 +94,13 @@ export const componentRegistry: ComponentMetadata[] = [
     icon: Search,
   },
   {
+    id: 'multiple-combobox',
+    name: 'Multiple Combobox',
+    category: 'Form',
+    description: 'Multi-select combobox with badges and checkboxes',
+    icon: CheckSquare,
+  },
+  {
     id: 'slider',
     name: 'Slider',
     category: 'Form',
@@ -114,11 +115,32 @@ export const componentRegistry: ComponentMetadata[] = [
     icon: Calendar,
   },
   {
+    id: 'date-picker',
+    name: 'Date Picker',
+    category: 'Form',
+    description: 'Date picker component with single date selection',
+    icon: Calendar,
+  },
+  {
+    id: 'date-range-picker',
+    name: 'Date Range Picker',
+    category: 'Form',
+    description: 'Date range picker component with presets',
+    icon: Calendar,
+  },
+  {
     id: 'input-otp',
     name: 'Input OTP',
     category: 'Form',
     description: 'One-time password input component',
     icon: Square,
+  },
+  {
+    id: 'file-upload',
+    name: 'File Upload',
+    category: 'Form',
+    description: 'File upload component with drag & drop, preview, and validation',
+    icon: Upload,
   },
   {
     id: 'form',

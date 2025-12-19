@@ -15,6 +15,8 @@ import { ControllerProps } from 'react-hook-form';
 import { DateRange } from 'react-day-picker';
 import { DayButton } from 'react-day-picker';
 import { DayPicker } from 'react-day-picker';
+import { DayPickerRangeProps } from 'react-day-picker';
+import { DayPickerSingleProps } from 'react-day-picker';
 import { default as default_2 } from 'embla-carousel-react';
 import { DependencyList } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
@@ -30,6 +32,7 @@ import { Group } from 'react-resizable-panels';
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { JSX } from 'react/jsx-runtime';
 import * as LabelPrimitive from '@radix-ui/react-label';
+import { Locale } from 'date-fns';
 import * as MenubarPrimitive from '@radix-ui/react-menubar';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { OTPInput } from 'input-otp';
@@ -155,7 +158,7 @@ export declare const buttonGroupVariants: (props?: ({
 
 export declare const buttonVariants: (props?: ({
     variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
-    size?: "default" | "sm" | "lg" | "icon" | "icon-sm" | "icon-lg" | null | undefined;
+    size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "2xl" | "icon" | "icon-xxs" | "icon-xs" | "icon-sm" | "icon-md" | "icon-lg" | "icon-xl" | "icon-xxl" | null | undefined;
 } & ClassProp) | undefined) => string;
 
 export declare function Calendar({ className, classNames, showOutsideDays, captionLayout, buttonVariant, formatters, components, ...props }: React_2.ComponentProps<typeof DayPicker> & {
@@ -241,7 +244,9 @@ export declare function ChartTooltipContent({ active, payload, className, indica
     labelKey?: string;
 }): JSX.Element | null;
 
-export declare function Checkbox({ className, ...props }: React_2.ComponentProps<typeof CheckboxPrimitive.Root>): JSX.Element;
+export declare function Checkbox({ className, size, ...props }: React_2.ComponentProps<typeof CheckboxPrimitive.Root> & {
+    size?: FormSize;
+}): JSX.Element;
 
 export declare function cn(...inputs: ClassValue[]): string;
 
@@ -253,21 +258,23 @@ export declare function CollapsibleTrigger({ ...props }: React.ComponentProps<ty
 
 export { ColumnDef }
 
-export declare function Combobox({ options, value, onChange, label, error, required, placeholder, searchPlaceholder, emptyMessage, disabled, className, triggerClassName, popoverClassName, }: ComboboxProps): JSX.Element;
+export declare function Combobox<TOptions extends readonly ComboboxBaseOption[]>({ options, value, onChange, label, error, required, placeholder, searchPlaceholder, emptyMessage, disabled, readonly, size, showClearIcon, showArrowIcon, suffix, className, triggerClassName, popoverClassName, }: ComboboxProps<TOptions>): JSX.Element;
 
-export declare type ComboboxBaseOption = ComboboxOption;
-
-export declare type ComboboxOption = {
+export declare type ComboboxBaseOption = {
     id: string;
-    code?: string;
+    code?: string | number;
     name: string;
     disabled?: boolean;
 };
 
-declare type ComboboxProps = {
-    options: ComboboxOption[];
-    value?: string | number;
-    onChange?: (value: string, option: ComboboxOption | undefined) => void;
+export declare type ComboboxOnChange<T extends ComboboxBaseOption> = (value: string, option: T | undefined) => void;
+
+export declare type ComboboxOption = ComboboxBaseOption;
+
+export declare type ComboboxProps<TOptions extends readonly ComboboxBaseOption[]> = {
+    options: TOptions;
+    value?: ComboboxValue;
+    onChange?: ComboboxOnChange<TOptions[number]>;
     label?: string | React_2.ReactNode;
     error?: string;
     required?: boolean;
@@ -275,10 +282,17 @@ declare type ComboboxProps = {
     searchPlaceholder?: string;
     emptyMessage?: string;
     disabled?: boolean;
+    readonly?: boolean;
+    size?: FormSize;
+    showClearIcon?: boolean;
+    showArrowIcon?: boolean;
+    suffix?: React_2.ReactNode;
     className?: ComponentProps<'div'>['className'];
     triggerClassName?: ComponentProps<typeof Button>['className'];
     popoverClassName?: ComponentProps<typeof PopoverContent>['className'];
 };
+
+export declare type ComboboxValue = string | number;
 
 export declare function Command({ className, ...props }: React_2.ComponentProps<typeof Command_2>): JSX.Element;
 
@@ -404,6 +418,66 @@ export declare const DATE_FORMATS: {
 };
 
 export declare type DateFormat = keyof typeof DATE_FORMATS;
+
+export declare function DatePicker({ value, onChange, placeholder, dateFormat, showTime, timeOnly, mode, label, error, required, disabled, disabledPast, disabledFuture, onDisabled, size, className, triggerClassName, popoverClassName, locale, cancelText, applyText, monthNames, ...calendarProps }: DatePickerProps): JSX.Element;
+
+export declare type DatePickerProps = Omit<DayPickerSingleProps, 'selected' | 'onSelect' | 'mode' | 'required'> & {
+    value?: Date;
+    onChange?: (date: Date | undefined) => void;
+    placeholder?: string;
+    dateFormat?: string;
+    showTime?: boolean;
+    timeOnly?: boolean;
+    mode?: 'single' | 'month';
+    label?: string | React_2.ReactNode;
+    error?: string;
+    required?: boolean;
+    disabled?: boolean;
+    disabledPast?: boolean;
+    disabledFuture?: boolean;
+    onDisabled?: (date: Date) => boolean;
+    size?: FormSize;
+    className?: ComponentProps<'div'>['className'];
+    triggerClassName?: ComponentProps<typeof Button>['className'];
+    popoverClassName?: ComponentProps<typeof PopoverContent>['className'];
+    locale?: string | Locale;
+    cancelText?: string;
+    applyText?: string;
+    monthNames?: string[];
+};
+
+export declare function DateRangePicker({ value, onChange, placeholder, dateFormat, presets, showPresets, label, error, required, disabled, disabledPast, disabledFuture, onDisabled, size, className, triggerClassName, popoverClassName, locale, cancelText, applyText, ...calendarProps }: DateRangePickerProps): JSX.Element;
+
+export declare type DateRangePickerProps = Omit<DayPickerRangeProps, 'selected' | 'onSelect' | 'mode' | 'required'> & {
+    value?: DateRange;
+    onChange?: (range: DateRange | undefined) => void;
+    placeholder?: {
+        from?: string;
+        to?: string;
+    };
+    dateFormat?: string;
+    presets?: DateRangePreset[];
+    showPresets?: boolean;
+    label?: string | React_2.ReactNode;
+    error?: string;
+    required?: boolean;
+    disabled?: boolean;
+    disabledPast?: boolean;
+    disabledFuture?: boolean;
+    onDisabled?: (date: Date) => boolean;
+    size?: FormSize;
+    className?: ComponentProps<'div'>['className'];
+    triggerClassName?: ComponentProps<typeof Button>['className'];
+    popoverClassName?: ComponentProps<typeof PopoverContent>['className'];
+    locale?: string | Locale;
+    cancelText?: string;
+    applyText?: string;
+};
+
+export declare type DateRangePreset = {
+    label: string;
+    range: DateRange;
+};
 
 export declare function DeleteConfirmDialog({ open, onOpenChange, title, description, itemName, onConfirm, loading, }: DeleteConfirmDialogProps): JSX.Element;
 
@@ -581,7 +655,94 @@ declare const fieldVariants: (props?: ({
     orientation?: "horizontal" | "vertical" | "responsive" | null | undefined;
 } & ClassProp) | undefined) => string;
 
+declare type FileUploadFile = {
+    file: File;
+    preview?: string;
+    progress?: number;
+    status?: 'pending' | 'uploading' | 'success' | 'error';
+    error?: string;
+};
+
+declare type FileUploadProps = {
+    value?: File[] | FileUploadFile[];
+    onChange?: (files: File[] | FileUploadFile[]) => void;
+    accept?: string;
+    multiple?: boolean;
+    maxSize?: number;
+    maxFiles?: number;
+    disabled?: boolean;
+    onError?: (error: string) => void;
+    showPreview?: boolean;
+    showProgress?: boolean;
+    className?: string;
+    dropzoneClassName?: string;
+    placeholder?: string;
+    uploadText?: string;
+};
+
 export declare const Form: <TFieldValues extends FieldValues, TContext = any, TTransformedValues = TFieldValues>(props: FormProviderProps<TFieldValues, TContext, TTransformedValues>) => React_2.JSX.Element;
+
+/**
+ * Size mapping for form components
+ * - xxs: 24px height (h-6)
+ * - xs: 32px height (h-8)
+ * - sm: 36px height (h-9)
+ * - md: 40px height (h-10) - default
+ * - lg: 44px height (h-11)
+ * - xl: 48px height (h-12)
+ * - xxl: 56px height (h-14)
+ */
+export declare const FORM_SIZES: {
+    readonly xxs: {
+        readonly height: "h-6";
+        readonly text: "text-xs";
+        readonly padding: "px-2 py-1";
+        readonly icon: "size-3.5";
+        readonly iconButton: "size-6";
+    };
+    readonly xs: {
+        readonly height: "h-8";
+        readonly text: "text-xs";
+        readonly padding: "px-2.5 py-1.5";
+        readonly icon: "size-4";
+        readonly iconButton: "size-8";
+    };
+    readonly sm: {
+        readonly height: "h-9";
+        readonly text: "text-sm";
+        readonly padding: "px-3 py-2";
+        readonly icon: "size-5";
+        readonly iconButton: "size-9";
+    };
+    readonly md: {
+        readonly height: "h-10";
+        readonly text: "text-base";
+        readonly padding: "px-4 py-2";
+        readonly icon: "size-5";
+        readonly iconButton: "size-10";
+    };
+    readonly lg: {
+        readonly height: "h-11";
+        readonly text: "text-base";
+        readonly padding: "px-4 py-2.5";
+        readonly icon: "size-6";
+        readonly iconButton: "size-11";
+    };
+    readonly xl: {
+        readonly height: "h-12";
+        readonly text: "text-base";
+        readonly padding: "px-5 py-3";
+        readonly icon: "size-6";
+        readonly iconButton: "size-12";
+    };
+    readonly xxl: {
+        readonly height: "h-14";
+        readonly text: "text-lg";
+        readonly padding: "px-6 py-3.5";
+        readonly icon: "size-7";
+        readonly iconButton: "size-14";
+    };
+};
 
 /**
  * Format currency amount
@@ -621,6 +782,16 @@ export declare function FormLabel({ className, ...props }: React_2.ComponentProp
 
 export declare function FormMessage({ className, ...props }: React_2.ComponentProps<'p'>): JSX.Element | null;
 
+export declare type FormSize = VariantProps<typeof formSizeVariants>['size'];
+
+/**
+ * Form component size variants
+ * All form components should use these sizes for consistency
+ */
+export declare const formSizeVariants: (props?: ({
+    size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | null | undefined;
+} & ClassProp) | undefined) => string;
+
 /**
  * Get nested object property by path string
  * @example get({ user: { name: 'John' } }, 'user.name') // 'John'
@@ -651,7 +822,7 @@ export declare function HoverCardContent({ className, align, sideOffset, ...prop
 
 export declare function HoverCardTrigger({ ...props }: React_2.ComponentProps<typeof HoverCardPrimitive.Trigger>): JSX.Element;
 
-export declare function Input({ className, type, label, error, required, id, ...props }: InputProps): JSX.Element;
+export declare function Input({ className, type, label, error, required, id, size, ...props }: InputProps): JSX.Element;
 
 export declare function InputGroup({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
 
@@ -664,10 +835,10 @@ declare const inputGroupAddonVariants: (props?: ({
 export declare function InputGroupButton({ className, type, variant, size, ...props }: Omit<React_2.ComponentProps<typeof Button>, 'size'> & VariantProps<typeof inputGroupButtonVariants>): JSX.Element;
 
 declare const inputGroupButtonVariants: (props?: ({
-    size?: "sm" | "icon-sm" | "xs" | "icon-xs" | null | undefined;
+    size?: "xs" | "sm" | "icon-xs" | "icon-sm" | null | undefined;
 } & ClassProp) | undefined) => string;
 
-export declare function InputGroupInput({ className, ...props }: React_2.ComponentProps<'input'>): JSX.Element;
+export declare function InputGroupInput({ className, ...props }: Omit<React_2.ComponentProps<'input'>, 'size'>): JSX.Element;
 
 export declare function InputGroupText({ className, ...props }: React_2.ComponentProps<'span'>): JSX.Element;
 
@@ -685,11 +856,12 @@ export declare function InputOTPSlot({ index, className, ...props }: React_2.Com
     index: number;
 }): JSX.Element;
 
-declare interface InputProps extends Omit<React_2.ComponentProps<'input'>, 'type'> {
+declare interface InputProps extends Omit<React_2.ComponentProps<'input'>, 'type' | 'size'> {
     label?: string | React_2.ReactNode;
     error?: string;
     required?: boolean;
     type?: React_2.ComponentProps<'input'>['type'];
+    size?: FormSize;
 }
 
 export declare function Item({ className, variant, size, asChild, ...props }: React_2.ComponentProps<'div'> & VariantProps<typeof itemVariants> & {
@@ -782,6 +954,40 @@ export declare function MenubarSubTrigger({ className, inset, children, ...props
 
 export declare function MenubarTrigger({ className, ...props }: React_2.ComponentProps<typeof MenubarPrimitive.Trigger>): JSX.Element;
 
+export declare function MultipleCombobox<TOptions extends readonly MultipleComboboxBaseOption[]>({ options, value, onChange, autoResize, limitTags, showCode, label, error, required, placeholder, searchPlaceholder, emptyMessage, disabled, readonly, size, className, triggerClassName, popoverClassName, }: MultipleComboboxProps<TOptions>): JSX.Element;
+
+export declare type MultipleComboboxBaseOption = {
+    id: string;
+    code?: string | number;
+    name: string;
+    disabled?: boolean;
+};
+
+export declare type MultipleComboboxOnChange<T extends MultipleComboboxBaseOption> = (values: MultipleComboboxValue, options: T[] | undefined) => void;
+
+export declare type MultipleComboboxProps<TOptions extends readonly MultipleComboboxBaseOption[]> = {
+    options: TOptions;
+    value?: MultipleComboboxValue;
+    onChange?: MultipleComboboxOnChange<TOptions[number]>;
+    autoResize?: boolean;
+    limitTags?: number;
+    showCode?: boolean;
+    label?: string | React_2.ReactNode;
+    error?: string;
+    required?: boolean;
+    placeholder?: string;
+    searchPlaceholder?: string;
+    emptyMessage?: string;
+    disabled?: boolean;
+    readonly?: boolean;
+    size?: FormSize;
+    className?: ComponentProps<'div'>['className'];
+    triggerClassName?: ComponentProps<typeof Button>['className'];
+    popoverClassName?: ComponentProps<typeof PopoverContent>['className'];
+};
+
+export declare type MultipleComboboxValue = string[];
+
 declare type NavigationDirection = 'horizontal' | 'vertical' | 'both';
 
 export declare function NavigationMenu({ className, children, viewport, ...props }: React_2.ComponentProps<typeof NavigationMenuPrimitive.Root> & {
@@ -804,23 +1010,35 @@ export declare const navigationMenuTriggerStyle: (props?: ClassProp | undefined)
 
 export declare function NavigationMenuViewport({ className, ...props }: React_2.ComponentProps<typeof NavigationMenuPrimitive.Viewport>): JSX.Element;
 
-export declare function Pagination({ className, ...props }: React_2.ComponentProps<'nav'>): JSX.Element;
+export declare function Pagination({ currentPage: currentPageProp, totalPages: totalPagesProp, onPageChange, pageSize: pageSizeProp, totalItems, onPageSizeChange, showFirstLast, showPrevNext, maxVisiblePages, showPageSize, showJumpToPage, showInfo, size, variant, className, previousLabel, nextLabel, firstLabel, lastLabel, pageSizeLabel, jumpToPageLabel, showingLabel, ofLabel, resultsLabel, pageLabel, }: PaginationProps): JSX.Element;
 
-export declare function PaginationContent({ className, ...props }: React_2.ComponentProps<'ul'>): JSX.Element;
-
-export declare function PaginationEllipsis({ className, ...props }: React_2.ComponentProps<'span'>): JSX.Element;
-
-export declare function PaginationItem({ ...props }: React_2.ComponentProps<'li'>): JSX.Element;
-
-export declare function PaginationLink({ className, isActive, size, ...props }: PaginationLinkProps): JSX.Element;
-
-declare type PaginationLinkProps = {
-    isActive?: boolean;
-} & Pick<React_2.ComponentProps<typeof Button>, 'size'> & React_2.ComponentProps<'a'>;
-
-export declare function PaginationNext({ className, ...props }: React_2.ComponentProps<typeof PaginationLink>): JSX.Element;
-
-export declare function PaginationPrevious({ className, ...props }: React_2.ComponentProps<typeof PaginationLink>): JSX.Element;
+export declare type PaginationProps = {
+    currentPage?: number;
+    totalPages?: number;
+    onPageChange?: (page: number) => void;
+    pageSize?: number;
+    totalItems?: number;
+    onPageSizeChange?: (pageSize: number) => void;
+    showFirstLast?: boolean;
+    showPrevNext?: boolean;
+    maxVisiblePages?: number;
+    showPageSize?: boolean;
+    showJumpToPage?: boolean;
+    showInfo?: boolean;
+    size?: 'sm' | 'md' | 'lg';
+    variant?: 'default' | 'outline' | 'ghost';
+    className?: string;
+    previousLabel?: string;
+    nextLabel?: string;
+    firstLabel?: string;
+    lastLabel?: string;
+    pageSizeLabel?: string;
+    jumpToPageLabel?: string;
+    showingLabel?: string;
+    ofLabel?: string;
+    resultsLabel?: string;
+    pageLabel?: string;
+};
 
 export declare function Popover({ ...props }: React_2.ComponentProps<typeof PopoverPrimitive.Root>): JSX.Element;
 
@@ -834,7 +1052,9 @@ export declare function Progress({ className, value, ...props }: React_2.Compone
 
 export declare function RadioGroup({ className, ...props }: React_2.ComponentProps<typeof RadioGroupPrimitive.Root>): JSX.Element;
 
-export declare function RadioGroupItem({ className, ...props }: React_2.ComponentProps<typeof RadioGroupPrimitive.Item>): JSX.Element;
+export declare function RadioGroupItem({ className, size, ...props }: React_2.ComponentProps<typeof RadioGroupPrimitive.Item> & {
+    size?: FormSize;
+}): JSX.Element;
 
 export declare const REGEX: {
     readonly email: RegExp;
@@ -883,41 +1103,31 @@ declare type RHFComboboxProps<T extends FieldValues = FieldValues> = Omit<Compon
     callback?: (newValue: string, newOption: ComboboxOption | undefined) => void;
 };
 
-export declare function RHFDatePicker<T extends FieldValues = FieldValues>({ control, name, label, placeholder, required, error, disabled, disabledPast, disabledFuture, onDisabled, className, callback, ...calendarProps }: RHFDatePickerProps<T>): JSX.Element;
+export declare function RHFDatePicker<T extends FieldValues = FieldValues>({ control, name, label, required, error, className, callback, ...datePickerProps }: RHFDatePickerProps<T>): JSX.Element;
 
-declare type RHFDatePickerProps<T extends FieldValues = FieldValues> = Omit<ComponentProps<typeof Calendar>, 'selected' | 'onSelect' | 'mode'> & {
+declare type RHFDatePickerProps<T extends FieldValues = FieldValues> = Omit<DatePickerProps, 'value' | 'onChange' | 'label' | 'error' | 'required'> & {
     control: Control<T>;
     name: Path<T>;
-    label?: string;
-    placeholder?: string;
+    label?: string | React.ReactNode;
     required?: boolean;
     error?: string;
-    disabled?: boolean;
-    disabledPast?: boolean;
-    disabledFuture?: boolean;
-    onDisabled?: (date: Date) => boolean;
     className?: ComponentProps<'div'>['className'];
     callback?: (value: Date | undefined) => void;
 };
 
-export declare function RHFDateRangePicker<T extends FieldValues = FieldValues>({ control, name, label, placeholder, required, error, disabled, disabledPast, disabledFuture, onDisabled, className, callback, ...calendarProps }: RHFDateRangePickerProps<T>): JSX.Element;
+export declare function RHFDateRangePicker<T extends FieldValues = FieldValues>({ control, name, label, required, error, className, callback, ...dateRangePickerProps }: RHFDateRangePickerProps<T>): JSX.Element;
 
-declare type RHFDateRangePickerProps<T extends FieldValues = FieldValues> = Omit<ComponentProps<typeof Calendar>, 'selected' | 'onSelect' | 'mode'> & {
+declare type RHFDateRangePickerProps<T extends FieldValues = FieldValues> = Omit<DateRangePickerProps, 'value' | 'onChange' | 'label' | 'error' | 'required'> & {
     control: Control<T>;
     name: Path<T>;
-    label?: string;
-    placeholder?: {
-        from?: string;
-        to?: string;
-    };
+    label?: string | React.ReactNode;
     required?: boolean;
     error?: string;
-    disabled?: boolean;
-    disabledPast?: boolean;
-    disabledFuture?: boolean;
-    onDisabled?: (date: Date) => boolean;
     className?: ComponentProps<'div'>['className'];
-    callback?: (value: DateRange | undefined) => void;
+    callback?: (value: {
+        from?: Date;
+        to?: Date;
+    } | undefined) => void;
 };
 
 export declare const RHFErrorMessage: <T extends FieldValues = FieldValues>({ name, control, }: RHFErrorMessageProps<T>) => JSX.Element;
@@ -926,6 +1136,17 @@ declare type RHFErrorMessageProps<T extends FieldValues> = {
     name: Path<T>;
     control: Control<T>;
     showErrorWithTooltip?: boolean;
+};
+
+export declare function RHFFileUpload<T extends FieldValues = FieldValues>({ control, name, label, error, required, wrapperClassName, ...fileUploadProps }: RHFFileUploadProps<T>): JSX.Element;
+
+declare type RHFFileUploadProps<T extends FieldValues = FieldValues> = Omit<FileUploadProps, 'value' | 'onChange' | 'onError'> & {
+    control: Control<T>;
+    name: Path<T>;
+    label?: string;
+    error?: string;
+    required?: boolean;
+    wrapperClassName?: ComponentProps<'div'>['className'];
 };
 
 export declare function RHFFormattedInput<T extends FieldValues = FieldValues>({ control, name, label, format, required, wrapperClassName, callback, ...inputProps }: RHFFormattedInputProps<T>): JSX.Element;
@@ -1065,7 +1286,7 @@ export declare function SelectScrollUpButton({ className, ...props }: React_2.Co
 export declare function SelectSeparator({ className, ...props }: React_2.ComponentProps<typeof SelectPrimitive.Separator>): JSX.Element;
 
 export declare function SelectTrigger({ className, size, children, label, error, required, id, ...props }: React_2.ComponentProps<typeof SelectPrimitive.Trigger> & {
-    size?: 'sm' | 'default';
+    size?: FormSize;
     label?: string | React_2.ReactNode;
     error?: string;
     required?: boolean;
@@ -1208,7 +1429,9 @@ declare interface StatusBadgeProps extends React_2.ComponentProps<typeof Badge> 
 
 export declare type StatusType = 'success' | 'error' | 'warning' | 'info' | 'pending' | 'default';
 
-export declare function Switch({ className, ...props }: React_2.ComponentProps<typeof SwitchPrimitive.Root>): JSX.Element;
+export declare function Switch({ className, size, ...props }: React_2.ComponentProps<typeof SwitchPrimitive.Root> & {
+    size?: FormSize;
+}): JSX.Element;
 
 export declare function Table({ className, ...props }: React_2.ComponentProps<'table'>): JSX.Element;
 
@@ -1234,17 +1457,33 @@ export declare function TabsList({ className, ...props }: React_2.ComponentProps
 
 export declare function TabsTrigger({ className, ...props }: React_2.ComponentProps<typeof TabsPrimitive.Trigger>): JSX.Element;
 
-export declare function Textarea({ className, label, error, required, id, ...props }: TextareaProps): JSX.Element;
+export declare function Textarea({ className, label, error, required, id, size, ...props }: TextareaProps): JSX.Element;
 
 declare interface TextareaProps extends React_2.ComponentProps<'textarea'> {
     label?: string | React_2.ReactNode;
     error?: string;
     required?: boolean;
+    size?: FormSize;
 }
 
 declare const THEMES: {
     readonly light: "";
     readonly dark: ".dark";
+};
+
+export declare function TimePicker({ value, onChange, showSeconds, className }: TimePickerProps): JSX.Element;
+
+export declare type TimePickerProps = {
+    value: TimeValue;
+    onChange: (value: TimeValue) => void;
+    showSeconds?: boolean;
+    className?: string;
+};
+
+export declare type TimeValue = {
+    hour: string;
+    minute: string;
+    second: string;
 };
 
 /**

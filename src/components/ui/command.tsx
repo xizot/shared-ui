@@ -1,8 +1,7 @@
-import * as React from 'react';
 import { Command as CommandPrimitive } from 'cmdk';
 import { SearchIcon } from 'lucide-react';
+import * as React from 'react';
 
-import { cn } from '@/lib/utils';
 import {
   Dialog,
   DialogContent,
@@ -11,6 +10,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 
 function Command({ className, ...props }: React.ComponentProps<typeof CommandPrimitive>) {
   return (
@@ -71,22 +71,27 @@ function CommandInput({
   const hasLabelOrError = label || error;
 
   const inputWrapper = (
-    <div
-      data-slot="command-input-wrapper"
-      className={cn('flex h-9 items-center gap-2 border-b px-3', error && 'border-destructive')}
-    >
-      <SearchIcon className="size-4 shrink-0 opacity-50" />
-      <CommandPrimitive.Input
-        id={id}
-        data-slot="command-input"
-        aria-invalid={!!error}
+    <div className="px-1 pt-1">
+      <div
+        data-slot="command-input-wrapper"
         className={cn(
-          'placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50',
-          error && 'focus-visible:ring-destructive',
-          className,
+          'flex h-9 items-center gap-2 rounded-md border px-3',
+          error && 'border-destructive',
         )}
-        {...props}
-      />
+      >
+        <SearchIcon className="size-4 shrink-0 opacity-50" />
+        <CommandPrimitive.Input
+          id={id}
+          data-slot="command-input"
+          aria-invalid={!!error}
+          className={cn(
+            'placeholder:text-muted-foreground flex h-10 w-full bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50',
+            error && 'focus-visible:ring-destructive',
+            className,
+          )}
+          {...props}
+        />
+      </div>
     </div>
   );
 
@@ -187,11 +192,12 @@ function CommandShortcut({ className, ...props }: React.ComponentProps<'span'>) 
 export {
   Command,
   CommandDialog,
-  CommandInput,
-  CommandList,
   CommandEmpty,
   CommandGroup,
+  CommandInput,
   CommandItem,
-  CommandShortcut,
+  CommandList,
   CommandSeparator,
+  CommandShortcut
 };
+

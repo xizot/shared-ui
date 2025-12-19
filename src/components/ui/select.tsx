@@ -1,9 +1,10 @@
-import * as React from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
+import * as React from 'react';
 
-import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
+import { FORM_SIZES, formSizeVariants, type FormSize } from '@/constants/form-sizes';
+import { cn } from '@/lib/utils';
 
 function Select({ ...props }: React.ComponentProps<typeof SelectPrimitive.Root>) {
   return <SelectPrimitive.Root data-slot="select" {...props} />;
@@ -19,7 +20,7 @@ function SelectValue({ ...props }: React.ComponentProps<typeof SelectPrimitive.V
 
 function SelectTrigger({
   className,
-  size = 'default',
+  size = 'md',
   children,
   label,
   error,
@@ -27,12 +28,13 @@ function SelectTrigger({
   id,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
-  size?: 'sm' | 'default';
+  size?: FormSize;
   label?: string | React.ReactNode;
   error?: string;
   required?: boolean;
 }) {
   const hasLabelOrError = label || error;
+  const sizeConfig = FORM_SIZES[size ?? 'md'];
 
   const triggerElement = (
     <SelectPrimitive.Trigger
@@ -41,7 +43,16 @@ function SelectTrigger({
       data-size={size}
       aria-invalid={!!error}
       className={cn(
-        "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border bg-transparent whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        formSizeVariants({ size }),
+        sizeConfig.padding,
+        {
+          "[&_svg:not([class*='size-'])]:size-3": size === 'xxs',
+          "[&_svg:not([class*='size-'])]:size-3.5": size === 'xs',
+          "[&_svg:not([class*='size-'])]:size-4": size === 'sm' || size === 'md',
+          "[&_svg:not([class*='size-'])]:size-5": size === 'lg' || size === 'xl',
+          "[&_svg:not([class*='size-'])]:size-6": size === 'xxl',
+        },
         error
           ? 'focus-visible:border-destructive focus-visible:ring-destructive focus-visible:ring-[3px] border-destructive'
           : 'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
@@ -52,7 +63,7 @@ function SelectTrigger({
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <ChevronDownIcon className="size-4 opacity-50" />
+        <ChevronDownIcon className={cn('opacity-50', sizeConfig.icon)} />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
@@ -71,7 +82,7 @@ function SelectTrigger({
       )}
       {triggerElement}
       {error && (
-        <div className="text-destructive text-sm" role="alert">
+        <div className={`text-destructive text-sm`} role="alert">
           {error}
         </div>
       )}
@@ -206,5 +217,6 @@ export {
   SelectScrollUpButton,
   SelectSeparator,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 };
+

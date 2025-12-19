@@ -38,9 +38,9 @@ export default function ButtonProps() {
               <TableRow>
                 <TableCell className="font-mono font-medium">size</TableCell>
                 <TableCell className="font-mono text-sm">
-                  "default" | "sm" | "lg" | "icon" | "icon-sm" | "icon-lg"
+                  "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "icon" | "icon-xxs" | "icon-xs" | "icon-sm" | "icon-md" | "icon-lg" | "icon-xl" | "icon-xxl"
                 </TableCell>
-                <TableCell className="font-mono text-sm">"default"</TableCell>
+                <TableCell className="font-mono text-sm">"md"</TableCell>
                 <TableCell>Size of the button</TableCell>
               </TableRow>
               <TableRow>
@@ -127,34 +127,74 @@ export default function ButtonProps() {
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell className="font-mono">sm</TableCell>
+                <TableCell className="font-mono">xxs</TableCell>
+                <TableCell>24px (h-6)</TableCell>
+                <TableCell>Extra extra small button</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono">xs</TableCell>
                 <TableCell>32px (h-8)</TableCell>
+                <TableCell>Extra small button</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono">sm</TableCell>
+                <TableCell>36px (h-9)</TableCell>
                 <TableCell>Small button</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-mono">default</TableCell>
-                <TableCell>36px (h-9)</TableCell>
+                <TableCell className="font-mono">md</TableCell>
+                <TableCell>40px (h-10)</TableCell>
                 <TableCell>Default button size</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="font-mono">lg</TableCell>
-                <TableCell>40px (h-10)</TableCell>
+                <TableCell>44px (h-11)</TableCell>
                 <TableCell>Large button</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-mono">icon-sm</TableCell>
+                <TableCell className="font-mono">xl</TableCell>
+                <TableCell>48px (h-12)</TableCell>
+                <TableCell>Extra large button</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono">xxl</TableCell>
+                <TableCell>56px (h-14)</TableCell>
+                <TableCell>Extra extra large button</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono">icon-xxs</TableCell>
+                <TableCell>24px (size-6)</TableCell>
+                <TableCell>Extra extra small icon-only button</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono">icon-xs</TableCell>
                 <TableCell>32px (size-8)</TableCell>
+                <TableCell>Extra small icon-only button</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono">icon-sm</TableCell>
+                <TableCell>36px (size-9)</TableCell>
                 <TableCell>Small icon-only button</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-mono">icon</TableCell>
-                <TableCell>36px (size-9)</TableCell>
+                <TableCell className="font-mono">icon-md</TableCell>
+                <TableCell>40px (size-10)</TableCell>
                 <TableCell>Default icon-only button</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="font-mono">icon-lg</TableCell>
-                <TableCell>40px (size-10)</TableCell>
+                <TableCell>44px (size-11)</TableCell>
                 <TableCell>Large icon-only button</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono">icon-xl</TableCell>
+                <TableCell>48px (size-12)</TableCell>
+                <TableCell>Extra large icon-only button</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-mono">icon-xxl</TableCell>
+                <TableCell>56px (size-14)</TableCell>
+                <TableCell>Extra extra large icon-only button</TableCell>
               </TableRow>
             </TableBody>
           </Table>

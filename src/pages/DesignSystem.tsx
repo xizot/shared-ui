@@ -9,7 +9,7 @@ export function DesignSystem() {
   const [selectedComponentId, setSelectedComponentId] = useState<string | undefined>();
   const [globalSearchQuery, setGlobalSearchQuery] = useState('');
 
-  const handleComponentSelect = (componentId: string) => {
+  const handleComponentSelect = (componentId: string | undefined) => {
     setSelectedComponentId(componentId);
   };
 
