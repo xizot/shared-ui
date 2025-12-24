@@ -1,3 +1,5 @@
+'use client';
+
 import { Combobox, type ComboboxOption } from '@/components/ui/combobox';
 import { cn, get } from '@/lib/utils';
 import type { ComponentProps } from 'react';

@@ -10,25 +10,17 @@ import { ColumnDef } from '@tanstack/react-table';
 import { Command as Command_2 } from 'cmdk';
 import { ComponentProps } from 'react';
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu';
-import { Control } from 'react-hook-form';
-import { ControllerProps } from 'react-hook-form';
 import { DateRange } from 'react-day-picker';
 import { DayButton } from 'react-day-picker';
 import { DayPicker } from 'react-day-picker';
 import { DayPickerRangeProps } from 'react-day-picker';
 import { DayPickerSingleProps } from 'react-day-picker';
 import { default as default_2 } from 'embla-carousel-react';
-import { default as default_3 } from 'react-quill-new';
 import { DependencyList } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Drawer as Drawer_2 } from 'vaul';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
-import { FieldError as FieldError_2 } from 'react-hook-form';
-import { FieldPath } from 'react-hook-form';
-import { FieldPathValue } from 'react-hook-form';
-import { FieldValues } from 'react-hook-form';
 import { FilterFn } from '@tanstack/react-table';
-import { FormProviderProps } from 'react-hook-form';
 import { Group } from 'react-resizable-panels';
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { JSX } from 'react/jsx-runtime';
@@ -40,7 +32,6 @@ import { OTPInput } from 'input-otp';
 import { PaginationOptions } from '@tanstack/react-table';
 import { PaginationState } from '@tanstack/react-table';
 import { Panel } from 'react-resizable-panels';
-import { Path } from 'react-hook-form';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import * as ProgressPrimitive from '@radix-ui/react-progress';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
@@ -52,7 +43,6 @@ import * as SelectPrimitive from '@radix-ui/react-select';
 import { Separator as Separator_2 } from 'react-resizable-panels';
 import * as SeparatorPrimitive from '@radix-ui/react-separator';
 import * as SliderPrimitive from '@radix-ui/react-slider';
-import { Slot } from '@radix-ui/react-slot';
 import * as SwitchPrimitive from '@radix-ui/react-switch';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { ToasterProps } from 'sonner';
@@ -60,7 +50,6 @@ import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
 import * as TogglePrimitive from '@radix-ui/react-toggle';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { UseEmblaCarouselType } from 'embla-carousel-react';
-import { UseFormRegister } from 'react-hook-form';
 import { VariantProps } from 'class-variance-authority';
 
 export declare function Accordion({ ...props }: React_2.ComponentProps<typeof AccordionPrimitive.Root>): JSX.Element;
@@ -570,15 +559,6 @@ export declare function DropdownMenuSubTrigger({ className, inset, children, ...
 
 export declare function DropdownMenuTrigger({ ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.Trigger>): JSX.Element;
 
-declare interface EditorProps extends Omit<ReactQuillProps, 'modules' | 'formats'> {
-    label?: string | React_2.ReactNode;
-    error?: string;
-    required?: boolean;
-    size?: FormSize;
-    modules?: ReactQuillProps['modules'];
-    formats?: string[];
-}
-
 export declare function Empty({ className, ...props }: React.ComponentProps<'div'>): JSX.Element;
 
 export declare function EmptyContent({ className, ...props }: React.ComponentProps<'div'>): JSX.Element;
@@ -656,33 +636,6 @@ export declare function FieldTitle({ className, ...props }: React.ComponentProps
 declare const fieldVariants: (props?: ({
     orientation?: "horizontal" | "vertical" | "responsive" | null | undefined;
 } & ClassProp) | undefined) => string;
-
-declare type FileUploadFile = {
-    file: File;
-    preview?: string;
-    progress?: number;
-    status?: 'pending' | 'uploading' | 'success' | 'error';
-    error?: string;
-};
-
-declare type FileUploadProps = {
-    value?: File[] | FileUploadFile[];
-    onChange?: (files: File[] | FileUploadFile[]) => void;
-    accept?: string;
-    multiple?: boolean;
-    maxSize?: number;
-    maxFiles?: number;
-    disabled?: boolean;
-    onError?: (error: string) => void;
-    showPreview?: boolean;
-    showProgress?: boolean;
-    className?: string;
-    dropzoneClassName?: string;
-    placeholder?: string;
-    uploadText?: string;
-};
-
-export declare const Form: <TFieldValues extends FieldValues, TContext = any, TTransformedValues = TFieldValues>(props: FormProviderProps<TFieldValues, TContext, TTransformedValues>) => React_2.JSX.Element;
 
 /**
  * Size mapping for form components
@@ -769,20 +722,6 @@ export declare function formatFileSize(bytes: number): string;
  * @example formatPhoneNumber('0123456789') // '0123 456 789'
  */
 export declare function formatPhoneNumber(phone: string): string;
-
-export declare type FormatType = 'text' | 'integer' | 'decimal' | 'currency';
-
-export declare function FormControl({ ...props }: React_2.ComponentProps<typeof Slot>): JSX.Element;
-
-export declare function FormDescription({ className, ...props }: React_2.ComponentProps<'p'>): JSX.Element;
-
-export declare const FormField: <TFieldValues extends FieldValues = FieldValues, TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>>({ ...props }: ControllerProps<TFieldValues, TName>) => JSX.Element;
-
-export declare function FormItem({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
-
-export declare function FormLabel({ className, ...props }: React_2.ComponentProps<typeof LabelPrimitive.Root>): JSX.Element;
-
-export declare function FormMessage({ className, ...props }: React_2.ComponentProps<'p'>): JSX.Element | null;
 
 export declare type FormSize = VariantProps<typeof formSizeVariants>['size'];
 
@@ -1058,8 +997,6 @@ export declare function RadioGroupItem({ className, size, ...props }: React_2.Co
     size?: FormSize;
 }): JSX.Element;
 
-declare type ReactQuillProps = React_2.ComponentProps<typeof default_3>;
-
 export declare const REGEX: {
     readonly email: RegExp;
     readonly phone: RegExp;
@@ -1077,208 +1014,6 @@ export declare function ResizableHandle({ withHandle, className, ...props }: Rea
 export declare function ResizablePanel({ ...props }: React_2.ComponentProps<typeof Panel>): JSX.Element;
 
 export declare function ResizablePanelGroup({ className, ...props }: React_2.ComponentProps<typeof Group>): JSX.Element;
-
-export declare function RHFCheckboxGroup<T extends FieldValues = FieldValues>({ control, name, options, label, error, required, wrapperClassName, orientation, }: RHFCheckboxGroupProps<T>): JSX.Element;
-
-export declare type RHFCheckboxGroupOption = {
-    value: string;
-    label: string;
-    disabled?: boolean;
-};
-
-export declare type RHFCheckboxGroupProps<T extends FieldValues = FieldValues> = {
-    control: Control<T>;
-    name: Path<T>;
-    options: RHFCheckboxGroupOption[];
-    label?: string;
-    error?: string;
-    required?: boolean;
-    wrapperClassName?: ComponentProps<'div'>['className'];
-    orientation?: 'horizontal' | 'vertical';
-};
-
-export declare function RHFCombobox<T extends FieldValues = FieldValues>({ control, name, label, required, callback, className, ...comboboxProps }: RHFComboboxProps<T>): JSX.Element;
-
-export declare type RHFComboboxProps<T extends FieldValues = FieldValues> = Omit<ComponentProps<typeof Combobox>, 'value' | 'onChange' | 'label' | 'error' | 'required'> & {
-    control: Control<T>;
-    name: Path<T>;
-    label?: string;
-    required?: boolean;
-    callback?: (newValue: string, newOption: ComboboxOption | undefined) => void;
-};
-
-export declare function RHFDatePicker<T extends FieldValues = FieldValues>({ control, name, label, required, error, className, callback, ...datePickerProps }: RHFDatePickerProps<T>): JSX.Element;
-
-export declare type RHFDatePickerProps<T extends FieldValues = FieldValues> = Omit<DatePickerProps, 'value' | 'onChange' | 'label' | 'error' | 'required'> & {
-    control: Control<T>;
-    name: Path<T>;
-    label?: string | React.ReactNode;
-    required?: boolean;
-    error?: string;
-    className?: ComponentProps<'div'>['className'];
-    callback?: (value: Date | undefined) => void;
-};
-
-export declare function RHFDateRangePicker<T extends FieldValues = FieldValues>({ control, name, label, required, error, className, callback, ...dateRangePickerProps }: RHFDateRangePickerProps<T>): JSX.Element;
-
-export declare type RHFDateRangePickerProps<T extends FieldValues = FieldValues> = Omit<DateRangePickerProps, 'value' | 'onChange' | 'label' | 'error' | 'required'> & {
-    control: Control<T>;
-    name: Path<T>;
-    label?: string | React.ReactNode;
-    required?: boolean;
-    error?: string;
-    className?: ComponentProps<'div'>['className'];
-    callback?: (value: {
-        from?: Date;
-        to?: Date;
-    } | undefined) => void;
-};
-
-export declare function RHFEditor<T extends FieldValues = FieldValues>({ control, name, label, className, wrapperClassName, required, callback, ...editorProps }: RHFEditorProps<T>): JSX.Element;
-
-export declare type RHFEditorProps<T extends FieldValues = FieldValues> = Omit<EditorProps, 'value' | 'onChange' | 'label' | 'error' | 'required'> & {
-    control: Control<T>;
-    name: Path<T>;
-    label?: string;
-    wrapperClassName?: ComponentProps<'div'>['className'];
-    required?: boolean;
-    callback?: (value: string) => void;
-};
-
-export declare function RHFErrorMessage<T extends FieldValues = FieldValues>({ name, control, }: RHFErrorMessageProps<T>): JSX.Element;
-
-export declare type RHFErrorMessageProps<T extends FieldValues> = {
-    name: Path<T>;
-    control: Control<T>;
-    showErrorWithTooltip?: boolean;
-};
-
-export declare function RHFFileUpload<T extends FieldValues = FieldValues>({ control, name, label, error, required, wrapperClassName, ...fileUploadProps }: RHFFileUploadProps<T>): JSX.Element;
-
-export declare type RHFFileUploadProps<T extends FieldValues = FieldValues> = Omit<FileUploadProps, 'value' | 'onChange' | 'onError'> & {
-    control: Control<T>;
-    name: Path<T>;
-    label?: string;
-    error?: string;
-    required?: boolean;
-    wrapperClassName?: ComponentProps<'div'>['className'];
-};
-
-export declare function RHFFormattedInput<T extends FieldValues = FieldValues>({ control, name, label, format, required, wrapperClassName, callback, ...inputProps }: RHFFormattedInputProps<T>): JSX.Element;
-
-export declare type RHFFormattedInputProps<T extends FieldValues = FieldValues> = Omit<ComponentProps<typeof Input>, 'value' | 'onChange' | 'type' | 'label' | 'error' | 'required'> & {
-    control: Control<T>;
-    name: Path<T>;
-    label?: string;
-    format?: FormatType;
-    required?: boolean;
-    wrapperClassName?: ComponentProps<'div'>['className'];
-    callback?: (value: string) => void;
-};
-
-export declare function RHFInput<T extends FieldValues = FieldValues>({ control, register, name, label, placeholder, className, wrapperClassName, required, ...rest }: RHFInputProps<T>): JSX.Element;
-
-export declare type RHFInputProps<T extends FieldValues = FieldValues> = Omit<ComponentProps<typeof Input>, 'label' | 'error' | 'required'> & {
-    control: Control<T>;
-    name: Path<T>;
-    register: UseFormRegister<T>;
-    label?: string;
-    wrapperClassName?: ComponentProps<'div'>['className'];
-    required?: boolean;
-};
-
-export declare function RHFMultiSelect<T extends FieldValues = FieldValues>({ control, name, options, label, error, required, placeholder, wrapperClassName, }: RHFMultiSelectProps<T>): JSX.Element;
-
-export declare type RHFMultiSelectOption = {
-    value: string;
-    label: string;
-    disabled?: boolean;
-};
-
-export declare type RHFMultiSelectProps<T extends FieldValues = FieldValues> = {
-    control: Control<T>;
-    name: Path<T>;
-    options: RHFMultiSelectOption[];
-    label?: string;
-    error?: string;
-    required?: boolean;
-    placeholder?: string;
-    wrapperClassName?: ComponentProps<'div'>['className'];
-};
-
-export declare function RHFNumberInput<T extends FieldValues = FieldValues>({ control, register, name, label, placeholder, className, wrapperClassName, required, min, max, step, ...rest }: RHFNumberInputProps<T>): JSX.Element;
-
-export declare type RHFNumberInputProps<T extends FieldValues = FieldValues> = Omit<ComponentProps<typeof Input>, 'label' | 'error' | 'required' | 'type'> & {
-    control: Control<T>;
-    name: Path<T>;
-    register: UseFormRegister<T>;
-    label?: string;
-    wrapperClassName?: ComponentProps<'div'>['className'];
-    required?: boolean;
-    min?: number;
-    max?: number;
-    step?: number;
-};
-
-export declare function RHFRadioGroup<T extends FieldValues = FieldValues>({ control, name, label, required, children, className, callback, onBeforeChange, ...radioGroupProps }: RHFRadioGroupProps<T>): JSX.Element;
-
-export declare type RHFRadioGroupProps<T extends FieldValues = FieldValues> = Omit<ComponentProps<typeof RadioGroup>, 'onValueChange' | 'value'> & {
-    control: Control<T>;
-    name: Path<T>;
-    label?: string;
-    required?: boolean;
-    children: React.ReactNode;
-    onBeforeChange?: (newValue: string, currentValue: FieldPathValue<T, Path<T>>, onNextAction: () => void) => void;
-    callback?: (newValue: string) => void;
-};
-
-export declare function RHFSwitch<T extends FieldValues = FieldValues>({ control, name, label, required, callback, onBeforeChange, className, ...switchProps }: RHFSwitchProps<T>): JSX.Element;
-
-export declare type RHFSwitchProps<T extends FieldValues = FieldValues> = Omit<ComponentProps<typeof Switch>, 'checked' | 'onCheckedChange'> & {
-    control: Control<T>;
-    name: Path<T>;
-    label?: string;
-    required?: boolean;
-    onBeforeChange?: (newValue: boolean, currentValue: FieldPathValue<T, Path<T>>, onNextAction: () => void) => void;
-    callback?: (newValue: boolean) => void;
-};
-
-export declare function RHFTextArea<T extends FieldValues = FieldValues>({ control, register, name, label, placeholder, className, wrapperClassName, required, showMaxLength, maxLength, rows, ...rest }: RHFTextAreaProps<T>): JSX.Element;
-
-export declare type RHFTextAreaProps<T extends FieldValues = FieldValues> = Omit<ComponentProps<typeof Textarea>, 'label' | 'error' | 'required'> & {
-    control: Control<T>;
-    name: Path<T>;
-    register: UseFormRegister<T>;
-    label?: string;
-    wrapperClassName?: ComponentProps<'div'>['className'];
-    required?: boolean;
-    showMaxLength?: boolean;
-};
-
-export declare function RHFTimePicker<T extends FieldValues = FieldValues>({ control, register, name, label, placeholder, className, wrapperClassName, required, ...rest }: RHFTimePickerProps<T>): JSX.Element;
-
-export declare type RHFTimePickerProps<T extends FieldValues = FieldValues> = Omit<ComponentProps<typeof Input>, 'label' | 'error' | 'required' | 'type'> & {
-    control: Control<T>;
-    name: Path<T>;
-    register: UseFormRegister<T>;
-    label?: string;
-    wrapperClassName?: ComponentProps<'div'>['className'];
-    required?: boolean;
-};
-
-export declare function RHFUpload<T extends FieldValues = FieldValues>({ control, name, label, error, required, accept, multiple, wrapperClassName, className, }: RHFUploadProps<T>): JSX.Element;
-
-export declare type RHFUploadProps<T extends FieldValues = FieldValues> = {
-    control: Control<T>;
-    name: Path<T>;
-    label?: string;
-    error?: string;
-    required?: boolean;
-    accept?: string;
-    multiple?: boolean;
-    wrapperClassName?: ComponentProps<'div'>['className'];
-    className?: ComponentProps<'input'>['className'];
-};
 
 export declare function ScrollArea({ className, children, ...props }: React_2.ComponentProps<typeof ScrollAreaPrimitive.Root>): JSX.Element;
 
@@ -1622,19 +1357,6 @@ export declare function useDebounce<T>(value: T, delay: number): T;
 export declare function useDebouncedCallback<T extends (...args: unknown[]) => unknown>(callback: T, delay: number): T;
 
 export declare function useFocusTrap<T extends HTMLElement = HTMLElement>(ref: RefObject<T>, enabled?: boolean): void;
-
-export declare const useFormField: () => {
-    invalid: boolean;
-    isDirty: boolean;
-    isTouched: boolean;
-    isValidating: boolean;
-    error?: FieldError_2;
-    id: string;
-    name: string;
-    formItemId: string;
-    formDescriptionId: string;
-    formMessageId: string;
-};
 
 export declare function useIsMobile(): boolean;
 

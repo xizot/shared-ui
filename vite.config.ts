@@ -28,14 +28,17 @@ export default defineConfig(({ command, mode }) => {
       },
       build: {
         lib: {
-          entry: resolve(__dirname, 'src/index.ts'),
-          name: 'SharedUI',
+          entry: {
+            index: resolve(__dirname, 'src/index.ts'),
+            'index-rhf': resolve(__dirname, 'src/index-rhf.ts'),
+          },
           formats: ['es', 'cjs'],
-          fileName: (format) => `index.${format === 'es' ? 'mjs' : 'cjs'}`,
+          fileName: (format, entryName) => `${entryName}.${format === 'es' ? 'mjs' : 'cjs'}`,
         },
         rollupOptions: {
           input: {
             index: resolve(__dirname, 'src/index.ts'),
+            'index-rhf': resolve(__dirname, 'src/index-rhf.ts'),
           },
           external: (id) => {
             // Exclude pages directory from library build
@@ -102,12 +105,6 @@ export default defineConfig(({ command, mode }) => {
         },
         cssCodeSplit: false,
         sourcemap: true,
-      },
-      css: {
-        // Extract CSS to separate file
-        extract: {
-          fileName: 'style.css',
-        },
       },
     }
   }

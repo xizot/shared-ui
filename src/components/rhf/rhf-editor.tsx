@@ -1,3 +1,5 @@
+'use client';
+
 import { Editor, type EditorProps } from '@/components/ui/editor';
 import { cn } from '@/lib/utils';
 import type { ComponentProps } from 'react';

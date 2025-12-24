@@ -1,3 +1,5 @@
+'use client';
+
 import { cn, get, hasValue } from '@/lib/utils';
 import { useFormState } from 'react-hook-form';
 import type { Control, FieldValues, Path } from 'react-hook-form';
