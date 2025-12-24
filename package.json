@@ -8,12 +8,12 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/types/index.d.ts",
-        "default": "./dist/index.mjs"
+        "types": "./dist/types/index-core.d.ts",
+        "default": "./dist/index-core.mjs"
       },
       "require": {
-        "types": "./dist/types/index.d.ts",
-        "default": "./dist/index.cjs"
+        "types": "./dist/types/index-core.d.ts",
+        "default": "./dist/index-core.cjs"
       }
     },
     "./rhf": {

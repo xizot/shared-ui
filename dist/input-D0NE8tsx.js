@@ -6,22 +6,6 @@ import * as h from "@radix-ui/react-separator";
 import * as f from "@radix-ui/react-label";
 import { clsx as b } from "clsx";
 import { twMerge as v } from "tailwind-merge";
-function d(...e) {
-  return v(b(e));
-}
-function j(e, r) {
-  const o = r.split(".");
-  let i = e;
-  for (const s of o) {
-    if (i == null || typeof i != "object")
-      return;
-    i = i[s];
-  }
-  return i;
-}
-function L(e) {
-  return !(e == null || typeof e == "string" && e.trim() === "");
-}
 const y = u("", {
   variants: {
     size: {
@@ -87,7 +71,37 @@ const y = u("", {
     icon: "size-7",
     iconButton: "size-14"
   }
-}, $ = u(
+};
+function d(...e) {
+  return v(b(e));
+}
+function j(e, r) {
+  const o = r.split(".");
+  let i = e;
+  for (const s of o) {
+    if (i == null || typeof i != "object")
+      return;
+    i = i[s];
+  }
+  return i;
+}
+function L(e) {
+  return !(e == null || typeof e == "string" && e.trim() === "");
+}
+function $({ className: e, ...r }) {
+  return /* @__PURE__ */ a(
+    f.Root,
+    {
+      "data-slot": "label",
+      className: d(
+        "flex items-center gap-2 leading-none select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
+        e
+      ),
+      ...r
+    }
+  );
+}
+const w = u(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-5 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
   {
     variants: {
@@ -137,7 +151,7 @@ function _({
       "data-slot": "button",
       "data-variant": r,
       "data-size": o,
-      className: d($({ variant: r, size: o, className: e })),
+      className: d(w({ variant: r, size: o, className: e })),
       ...s
     }
   );
@@ -159,19 +173,6 @@ function E({
         e
       ),
       ...i
-    }
-  );
-}
-function w({ className: e, ...r }) {
-  return /* @__PURE__ */ a(
-    f.Root,
-    {
-      "data-slot": "label",
-      className: d(
-        "flex items-center gap-2 leading-none select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
-        e
-      ),
-      ...r
     }
   );
 }
@@ -203,7 +204,7 @@ function F({ className: e, type: r, label: o, error: i, required: s, id: l, size
     }
   );
   return p ? /* @__PURE__ */ c("div", { className: "flex flex-col gap-1", children: [
-    o && /* @__PURE__ */ c(w, { htmlFor: l, children: [
+    o && /* @__PURE__ */ c($, { htmlFor: l, children: [
       o,
       s && /* @__PURE__ */ a("span", { className: "text-destructive", children: "*" })
     ] }),
@@ -215,12 +216,12 @@ export {
   _ as B,
   t as F,
   F as I,
-  w as L,
+  $ as L,
   E as S,
-  $ as b,
+  w as b,
   d as c,
   y as f,
   j as g,
   L as h
 };
-//# sourceMappingURL=input-Bdy9V1ho.js.map
+//# sourceMappingURL=input-D0NE8tsx.js.map

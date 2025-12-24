@@ -28,7 +28,7 @@ declare function Button({ className, variant, size, asChild, ...props }: React_2
 }): JSX.Element;
 
 declare const buttonVariants: (props?: ({
-    variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
+    variant?: "default" | "destructive" | "link" | "secondary" | "outline" | "ghost" | null | undefined;
     size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "2xl" | "icon" | "icon-xxs" | "icon-xs" | "icon-sm" | "icon-md" | "icon-lg" | "icon-xl" | "icon-xxl" | null | undefined;
 } & ClassProp) | undefined) => string;
 
