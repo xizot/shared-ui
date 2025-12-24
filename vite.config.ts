@@ -39,6 +39,7 @@ export default defineConfig(({ command, mode }) => {
           input: {
             index: resolve(__dirname, 'src/index.ts'),
             'index-rhf': resolve(__dirname, 'src/index-rhf.ts'),
+            'index-client': resolve(__dirname, 'src/index-client.ts'),
           },
           external: (id) => {
             // Exclude pages directory from library build

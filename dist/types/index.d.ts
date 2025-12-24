@@ -15,7 +15,6 @@ import { DayButton } from 'react-day-picker';
 import { DayPicker } from 'react-day-picker';
 import { DayPickerRangeProps } from 'react-day-picker';
 import { DayPickerSingleProps } from 'react-day-picker';
-import { default as default_2 } from 'embla-carousel-react';
 import { DependencyList } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Drawer as Drawer_2 } from 'vaul';
@@ -36,7 +35,6 @@ import * as PopoverPrimitive from '@radix-ui/react-popover';
 import * as ProgressPrimitive from '@radix-ui/react-progress';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import * as React_2 from 'react';
-import * as RechartsPrimitive from 'recharts';
 import { RefObject } from 'react';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import * as SelectPrimitive from '@radix-ui/react-select';
@@ -46,10 +44,8 @@ import * as SliderPrimitive from '@radix-ui/react-slider';
 import * as SwitchPrimitive from '@radix-ui/react-switch';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { ToasterProps } from 'sonner';
-import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
 import * as TogglePrimitive from '@radix-ui/react-toggle';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
-import { UseEmblaCarouselType } from 'embla-carousel-react';
 import { VariantProps } from 'class-variance-authority';
 
 export declare function Accordion({ ...props }: React_2.ComponentProps<typeof AccordionPrimitive.Root>): JSX.Element;
@@ -172,69 +168,6 @@ export declare function CardFooter({ className, ...props }: React_2.ComponentPro
 export declare function CardHeader({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
 
 export declare function CardTitle({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
-
-export declare function Carousel({ orientation, opts, setApi, plugins, className, children, ...props }: React_2.ComponentProps<'div'> & CarouselProps): JSX.Element;
-
-export declare type CarouselApi = UseEmblaCarouselType[1];
-
-export declare function CarouselContent({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
-
-export declare function CarouselItem({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
-
-export declare function CarouselNext({ className, variant, size, ...props }: React_2.ComponentProps<typeof Button>): JSX.Element;
-
-declare type CarouselOptions = UseCarouselParameters[0];
-
-declare type CarouselPlugin = UseCarouselParameters[1];
-
-export declare function CarouselPrevious({ className, variant, size, ...props }: React_2.ComponentProps<typeof Button>): JSX.Element;
-
-declare type CarouselProps = {
-    opts?: CarouselOptions;
-    plugins?: CarouselPlugin;
-    orientation?: 'horizontal' | 'vertical';
-    setApi?: (api: CarouselApi) => void;
-};
-
-export declare type ChartConfig = {
-    [k in string]: {
-        label?: React_2.ReactNode;
-        icon?: React_2.ComponentType;
-    } & ({
-        color?: string;
-        theme?: never;
-    } | {
-        color?: never;
-        theme: Record<keyof typeof THEMES, string>;
-    });
-};
-
-export declare function ChartContainer({ id, className, children, config, ...props }: React_2.ComponentProps<'div'> & {
-    config: ChartConfig;
-    children: React_2.ComponentProps<typeof RechartsPrimitive.ResponsiveContainer>['children'];
-}): JSX.Element;
-
-export declare const ChartLegend: typeof RechartsPrimitive.Legend;
-
-export declare function ChartLegendContent({ className, hideIcon, payload, verticalAlign, nameKey, }: React_2.ComponentProps<'div'> & Pick<RechartsPrimitive.LegendProps, 'payload' | 'verticalAlign'> & {
-    hideIcon?: boolean;
-    nameKey?: string;
-}): JSX.Element | null;
-
-export declare const ChartStyle: ({ id, config }: {
-    id: string;
-    config: ChartConfig;
-}) => JSX.Element | null;
-
-export declare const ChartTooltip: typeof RechartsPrimitive.Tooltip;
-
-export declare function ChartTooltipContent({ active, payload, className, indicator, hideLabel, hideIndicator, label, labelFormatter, labelClassName, formatter, color, nameKey, labelKey, }: React_2.ComponentProps<typeof RechartsPrimitive.Tooltip> & React_2.ComponentProps<'div'> & {
-    hideLabel?: boolean;
-    hideIndicator?: boolean;
-    indicator?: 'line' | 'dot' | 'dashed';
-    nameKey?: string;
-    labelKey?: string;
-}): JSX.Element | null;
 
 export declare function Checkbox({ className, size, ...props }: React_2.ComponentProps<typeof CheckboxPrimitive.Root> & {
     size?: FormSize;
@@ -1068,92 +1001,6 @@ export declare function SheetTitle({ className, ...props }: React_2.ComponentPro
 
 export declare function SheetTrigger({ ...props }: React_2.ComponentProps<typeof DialogPrimitive.Trigger>): JSX.Element;
 
-export declare function Sidebar({ side, variant, collapsible, className, children, ...props }: React_2.ComponentProps<'div'> & {
-    side?: 'left' | 'right';
-    variant?: 'sidebar' | 'floating' | 'inset';
-    collapsible?: 'offcanvas' | 'icon' | 'none';
-}): JSX.Element;
-
-export declare function SidebarContent({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
-
-declare type SidebarContextProps = {
-    state: 'expanded' | 'collapsed';
-    open: boolean;
-    setOpen: (open: boolean) => void;
-    openMobile: boolean;
-    setOpenMobile: (open: boolean) => void;
-    isMobile: boolean;
-    toggleSidebar: () => void;
-};
-
-export declare function SidebarFooter({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
-
-export declare function SidebarGroup({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
-
-export declare function SidebarGroupAction({ className, asChild, ...props }: React_2.ComponentProps<'button'> & {
-    asChild?: boolean;
-}): JSX.Element;
-
-export declare function SidebarGroupContent({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
-
-export declare function SidebarGroupLabel({ className, asChild, ...props }: React_2.ComponentProps<'div'> & {
-    asChild?: boolean;
-}): JSX.Element;
-
-export declare function SidebarHeader({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
-
-export declare function SidebarInput({ className, ...props }: React_2.ComponentProps<typeof Input>): JSX.Element;
-
-export declare function SidebarInset({ className, ...props }: React_2.ComponentProps<'main'>): JSX.Element;
-
-export declare function SidebarMenu({ className, ...props }: React_2.ComponentProps<'ul'>): JSX.Element;
-
-export declare function SidebarMenuAction({ className, asChild, showOnHover, ...props }: React_2.ComponentProps<'button'> & {
-    asChild?: boolean;
-    showOnHover?: boolean;
-}): JSX.Element;
-
-export declare function SidebarMenuBadge({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
-
-export declare function SidebarMenuButton({ asChild, isActive, variant, size, tooltip, className, ...props }: React_2.ComponentProps<'button'> & {
-    asChild?: boolean;
-    isActive?: boolean;
-    tooltip?: string | React_2.ComponentProps<typeof TooltipContent>;
-} & VariantProps<typeof sidebarMenuButtonVariants>): JSX.Element;
-
-declare const sidebarMenuButtonVariants: (props?: ({
-    variant?: "default" | "outline" | null | undefined;
-    size?: "default" | "sm" | "lg" | null | undefined;
-} & ClassProp) | undefined) => string;
-
-export declare function SidebarMenuItem({ className, ...props }: React_2.ComponentProps<'li'>): JSX.Element;
-
-export declare function SidebarMenuSkeleton({ className, showIcon, ...props }: React_2.ComponentProps<'div'> & {
-    showIcon?: boolean;
-}): JSX.Element;
-
-export declare function SidebarMenuSub({ className, ...props }: React_2.ComponentProps<'ul'>): JSX.Element;
-
-export declare function SidebarMenuSubButton({ asChild, size, isActive, className, ...props }: React_2.ComponentProps<'a'> & {
-    asChild?: boolean;
-    size?: 'sm' | 'md';
-    isActive?: boolean;
-}): JSX.Element;
-
-export declare function SidebarMenuSubItem({ className, ...props }: React_2.ComponentProps<'li'>): JSX.Element;
-
-export declare function SidebarProvider({ defaultOpen, open: openProp, onOpenChange: setOpenProp, className, style, children, ...props }: React_2.ComponentProps<'div'> & {
-    defaultOpen?: boolean;
-    open?: boolean;
-    onOpenChange?: (open: boolean) => void;
-}): JSX.Element;
-
-export declare function SidebarRail({ className, ...props }: React_2.ComponentProps<'button'>): JSX.Element;
-
-export declare function SidebarSeparator({ className, ...props }: React_2.ComponentProps<typeof Separator>): JSX.Element;
-
-export declare function SidebarTrigger({ className, onClick, ...props }: React_2.ComponentProps<typeof Button>): JSX.Element;
-
 export declare function Skeleton({ className, ...props }: React.ComponentProps<'div'>): JSX.Element;
 
 export declare function Slider({ className, defaultValue, value, min, max, ...props }: React_2.ComponentProps<typeof SliderPrimitive.Root>): JSX.Element;
@@ -1215,11 +1062,6 @@ declare interface TextareaProps extends React_2.ComponentProps<'textarea'> {
     required?: boolean;
     size?: FormSize;
 }
-
-declare const THEMES: {
-    readonly light: "";
-    readonly dark: ".dark";
-};
 
 export declare function TimePicker({ value, onChange, showSeconds, className }: TimePickerProps): JSX.Element;
 
@@ -1301,12 +1143,6 @@ declare type ToastOptions = {
 
 export declare function Toggle({ className, variant, size, ...props }: React_2.ComponentProps<typeof TogglePrimitive.Root> & VariantProps<typeof toggleVariants>): JSX.Element;
 
-export declare function ToggleGroup({ className, variant, size, spacing, children, ...props }: React_2.ComponentProps<typeof ToggleGroupPrimitive.Root> & VariantProps<typeof toggleVariants> & {
-    spacing?: number;
-}): JSX.Element;
-
-export declare function ToggleGroupItem({ className, children, variant, size, ...props }: React_2.ComponentProps<typeof ToggleGroupPrimitive.Item> & VariantProps<typeof toggleVariants>): JSX.Element;
-
 export declare const toggleVariants: (props?: ({
     variant?: "default" | "outline" | null | undefined;
     size?: "default" | "sm" | "lg" | null | undefined;
@@ -1339,8 +1175,6 @@ declare interface UseAriaLabelOptions {
 }
 
 export declare function useBreakpoint(): Breakpoint | null;
-
-declare type UseCarouselParameters = Parameters<typeof default_2>;
 
 export declare function useClickOutside<T extends HTMLElement = HTMLElement>(ref: RefObject<T>, handler: (event: MouseEvent | TouchEvent) => void): void;
 
@@ -1383,8 +1217,6 @@ export declare function useMemoizedCallback<T extends (...args: unknown[]) => un
 export declare function usePrevious<T>(value: T): T | undefined;
 
 export declare function useSessionStorage<T>(key: string, initialValue: T): [T, SetValue_2<T>, () => void];
-
-export declare function useSidebar(): SidebarContextProps;
 
 export declare function useThrottle<T>(value: T, delay: number): T;
 

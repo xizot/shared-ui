@@ -26,6 +26,16 @@
         "default": "./dist/index-rhf.cjs"
       }
     },
+    "./client": {
+      "import": {
+        "types": "./dist/types/index-client.d.ts",
+        "default": "./dist/index-client.mjs"
+      },
+      "require": {
+        "types": "./dist/types/index-client.d.ts",
+        "default": "./dist/index-client.cjs"
+      }
+    },
     "./styles": "./dist/style.css",
     "./styles.css": "./dist/style.css"
   },
