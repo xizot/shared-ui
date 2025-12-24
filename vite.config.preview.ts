@@ -6,9 +6,10 @@ import { defineConfig } from 'vite';
 // Preview/Design System build config for GitHub Pages
 // For GitHub Pages subdirectory: use '/repo-name/'
 // For root domain: use '/'
-// Default: '/share-ui/' (matches repository name)
-const repoName = process.env.GITHUB_REPO_NAME || 'share-ui';
-const base = `/${repoName}/`;
+// For local preview: use '/' (set GITHUB_REPO_NAME to empty)
+// Default for GitHub Pages: '/share-ui/' (matches repository name)
+const repoName = process.env.GITHUB_REPO_NAME;
+const base = repoName ? `/${repoName}/` : '/';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
