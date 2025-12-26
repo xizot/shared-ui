@@ -32,7 +32,7 @@ declare const buttonVariants: (props?: ({
     size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "2xl" | "icon" | "icon-xxs" | "icon-xs" | "icon-sm" | "icon-md" | "icon-lg" | "icon-xl" | "icon-xxl" | null | undefined;
 } & ClassProp) | undefined) => string;
 
-declare function Combobox<TOptions extends readonly ComboboxBaseOption[]>({ options, value, onChange, label, error, required, placeholder, searchPlaceholder, emptyMessage, disabled, readonly, size, showClearIcon, showArrowIcon, showSearch, suffix, className, triggerClassName, popoverClassName, }: ComboboxProps<TOptions>): JSX.Element;
+declare function Combobox<TOptions extends readonly ComboboxBaseOption[]>({ options, value, onChange, label, error, required, placeholder, searchPlaceholder, emptyMessage, disabled, readonly, size, showClearIcon, showArrowIcon, showSearch, showCreate, onCreate, createLabel, suffix, className, triggerClassName, popoverClassName, }: ComboboxProps<TOptions>): JSX.Element;
 
 export declare type ComboboxBaseOption = {
     id: string;
@@ -42,6 +42,8 @@ export declare type ComboboxBaseOption = {
 };
 
 declare type ComboboxOnChange<T extends ComboboxBaseOption> = (value: string, option: T | undefined) => void;
+
+declare type ComboboxOnCreate = (searchValue: string) => void;
 
 export declare type ComboboxOption = ComboboxBaseOption;
 
@@ -61,6 +63,9 @@ declare type ComboboxProps<TOptions extends readonly ComboboxBaseOption[]> = {
     showClearIcon?: boolean;
     showArrowIcon?: boolean;
     showSearch?: boolean;
+    showCreate?: boolean;
+    onCreate?: ComboboxOnCreate;
+    createLabel?: string | ((searchValue: string) => string);
     suffix?: React_2.ReactNode;
     className?: ComponentProps<'div'>['className'];
     triggerClassName?: ComponentProps<typeof Button>['className'];

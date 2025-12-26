@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckIcon, ChevronDown, XCircle } from 'lucide-react';
+import { CheckIcon, ChevronDown, Plus, XCircle } from 'lucide-react';
 import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -32,6 +32,8 @@ type ComboboxOnChange<T extends ComboboxBaseOption> = (
   option: T | undefined,
 ) => void;
 
+type ComboboxOnCreate = (searchValue: string) => void;
+
 type ComboboxProps<TOptions extends readonly ComboboxBaseOption[]> = {
   options: TOptions;
   value?: ComboboxValue;
@@ -48,6 +50,9 @@ type ComboboxProps<TOptions extends readonly ComboboxBaseOption[]> = {
   showClearIcon?: boolean;
   showArrowIcon?: boolean;
   showSearch?: boolean;
+  showCreate?: boolean;
+  onCreate?: ComboboxOnCreate;
+  createLabel?: string | ((searchValue: string) => string);
   suffix?: React.ReactNode;
   className?: ComponentProps<'div'>['className'];
   triggerClassName?: ComponentProps<typeof Button>['className'];
@@ -73,12 +78,23 @@ function Combobox<TOptions extends readonly ComboboxBaseOption[]>({
   showClearIcon = true,
   showArrowIcon = true,
   showSearch = true,
+  showCreate = false,
+  onCreate,
+  createLabel,
   suffix,
   className,
   triggerClassName,
   popoverClassName,
 }: ComboboxProps<TOptions>) {
   const [open, setOpen] = React.useState(false);
+  const [searchValue, setSearchValue] = React.useState('');
+
+  // Reset search value when popover closes
+  React.useEffect(() => {
+    if (!open) {
+      setSearchValue('');
+    }
+  }, [open]);
 
   const selectedOption = React.useMemo(
     () => options.find((opt) => opt.id === value) as TOptions[number] | undefined,
@@ -148,9 +164,36 @@ function Combobox<TOptions extends readonly ComboboxBaseOption[]>({
         align="start"
       >
         <Command>
-          {showSearch && <CommandInput placeholder={searchPlaceholder} />}
+          {showSearch && (
+            <CommandInput
+              placeholder={searchPlaceholder}
+              value={searchValue}
+              onValueChange={setSearchValue}
+            />
+          )}
           <CommandList>
-            <CommandEmpty>{emptyMessage}</CommandEmpty>
+            <CommandEmpty>
+              <div className="flex flex-col items-center justify-center gap-2 py-4">
+                <span className="text-sm text-muted-foreground">{emptyMessage}</span>
+                {showCreate && searchValue.trim() && onCreate && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      onCreate(searchValue.trim());
+                      setSearchValue('');
+                      setOpen(false);
+                    }}
+                    className="mt-2"
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    {typeof createLabel === 'function'
+                      ? createLabel(searchValue.trim())
+                      : createLabel || `Create "${searchValue.trim()}"`}
+                  </Button>
+                )}
+              </div>
+            </CommandEmpty>
             <CommandGroup>
               {options.map((option) => (
                 <CommandItem
@@ -202,6 +245,7 @@ export {
   Combobox,
   type ComboboxBaseOption,
   type ComboboxOnChange,
+  type ComboboxOnCreate,
   type ComboboxOption,
   type ComboboxProps,
   type ComboboxValue

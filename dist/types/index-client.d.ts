@@ -166,7 +166,7 @@ export declare function ChartTooltipContent({ active, payload, className, indica
 
 export { ColumnDef }
 
-export declare function Combobox<TOptions extends readonly ComboboxBaseOption[]>({ options, value, onChange, label, error, required, placeholder, searchPlaceholder, emptyMessage, disabled, readonly, size, showClearIcon, showArrowIcon, showSearch, suffix, className, triggerClassName, popoverClassName, }: ComboboxProps<TOptions>): JSX.Element;
+export declare function Combobox<TOptions extends readonly ComboboxBaseOption[]>({ options, value, onChange, label, error, required, placeholder, searchPlaceholder, emptyMessage, disabled, readonly, size, showClearIcon, showArrowIcon, showSearch, showCreate, onCreate, createLabel, suffix, className, triggerClassName, popoverClassName, }: ComboboxProps<TOptions>): JSX.Element;
 
 export declare type ComboboxBaseOption = {
     id: string;
@@ -176,6 +176,8 @@ export declare type ComboboxBaseOption = {
 };
 
 export declare type ComboboxOnChange<T extends ComboboxBaseOption> = (value: string, option: T | undefined) => void;
+
+export declare type ComboboxOnCreate = (searchValue: string) => void;
 
 export declare type ComboboxOption = ComboboxBaseOption;
 
@@ -195,6 +197,9 @@ export declare type ComboboxProps<TOptions extends readonly ComboboxBaseOption[]
     showClearIcon?: boolean;
     showArrowIcon?: boolean;
     showSearch?: boolean;
+    showCreate?: boolean;
+    onCreate?: ComboboxOnCreate;
+    createLabel?: string | ((searchValue: string) => string);
     suffix?: React_2.ReactNode;
     className?: ComponentProps<'div'>['className'];
     triggerClassName?: ComponentProps<typeof Button>['className'];
