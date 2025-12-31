@@ -1,7 +1,11 @@
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
+import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import { ClassProp } from 'class-variance-authority/types';
+import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
 import { ColumnDef } from '@tanstack/react-table';
+import { Command as Command_2 } from 'cmdk';
 import { ComponentProps } from 'react';
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu';
 import { DateRange } from 'react-day-picker';
@@ -9,27 +13,36 @@ import { DayButton } from 'react-day-picker';
 import { DayPicker } from 'react-day-picker';
 import { DayPickerRangeProps } from 'react-day-picker';
 import { DayPickerSingleProps } from 'react-day-picker';
-import { default as default_2 } from 'embla-carousel-react';
+import { default as default_2 } from 'react-quill-new';
+import { default as default_3 } from 'embla-carousel-react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Drawer as Drawer_2 } from 'vaul';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { FilterFn } from '@tanstack/react-table';
+import { Group } from 'react-resizable-panels';
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { JSX } from 'react/jsx-runtime';
 import * as LabelPrimitive from '@radix-ui/react-label';
 import { Locale } from 'date-fns';
 import * as MenubarPrimitive from '@radix-ui/react-menubar';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
+import { OTPInput } from 'input-otp';
 import { PaginationOptions } from '@tanstack/react-table';
 import { PaginationState } from '@tanstack/react-table';
+import { Panel } from 'react-resizable-panels';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import * as ProgressPrimitive from '@radix-ui/react-progress';
+import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import * as React_2 from 'react';
 import * as RechartsPrimitive from 'recharts';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import * as SelectPrimitive from '@radix-ui/react-select';
+import { Separator as Separator_2 } from 'react-resizable-panels';
 import * as SeparatorPrimitive from '@radix-ui/react-separator';
+import * as SliderPrimitive from '@radix-ui/react-slider';
+import * as SwitchPrimitive from '@radix-ui/react-switch';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
+import { ToasterProps } from 'sonner';
 import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
 import * as TogglePrimitive from '@radix-ui/react-toggle';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
@@ -66,6 +79,8 @@ export declare function AlertDialogTitle({ className, ...props }: React_2.Compon
 
 export declare function AlertDialogTrigger({ ...props }: React_2.ComponentProps<typeof AlertDialogPrimitive.Trigger>): JSX.Element;
 
+export declare function AspectRatio({ ...props }: React.ComponentProps<typeof AspectRatioPrimitive.Root>): JSX.Element;
+
 declare function Badge({ className, variant, asChild, ...props }: React_2.ComponentProps<'span'> & VariantProps<typeof badgeVariants> & {
     asChild?: boolean;
 }): JSX.Element;
@@ -73,6 +88,22 @@ declare function Badge({ className, variant, asChild, ...props }: React_2.Compon
 declare const badgeVariants: (props?: ({
     variant?: "default" | "destructive" | "secondary" | "outline" | null | undefined;
 } & ClassProp) | undefined) => string;
+
+export declare function Breadcrumb({ ...props }: React_2.ComponentProps<'nav'>): JSX.Element;
+
+export declare function BreadcrumbEllipsis({ className, ...props }: React_2.ComponentProps<'span'>): JSX.Element;
+
+export declare function BreadcrumbItem({ className, ...props }: React_2.ComponentProps<'li'>): JSX.Element;
+
+export declare function BreadcrumbLink({ asChild, className, ...props }: React_2.ComponentProps<'a'> & {
+    asChild?: boolean;
+}): JSX.Element;
+
+export declare function BreadcrumbList({ className, ...props }: React_2.ComponentProps<'ol'>): JSX.Element;
+
+export declare function BreadcrumbPage({ className, ...props }: React_2.ComponentProps<'span'>): JSX.Element;
+
+export declare function BreadcrumbSeparator({ children, className, ...props }: React_2.ComponentProps<'li'>): JSX.Element;
 
 declare function Button({ className, variant, size, asChild, ...props }: React_2.ComponentProps<'button'> & VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
@@ -164,6 +195,16 @@ export declare function ChartTooltipContent({ active, payload, className, indica
     labelKey?: string;
 }): JSX.Element | null;
 
+export declare function Checkbox({ className, size, ...props }: React_2.ComponentProps<typeof CheckboxPrimitive.Root> & {
+    size?: FormSize;
+}): JSX.Element;
+
+export declare function Collapsible({ ...props }: React.ComponentProps<typeof CollapsiblePrimitive.Root>): JSX.Element;
+
+export declare function CollapsibleContent({ ...props }: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleContent>): JSX.Element;
+
+export declare function CollapsibleTrigger({ ...props }: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger>): JSX.Element;
+
 export { ColumnDef }
 
 export declare function Combobox<TOptions extends readonly ComboboxBaseOption[]>({ options, value, onChange, label, error, required, placeholder, searchPlaceholder, emptyMessage, disabled, readonly, size, showClearIcon, showArrowIcon, showSearch, showCreate, onCreate, createLabel, suffix, className, triggerClassName, popoverClassName, }: ComboboxProps<TOptions>): JSX.Element;
@@ -207,6 +248,33 @@ export declare type ComboboxProps<TOptions extends readonly ComboboxBaseOption[]
 };
 
 export declare type ComboboxValue = string | number;
+
+export declare function Command({ className, ...props }: React_2.ComponentProps<typeof Command_2>): JSX.Element;
+
+export declare function CommandDialog({ title, description, children, className, showCloseButton, ...props }: React_2.ComponentProps<typeof Dialog> & {
+    title?: string;
+    description?: string;
+    className?: React_2.ComponentProps<typeof DialogContent>['className'];
+    showCloseButton?: boolean;
+}): JSX.Element;
+
+export declare function CommandEmpty({ ...props }: React_2.ComponentProps<typeof Command_2.Empty>): JSX.Element;
+
+export declare function CommandGroup({ className, ...props }: React_2.ComponentProps<typeof Command_2.Group>): JSX.Element;
+
+export declare function CommandInput({ className, label, error, required, id, ...props }: React_2.ComponentProps<typeof Command_2.Input> & {
+    label?: string | React_2.ReactNode;
+    error?: string;
+    required?: boolean;
+}): JSX.Element;
+
+export declare function CommandItem({ className, ...props }: React_2.ComponentProps<typeof Command_2.Item>): JSX.Element;
+
+export declare function CommandList({ className, ...props }: React_2.ComponentProps<typeof Command_2.List>): JSX.Element;
+
+export declare function CommandSeparator({ className, ...props }: React_2.ComponentProps<typeof Command_2.Separator>): JSX.Element;
+
+export declare function CommandShortcut({ className, ...props }: React_2.ComponentProps<'span'>): JSX.Element;
 
 export declare function ConfirmDialog({ open, onOpenChange, title, description, confirmText, cancelText, onConfirm, variant, loading, }: ConfirmDialogProps): JSX.Element;
 
@@ -429,6 +497,17 @@ export declare function DropdownMenuSubTrigger({ className, inset, children, ...
 
 export declare function DropdownMenuTrigger({ ...props }: React_2.ComponentProps<typeof DropdownMenuPrimitive.Trigger>): JSX.Element;
 
+export declare function Editor({ className, label, error, required, id, size, modules, formats, placeholder, value, onChange, readOnly, ...props }: EditorProps): JSX.Element;
+
+export declare interface EditorProps extends Omit<ReactQuillProps, 'modules' | 'formats'> {
+    label?: string | React_2.ReactNode;
+    error?: string;
+    required?: boolean;
+    size?: FormSize;
+    modules?: ReactQuillProps['modules'];
+    formats?: string[];
+}
+
 export declare function Empty({ className, ...props }: React.ComponentProps<'div'>): JSX.Element;
 
 export declare function EmptyContent({ className, ...props }: React.ComponentProps<'div'>): JSX.Element;
@@ -507,6 +586,33 @@ declare const fieldVariants: (props?: ({
     orientation?: "horizontal" | "vertical" | "responsive" | null | undefined;
 } & ClassProp) | undefined) => string;
 
+export declare function FileUpload({ value, onChange, accept, multiple, maxSize, maxFiles, disabled, onError, showPreview, showProgress, className, dropzoneClassName, placeholder, uploadText, }: FileUploadProps): JSX.Element;
+
+export declare type FileUploadFile = {
+    file: File;
+    preview?: string;
+    progress?: number;
+    status?: 'pending' | 'uploading' | 'success' | 'error';
+    error?: string;
+};
+
+export declare type FileUploadProps = {
+    value?: File[] | FileUploadFile[];
+    onChange?: (files: File[] | FileUploadFile[]) => void;
+    accept?: string;
+    multiple?: boolean;
+    maxSize?: number;
+    maxFiles?: number;
+    disabled?: boolean;
+    onError?: (error: string) => void;
+    showPreview?: boolean;
+    showProgress?: boolean;
+    className?: string;
+    dropzoneClassName?: string;
+    placeholder?: string;
+    uploadText?: string;
+};
+
 declare type FormSize = VariantProps<typeof formSizeVariants>['size'];
 
 /**
@@ -522,6 +628,39 @@ export declare function HoverCard({ ...props }: React_2.ComponentProps<typeof Ho
 export declare function HoverCardContent({ className, align, sideOffset, ...props }: React_2.ComponentProps<typeof HoverCardPrimitive.Content>): JSX.Element;
 
 export declare function HoverCardTrigger({ ...props }: React_2.ComponentProps<typeof HoverCardPrimitive.Trigger>): JSX.Element;
+
+export declare function ImageLightbox({ images, open, onOpenChange, initialIndex, showNavigation, showCounter, showZoom, className, }: ImageLightboxProps): JSX.Element | null;
+
+export declare type ImageLightboxProps = {
+    images: ImagePreviewItem[];
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+    initialIndex?: number;
+    showNavigation?: boolean;
+    showCounter?: boolean;
+    showZoom?: boolean;
+    className?: string;
+};
+
+export declare function ImagePreview({ images, columns, onRemove, onClick, showRemove, className, itemClassName, emptyMessage, loading, }: ImagePreviewProps): JSX.Element;
+
+export declare type ImagePreviewItem = string | File | {
+    url: string;
+    alt?: string;
+    id?: string;
+};
+
+export declare type ImagePreviewProps = {
+    images: ImagePreviewItem[];
+    columns?: 1 | 2 | 3 | 4 | 5 | 6;
+    onRemove?: (index: number) => void;
+    onClick?: (index: number, image: ImagePreviewItem) => void;
+    showRemove?: boolean;
+    className?: string;
+    itemClassName?: string;
+    emptyMessage?: string;
+    loading?: boolean;
+};
 
 declare function Input({ className, type, label, error, required, id, size, ...props }: InputProps): JSX.Element;
 
@@ -544,6 +683,18 @@ export declare function InputGroupInput({ className, ...props }: Omit<React_2.Co
 export declare function InputGroupText({ className, ...props }: React_2.ComponentProps<'span'>): JSX.Element;
 
 export declare function InputGroupTextarea({ className, ...props }: React_2.ComponentProps<'textarea'>): JSX.Element;
+
+export declare function InputOTP({ className, containerClassName, ...props }: React_2.ComponentProps<typeof OTPInput> & {
+    containerClassName?: string;
+}): JSX.Element;
+
+export declare function InputOTPGroup({ className, ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+export declare function InputOTPSeparator({ ...props }: React_2.ComponentProps<'div'>): JSX.Element;
+
+export declare function InputOTPSlot({ index, className, ...props }: React_2.ComponentProps<'div'> & {
+    index: number;
+}): JSX.Element;
 
 declare interface InputProps extends Omit<React_2.ComponentProps<'input'>, 'type' | 'size'> {
     label?: string | React_2.ReactNode;
@@ -744,6 +895,22 @@ export declare function PopoverTrigger({ ...props }: React_2.ComponentProps<type
 
 export declare function Progress({ className, value, ...props }: React_2.ComponentProps<typeof ProgressPrimitive.Root>): JSX.Element;
 
+export declare function RadioGroup({ className, ...props }: React_2.ComponentProps<typeof RadioGroupPrimitive.Root>): JSX.Element;
+
+export declare function RadioGroupItem({ className, size, ...props }: React_2.ComponentProps<typeof RadioGroupPrimitive.Item> & {
+    size?: FormSize;
+}): JSX.Element;
+
+declare type ReactQuillProps = React_2.ComponentProps<typeof default_2>;
+
+export declare function ResizableHandle({ withHandle, className, ...props }: React_2.ComponentProps<typeof Separator_2> & {
+    withHandle?: boolean;
+}): JSX.Element;
+
+export declare function ResizablePanel({ ...props }: React_2.ComponentProps<typeof Panel>): JSX.Element;
+
+export declare function ResizablePanelGroup({ className, ...props }: React_2.ComponentProps<typeof Group>): JSX.Element;
+
 export declare function ScrollArea({ className, children, ...props }: React_2.ComponentProps<typeof ScrollAreaPrimitive.Root>): JSX.Element;
 
 export declare function ScrollBar({ className, orientation, ...props }: React_2.ComponentProps<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>): JSX.Element;
@@ -881,6 +1048,8 @@ export declare function SidebarTrigger({ className, onClick, ...props }: React_2
 
 export declare function Skeleton({ className, ...props }: React.ComponentProps<'div'>): JSX.Element;
 
+export declare function Slider({ className, defaultValue, value, min, max, ...props }: React_2.ComponentProps<typeof SliderPrimitive.Root>): JSX.Element;
+
 export declare function Spinner({ className, ...props }: React.ComponentProps<'svg'>): JSX.Element;
 
 export declare function StatusBadge({ className, status, label, ...props }: StatusBadgeProps): JSX.Element;
@@ -891,6 +1060,10 @@ declare interface StatusBadgeProps extends React_2.ComponentProps<typeof Badge> 
 }
 
 export declare type StatusType = 'success' | 'error' | 'warning' | 'info' | 'pending' | 'default';
+
+export declare function Switch({ className, size, ...props }: React_2.ComponentProps<typeof SwitchPrimitive.Root> & {
+    size?: FormSize;
+}): JSX.Element;
 
 export declare function Table({ className, ...props }: React_2.ComponentProps<'table'>): JSX.Element;
 
@@ -945,6 +1118,8 @@ export declare type TimeValue = {
     second: string;
 };
 
+export declare const Toaster: ({ ...props }: ToasterProps) => JSX.Element;
+
 export declare function Toggle({ className, variant, size, ...props }: React_2.ComponentProps<typeof TogglePrimitive.Root> & VariantProps<typeof toggleVariants>): JSX.Element;
 
 export declare function ToggleGroup({ className, variant, size, spacing, children, ...props }: React_2.ComponentProps<typeof ToggleGroupPrimitive.Root> & VariantProps<typeof toggleVariants> & {
@@ -966,7 +1141,7 @@ export declare function TooltipProvider({ delayDuration, ...props }: React_2.Com
 
 export declare function TooltipTrigger({ ...props }: React_2.ComponentProps<typeof TooltipPrimitive.Trigger>): JSX.Element;
 
-declare type UseCarouselParameters = Parameters<typeof default_2>;
+declare type UseCarouselParameters = Parameters<typeof default_3>;
 
 export declare function useSidebar(): SidebarContextProps;
 
