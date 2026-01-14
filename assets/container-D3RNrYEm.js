@@ -1,0 +1,1 @@
+import{j as x,o as n}from"./main-Bfqc3OM2.js";function m({className:e,maxWidth:s="xl",...l}){return x.jsx("div",{className:n("mx-auto w-full px-4 sm:px-6 lg:px-8",{"max-w-screen-sm":s==="sm","max-w-screen-md":s==="md","max-w-screen-lg":s==="lg","max-w-screen-xl":s==="xl","max-w-screen-2xl":s==="2xl","max-w-full":s==="full"},e),...l})}export{m as C};
