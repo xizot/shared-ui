@@ -21,17 +21,18 @@ This document provides comprehensive rules and guidelines for using the **shared
 
 ```tsx
 // ✅ CORRECT - Server Components
-import { Button, Input, Card, Label, Badge, Avatar, Skeleton } from 'shared-ui'
+import { Button, Input, Card, Label, Badge, Avatar, Skeleton } from 'shared-ui';
 
 // ✅ CORRECT - Tree-shakeable imports
-import { Button } from 'shared-ui'
-import { Card, CardHeader, CardTitle, CardContent } from 'shared-ui'
+import { Button } from 'shared-ui';
+import { Card, CardHeader, CardTitle, CardContent } from 'shared-ui';
 
 // ❌ WRONG - Don't use client components here
-import { Carousel, Chart } from 'shared-ui' // These need 'shared-ui/client'
+import { Carousel, Chart } from 'shared-ui'; // These need 'shared-ui/client'
 ```
 
 **Available Core Components:**
+
 - Layout: `Container`, `Stack`, `Grid`, `Divider`, `Separator`
 - Basic UI: `Button`, `Input`, `Textarea`, `Label`, `Card`, `Badge`, `Avatar`
 - Feedback: `Alert`, `Skeleton`, `Spinner`
@@ -43,20 +44,24 @@ import { Carousel, Chart } from 'shared-ui' // These need 'shared-ui/client'
 
 ```tsx
 // ✅ CORRECT - Client Components
-'use client'
-import { Carousel, Chart, Sidebar, ToggleGroup, DatePicker } from 'shared-ui/client'
+'use client';
+import { Carousel, Chart, Sidebar, ToggleGroup, DatePicker } from 'shared-ui/client';
 
 // ✅ CORRECT - Dynamic import for Server Components (Next.js)
-import dynamic from 'next/dynamic'
-const DatePicker = dynamic(() => import('shared-ui/client').then(mod => ({ default: mod.DatePicker })), {
-  ssr: false
-})
+import dynamic from 'next/dynamic';
+const DatePicker = dynamic(
+  () => import('shared-ui/client').then((mod) => ({ default: mod.DatePicker })),
+  {
+    ssr: false,
+  },
+);
 
 // ❌ WRONG - Don't use in Server Components without dynamic import
-import { DatePicker } from 'shared-ui/client' // Needs 'use client' or dynamic import
+import { DatePicker } from 'shared-ui/client'; // Needs 'use client' or dynamic import
 ```
 
 **Available Client Components:**
+
 - Forms: `Combobox`, `Select`, `Checkbox`, `RadioGroup`, `Switch`, `Slider`
 - Overlays: `Dialog`, `Drawer`, `Popover`, `Tooltip`, `DropdownMenu`, `Sheet`
 - Data: `DataTable`, `Carousel`, `Chart`, `Calendar`
@@ -69,24 +74,18 @@ import { DatePicker } from 'shared-ui/client' // Needs 'use client' or dynamic i
 
 ```tsx
 // ✅ CORRECT - RHF Components
-'use client'
-import { useForm } from 'react-hook-form'
-import { RHFInput, RHFTextarea, RHFCombobox, Form } from 'shared-ui/rhf'
+'use client';
+import { useForm } from 'react-hook-form';
+import { RHFInput, RHFTextarea, RHFCombobox, Form } from 'shared-ui/rhf';
 
 function MyForm() {
-  const { control, register } = useForm()
-  
+  const { control, register } = useForm();
+
   return (
     <Form control={control}>
-      <RHFInput
-        control={control}
-        register={register}
-        name="email"
-        label="Email"
-        required
-      />
+      <RHFInput control={control} register={register} name="email" label="Email" required />
     </Form>
-  )
+  );
 }
 
 // ❌ WRONG - Don't use RHF components without 'use client'
@@ -94,6 +93,7 @@ function MyForm() {
 ```
 
 **Available RHF Components:**
+
 - `RHFInput`, `RHFTextarea`, `RHFNumberInput`
 - `RHFCombobox`, `RHFMultiSelect`, `RHFSelect`
 - `RHFCheckboxGroup`, `RHFRadioGroup`, `RHFSwitch`
@@ -107,36 +107,41 @@ function MyForm() {
 ### 1. Install Library
 
 ```bash
-npm install git+https://github.com/xizot/share-ui.git
+npm install git+https://github.com/xizot/shared-ui.git
 # or
-yarn add git+https://github.com/xizot/share-ui.git
+yarn add git+https://github.com/xizot/shared-ui.git
 # or
-pnpm add git+https://github.com/xizot/share-ui.git
+pnpm add git+https://github.com/xizot/shared-ui.git
 ```
 
 ### 2. Install Peer Dependencies
 
 **Always Required:**
+
 ```bash
 npm install react react-dom
 ```
 
 **Only if using RHF Components:**
+
 ```bash
 npm install react-hook-form
 ```
 
 **Only if using Date Pickers:**
+
 ```bash
 npm install date-fns react-day-picker
 ```
 
 **Only if using DataTable:**
+
 ```bash
 npm install @tanstack/react-table
 ```
 
 **Only if using RHFEditor:**
+
 ```bash
 npm install react-quill-new
 ```
@@ -147,8 +152,8 @@ npm install react-quill-new
 // ✅ CORRECT - Import BEFORE your global styles
 // In Next.js: app/layout.tsx or pages/_app.tsx
 // In Vite: main.tsx
-import 'shared-ui/styles.css'
-import './globals.css' // Your custom styles can override shared-ui
+import 'shared-ui/styles.css';
+import './globals.css'; // Your custom styles can override shared-ui
 
 // ❌ WRONG - Don't forget to import styles
 // ❌ WRONG - Don't import after your global styles (overrides won't work)
@@ -191,20 +196,16 @@ import { Input, Label } from 'shared-ui'
 
 ```tsx
 // ✅ CORRECT
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from 'shared-ui'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from 'shared-ui';
 
 <Card>
   <CardHeader>
     <CardTitle>Title</CardTitle>
     <CardDescription>Description</CardDescription>
   </CardHeader>
-  <CardContent>
-    Content here
-  </CardContent>
-  <CardFooter>
-    Footer actions
-  </CardFooter>
-</Card>
+  <CardContent>Content here</CardContent>
+  <CardFooter>Footer actions</CardFooter>
+</Card>;
 ```
 
 ### DataTable Component
@@ -233,8 +234,8 @@ const columns: ColumnDef<User>[] = [
 
 ```tsx
 // ✅ CORRECT - Client Component
-'use client'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 'shared-ui/client'
+'use client';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 'shared-ui/client';
 
 <Dialog>
   <DialogTrigger asChild>
@@ -246,7 +247,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
     </DialogHeader>
     Content here
   </DialogContent>
-</Dialog>
+</Dialog>;
 ```
 
 ## React Hook Form Integration Rules
@@ -255,15 +256,15 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 
 ```tsx
 // ✅ CORRECT
-'use client'
-import { useForm } from 'react-hook-form'
-import { RHFInput, RHFTextarea, Form } from 'shared-ui/rhf'
+'use client';
+import { useForm } from 'react-hook-form';
+import { RHFInput, RHFTextarea, Form } from 'shared-ui/rhf';
 
 function MyForm() {
   const { control, register, handleSubmit } = useForm({
-    defaultValues: { email: '', message: '' }
-  })
-  
+    defaultValues: { email: '', message: '' },
+  });
+
   return (
     <Form control={control} onSubmit={handleSubmit(onSubmit)}>
       <RHFInput
@@ -274,15 +275,9 @@ function MyForm() {
         type="email"
         required
       />
-      <RHFTextarea
-        control={control}
-        register={register}
-        name="message"
-        label="Message"
-        required
-      />
+      <RHFTextarea control={control} register={register} name="message" label="Message" required />
     </Form>
-  )
+  );
 }
 ```
 
@@ -310,14 +305,9 @@ const options = [
 
 ```tsx
 // ✅ CORRECT - Requires date-fns and react-day-picker
-import { RHFDatePicker } from 'shared-ui/rhf'
+import { RHFDatePicker } from 'shared-ui/rhf';
 
-<RHFDatePicker
-  control={control}
-  name="birthday"
-  label="Birthday"
-  required
-/>
+<RHFDatePicker control={control} name="birthday" label="Birthday" required />;
 ```
 
 ## Hooks Usage Rules
@@ -326,14 +316,14 @@ import { RHFDatePicker } from 'shared-ui/rhf'
 
 ```tsx
 // ✅ CORRECT
-import { useIsMobile, useIsTablet, useBreakpoint, useWindowSize } from 'shared-ui'
+import { useIsMobile, useIsTablet, useBreakpoint, useWindowSize } from 'shared-ui';
 
 function MyComponent() {
-  const isMobile = useIsMobile()
-  const breakpoint = useBreakpoint()
-  const { width, height } = useWindowSize()
-  
-  return <div>{isMobile ? 'Mobile' : 'Desktop'}</div>
+  const isMobile = useIsMobile();
+  const breakpoint = useBreakpoint();
+  const { width, height } = useWindowSize();
+
+  return <div>{isMobile ? 'Mobile' : 'Desktop'}</div>;
 }
 ```
 
@@ -341,13 +331,13 @@ function MyComponent() {
 
 ```tsx
 // ✅ CORRECT
-import { useLocalStorage, useSessionStorage } from 'shared-ui'
+import { useLocalStorage, useSessionStorage } from 'shared-ui';
 
 function MyComponent() {
-  const [value, setValue] = useLocalStorage('key', 'default')
-  const [session, setSession] = useSessionStorage('session', null)
-  
-  return <button onClick={() => setValue('new')}>Update</button>
+  const [value, setValue] = useLocalStorage('key', 'default');
+  const [session, setSession] = useSessionStorage('session', null);
+
+  return <button onClick={() => setValue('new')}>Update</button>;
 }
 ```
 
@@ -355,15 +345,15 @@ function MyComponent() {
 
 ```tsx
 // ✅ CORRECT
-import { useDebounce, useToggle, useClickOutside, useCopyToClipboard } from 'shared-ui'
+import { useDebounce, useToggle, useClickOutside, useCopyToClipboard } from 'shared-ui';
 
 function MyComponent() {
-  const [isOpen, toggle] = useToggle(false)
-  const debouncedValue = useDebounce(inputValue, 500)
-  const { copy, copied } = useCopyToClipboard()
-  
-  const ref = useRef(null)
-  useClickOutside(ref, () => setIsOpen(false))
+  const [isOpen, toggle] = useToggle(false);
+  const debouncedValue = useDebounce(inputValue, 500);
+  const { copy, copied } = useCopyToClipboard();
+
+  const ref = useRef(null);
+  useClickOutside(ref, () => setIsOpen(false));
 }
 ```
 
@@ -389,34 +379,34 @@ import { cn } from 'shared-ui'
 
 ```tsx
 // ✅ CORRECT
-import { formatCurrency, formatDate, formatPhoneNumber, formatFileSize, truncate } from 'shared-ui'
+import { formatCurrency, formatDate, formatPhoneNumber, formatFileSize, truncate } from 'shared-ui';
 
-formatCurrency(1000000, 'vi-VN', 'VND') // '1.000.000 ₫'
-formatDate(new Date(), 'short') // '01/01/2024'
-formatPhoneNumber('0123456789') // '0123 456 789'
-formatFileSize(1024) // '1 KB'
-truncate('Long text', 10) // 'Long text...'
+formatCurrency(1000000, 'vi-VN', 'VND'); // '1.000.000 ₫'
+formatDate(new Date(), 'short'); // '01/01/2024'
+formatPhoneNumber('0123456789'); // '0123 456 789'
+formatFileSize(1024); // '1 KB'
+truncate('Long text', 10); // 'Long text...'
 ```
 
 ### Validation Utilities
 
 ```tsx
 // ✅ CORRECT
-import { validateEmail, validatePhone, validateURL, validateVietnamesePhone } from 'shared-ui'
+import { validateEmail, validatePhone, validateURL, validateVietnamesePhone } from 'shared-ui';
 
-validateEmail('test@example.com') // true
-validatePhone('0123456789') // true
-validateURL('https://example.com') // true
-validateVietnamesePhone('0123456789') // true
+validateEmail('test@example.com'); // true
+validatePhone('0123456789'); // true
+validateURL('https://example.com'); // true
+validateVietnamesePhone('0123456789'); // true
 ```
 
 ### Object Utilities
 
 ```tsx
 // ✅ CORRECT
-import { get, hasValue } from 'shared-ui'
+import { get, hasValue } from 'shared-ui';
 
-const userName = get(user, 'profile.name') // Safe property access
+const userName = get(user, 'profile.name'); // Safe property access
 if (hasValue(data)) {
   // Handle non-empty value
 }
@@ -426,18 +416,16 @@ if (hasValue(data)) {
 
 ```tsx
 // ✅ CORRECT
-'use client'
-import { Toaster, toast } from 'shared-ui'
+'use client';
+import { Toaster, toast } from 'shared-ui';
 
 function App() {
   return (
     <>
       <Toaster />
-      <button onClick={() => toast.success('Success!')}>
-        Show Toast
-      </button>
+      <button onClick={() => toast.success('Success!')}>Show Toast</button>
     </>
-  )
+  );
 }
 
 // Toast methods: toast.success(), toast.error(), toast.info(), toast.warning()
@@ -478,28 +466,28 @@ function App() {
 
 ```tsx
 // ✅ CORRECT - Import types explicitly
-import type { ColumnDef } from 'shared-ui'
-import type { DatePickerProps, ChartConfig } from 'shared-ui/client'
+import type { ColumnDef } from 'shared-ui';
+import type { DatePickerProps, ChartConfig } from 'shared-ui/client';
 
 // ✅ CORRECT - Use component prop types
-import { Button } from 'shared-ui'
-import type { ComponentProps } from 'react'
-type ButtonProps = ComponentProps<typeof Button>
+import { Button } from 'shared-ui';
+import type { ComponentProps } from 'react';
+type ButtonProps = ComponentProps<typeof Button>;
 ```
 
 ### Type Safety
 
 ```tsx
 // ✅ CORRECT - Type your form data
-import { useForm } from 'react-hook-form'
-import { RHFInput } from 'shared-ui/rhf'
+import { useForm } from 'react-hook-form';
+import { RHFInput } from 'shared-ui/rhf';
 
 type FormData = {
-  email: string
-  age: number
-}
+  email: string;
+  age: number;
+};
 
-const { control, register } = useForm<FormData>()
+const { control, register } = useForm<FormData>();
 ```
 
 ## Common Patterns
@@ -508,51 +496,55 @@ const { control, register } = useForm<FormData>()
 
 ```tsx
 // ✅ CORRECT
-import { Skeleton, Spinner, LoadingState } from 'shared-ui'
+import { Skeleton, Spinner, LoadingState } from 'shared-ui';
 
-{isLoading ? (
-  <Skeleton className="h-10 w-full" />
-) : (
-  <Content />
-)}
+{
+  isLoading ? <Skeleton className="h-10 w-full" /> : <Content />;
+}
 
-{isLoading && <Spinner />}
+{
+  isLoading && <Spinner />;
+}
 
-<LoadingState message="Loading data..." />
+<LoadingState message="Loading data..." />;
 ```
 
 ### Empty States
 
 ```tsx
 // ✅ CORRECT
-import { Empty, EmptyState } from 'shared-ui'
+import { Empty, EmptyState } from 'shared-ui';
 
-{data.length === 0 ? (
-  <EmptyState
-    title="No data"
-    description="There is no data to display"
-    action={<Button>Add Item</Button>}
-  />
-) : (
-  <DataList data={data} />
-)}
+{
+  data.length === 0 ? (
+    <EmptyState
+      title="No data"
+      description="There is no data to display"
+      action={<Button>Add Item</Button>}
+    />
+  ) : (
+    <DataList data={data} />
+  );
+}
 ```
 
 ### Error Handling
 
 ```tsx
 // ✅ CORRECT
-import { ErrorBoundary, Alert } from 'shared-ui'
+import { ErrorBoundary, Alert } from 'shared-ui';
 
 <ErrorBoundary fallback={<ErrorFallback />}>
   <YourComponent />
-</ErrorBoundary>
+</ErrorBoundary>;
 
-{error && (
-  <Alert variant="destructive">
-    <AlertDescription>{error.message}</AlertDescription>
-  </Alert>
-)}
+{
+  error && (
+    <Alert variant="destructive">
+      <AlertDescription>{error.message}</AlertDescription>
+    </Alert>
+  );
+}
 ```
 
 ## Anti-Patterns (What NOT to Do)
@@ -561,55 +553,55 @@ import { ErrorBoundary, Alert } from 'shared-ui'
 
 ```tsx
 // ❌ WRONG
-import { Button } from 'shared-ui'
-import { Carousel } from 'shared-ui' // Should be 'shared-ui/client'
+import { Button } from 'shared-ui';
+import { Carousel } from 'shared-ui'; // Should be 'shared-ui/client'
 
 // ✅ CORRECT
-import { Button } from 'shared-ui'
-import { Carousel } from 'shared-ui/client'
+import { Button } from 'shared-ui';
+import { Carousel } from 'shared-ui/client';
 ```
 
 ### ❌ Don't Forget 'use client'
 
 ```tsx
 // ❌ WRONG - Using client component without directive
-import { DatePicker } from 'shared-ui/client'
+import { DatePicker } from 'shared-ui/client';
 
 // ✅ CORRECT
-'use client'
-import { DatePicker } from 'shared-ui/client'
+('use client');
+import { DatePicker } from 'shared-ui/client';
 ```
 
 ### ❌ Don't Import Everything
 
 ```tsx
 // ❌ WRONG - Imports everything, no tree-shaking
-import * as SharedUI from 'shared-ui'
+import * as SharedUI from 'shared-ui';
 
 // ✅ CORRECT - Tree-shakeable
-import { Button, Input, Card } from 'shared-ui'
+import { Button, Input, Card } from 'shared-ui';
 ```
 
 ### ❌ Don't Forget Styles Import
 
 ```tsx
 // ❌ WRONG - Missing styles import
-import { Button } from 'shared-ui'
+import { Button } from 'shared-ui';
 
 // ✅ CORRECT
-import 'shared-ui/styles.css'
-import { Button } from 'shared-ui'
+import 'shared-ui/styles.css';
+import { Button } from 'shared-ui';
 ```
 
 ### ❌ Don't Use RHF Without react-hook-form
 
 ```tsx
 // ❌ WRONG - Missing react-hook-form
-import { RHFInput } from 'shared-ui/rhf'
+import { RHFInput } from 'shared-ui/rhf';
 
 // ✅ CORRECT
-import { useForm } from 'react-hook-form'
-import { RHFInput } from 'shared-ui/rhf'
+import { useForm } from 'react-hook-form';
+import { RHFInput } from 'shared-ui/rhf';
 ```
 
 ## Best Practices Summary
@@ -628,52 +620,63 @@ import { RHFInput } from 'shared-ui/rhf'
 ## Component Categories Quick Reference
 
 ### Layout & Structure
+
 - `Container`, `Stack`, `Grid`, `Divider`, `Separator`, `Resizable`, `ScrollArea`, `Sidebar`
 
 ### Forms & Inputs
+
 - Core: `Input`, `Textarea`, `Label`, `Button`, `Checkbox`, `RadioGroup`, `Switch`, `Slider`
 - Client: `Combobox`, `Select`, `InputGroup`, `InputOTP`
 - RHF: All `RHF*` components
 
 ### Navigation
+
 - `Breadcrumb`, `Tabs`, `Accordion`, `Pagination`, `NavigationMenu`, `Menubar`
 
 ### Overlays
+
 - `Dialog`, `Drawer`, `Popover`, `Tooltip`, `DropdownMenu`, `Sheet`, `HoverCard`, `ContextMenu`, `AlertDialog`
 
 ### Data Display
+
 - `Table`, `DataTable`, `Card`, `Badge`, `Avatar`, `Calendar`, `Chart`, `Carousel`, `Empty`, `EmptyState`
 
 ### Feedback
+
 - `Alert`, `Toast`, `Progress`, `Skeleton`, `Spinner`, `LoadingState`, `ErrorBoundary`
 
 ### Advanced
+
 - `Command`, `Collapsible`, `Toggle`, `ToggleGroup`, `Editor`, `FileUpload`, `ImagePreview`, `ImageLightbox`
 
 ## Constants & Types
 
 ### Breakpoints
+
 ```tsx
-import { BREAKPOINTS } from 'shared-ui'
+import { BREAKPOINTS } from 'shared-ui';
 // { sm: '640px', md: '768px', lg: '1024px', xl: '1280px', '2xl': '1536px' }
 ```
 
 ### Date Formats
+
 ```tsx
-import { DATE_FORMATS } from 'shared-ui'
+import { DATE_FORMATS } from 'shared-ui';
 // { short: 'dd/MM/yyyy', long: 'MMMM dd, yyyy', ... }
 ```
 
 ### Regex Patterns
+
 ```tsx
-import { REGEX } from 'shared-ui'
+import { REGEX } from 'shared-ui';
 // { EMAIL, PHONE, URL, VIETNAMESE_PHONE, ... }
 ```
 
 ### Types
+
 ```tsx
-import type { ComboboxOption, ChartConfig, DatePickerProps } from 'shared-ui/client'
-import type { ColumnDef } from '@tanstack/react-table'
+import type { ComboboxOption, ChartConfig, DatePickerProps } from 'shared-ui/client';
+import type { ColumnDef } from '@tanstack/react-table';
 ```
 
 ---

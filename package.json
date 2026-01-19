@@ -44,7 +44,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/xizot/share-ui.git"
+    "url": "https://github.com/xizot/shared-ui.git"
   },
   "scripts": {
     "dev": "vite",

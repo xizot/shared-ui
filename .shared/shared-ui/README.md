@@ -23,11 +23,13 @@ When you ask an AI assistant to build UI components or work with forms, it will 
 ## Quick Reference
 
 ### Entry Points
+
 - `shared-ui` - Core components (server-safe)
 - `shared-ui/client` - Client components (requires 'use client')
 - `shared-ui/rhf` - React Hook Form components
 
 ### Always Remember
+
 1. Import styles first: `import 'shared-ui/styles.css'`
 2. Use correct entry points based on component type
 3. Add 'use client' for client components
@@ -57,7 +59,7 @@ The AI will automatically use the correct components, entry points, and patterns
 ## Installation
 
 ```bash
-npm install git+https://github.com/xizot/share-ui.git
+npm install git+https://github.com/xizot/shared-ui.git
 npm install react react-dom
 
 # Optional - only if using specific features

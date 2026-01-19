@@ -13,7 +13,7 @@ export function DesignSystemFooter() {
         </div>
         <div className="flex items-center gap-4">
           <a
-            href="https://github.com/xizot/share-ui"
+            href="https://github.com/xizot/shared-ui"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
@@ -22,7 +22,7 @@ export function DesignSystemFooter() {
           </a>
           <Separator orientation="vertical" className="h-4" />
           <a
-            href="https://github.com/xizot/share-ui/blob/main/README.md"
+            href="https://github.com/xizot/shared-ui/blob/main/README.md"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
@@ -34,4 +34,3 @@ export function DesignSystemFooter() {
     </footer>
   );
 }
-

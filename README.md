@@ -18,13 +18,13 @@ A comprehensive React component library built with [shadcn/ui](https://ui.shadcn
 
 ```bash
 # npm
-npm install git+https://github.com/xizot/share-ui.git
+npm install git+https://github.com/xizot/shared-ui.git
 
 # yarn
-yarn add git+https://github.com/xizot/share-ui.git
+yarn add git+https://github.com/xizot/shared-ui.git
 
 # pnpm
-pnpm add git+https://github.com/xizot/share-ui.git
+pnpm add git+https://github.com/xizot/shared-ui.git
 ```
 
 ### Peer Dependencies
@@ -40,6 +40,7 @@ npm install react-hook-form date-fns react-day-picker @tanstack/react-table reac
 ```
 
 **Peer Dependencies:**
+
 - `react` ^18.0.0 || ^19.0.0 (required)
 - `react-dom` ^18.0.0 || ^19.0.0 (required)
 - `react-hook-form` ^7.0.0 (optional - only for RHF components)
@@ -51,9 +52,10 @@ npm install react-hook-form date-fns react-day-picker @tanstack/react-table reac
 ### Setup in Your Project
 
 1. **Import CSS** (required):
+
    ```tsx
    // In your root layout or _app.tsx (Next.js) / main.tsx (Vite)
-   import 'shared-ui/styles.css'
+   import 'shared-ui/styles.css';
    ```
 
 2. **Tailwind CSS Compatibility**:
@@ -69,7 +71,7 @@ npm install react-hook-form date-fns react-day-picker @tanstack/react-table reac
 
 ```tsx
 // In your root layout or _app.tsx (Next.js) / main.tsx (Vite)
-import 'shared-ui/styles.css'
+import 'shared-ui/styles.css';
 ```
 
 ### 2. Import Components
@@ -80,7 +82,7 @@ The library is split into 3 entry points for optimal bundle size and server comp
 
 ```tsx
 // ✅ Use in Server Components (Next.js App Router)
-import { Button, Input, Card, Label } from 'shared-ui'
+import { Button, Input, Card, Label } from 'shared-ui';
 
 function ServerComponent() {
   return (
@@ -92,7 +94,7 @@ function ServerComponent() {
         <Button>Click me</Button>
       </CardContent>
     </Card>
-  )
+  );
 }
 ```
 
@@ -100,15 +102,11 @@ function ServerComponent() {
 
 ```tsx
 // ✅ Use in Client Components only
-'use client'
-import { Carousel, Chart, Sidebar, ToggleGroup } from 'shared-ui/client'
+'use client';
+import { Carousel, Chart, Sidebar, ToggleGroup } from 'shared-ui/client';
 
 function ClientComponent() {
-  return (
-    <Carousel>
-      {/* ... */}
-    </Carousel>
-  )
+  return <Carousel>{/* ... */}</Carousel>;
 }
 ```
 
@@ -116,23 +114,18 @@ function ClientComponent() {
 
 ```tsx
 // ✅ Use in Client Components with react-hook-form
-'use client'
-import { useForm } from 'react-hook-form'
-import { RHFInput, RHFTextarea, Form } from 'shared-ui/rhf'
+'use client';
+import { useForm } from 'react-hook-form';
+import { RHFInput, RHFTextarea, Form } from 'shared-ui/rhf';
 
 function MyForm() {
-  const { control, register } = useForm()
-  
+  const { control, register } = useForm();
+
   return (
     <Form control={control}>
-      <RHFInput
-        control={control}
-        register={register}
-        name="email"
-        label="Email"
-      />
+      <RHFInput control={control} register={register} name="email" label="Email" />
     </Form>
-  )
+  );
 }
 ```
 
@@ -140,11 +133,11 @@ function MyForm() {
 
 The library provides 3 entry points to optimize bundle size and ensure server component compatibility:
 
-| Entry Point | Path | Use Case | Components |
-|------------|------|----------|------------|
-| **Core** | `shared-ui` (main) | Server Components | Button, Input, Card, Label, Badge, Avatar, etc. |
-| **Client** | `shared-ui/client` | Client Components with Context | Carousel, Chart, Sidebar, ToggleGroup |
-| **RHF** | `shared-ui/rhf` | React Hook Form | RHFInput, RHFTextarea, Form, RHFEditor, etc. |
+| Entry Point | Path               | Use Case                       | Components                                      |
+| ----------- | ------------------ | ------------------------------ | ----------------------------------------------- |
+| **Core**    | `shared-ui` (main) | Server Components              | Button, Input, Card, Label, Badge, Avatar, etc. |
+| **Client**  | `shared-ui/client` | Client Components with Context | Carousel, Chart, Sidebar, ToggleGroup           |
+| **RHF**     | `shared-ui/rhf`    | React Hook Form                | RHFInput, RHFTextarea, Form, RHFEditor, etc.    |
 
 ### Why Separate Entry Points?
 
@@ -157,7 +150,7 @@ The library provides 3 entry points to optimize bundle size and ensure server co
 ### Basic Example
 
 ```tsx
-import { Button, Card, CardHeader, CardTitle, CardContent } from 'shared-ui'
+import { Button, Card, CardHeader, CardTitle, CardContent } from 'shared-ui';
 
 function App() {
   return (
@@ -169,28 +162,28 @@ function App() {
         <Button>Click me</Button>
       </CardContent>
     </Card>
-  )
+  );
 }
 ```
 
 ### Import Specific Components
 
 ```tsx
-import { Button } from 'shared-ui'
-import { Card, CardHeader, CardTitle } from 'shared-ui'
-import { Input, Label } from 'shared-ui'
+import { Button } from 'shared-ui';
+import { Card, CardHeader, CardTitle } from 'shared-ui';
+import { Input, Label } from 'shared-ui';
 ```
 
 ### Using Utilities
 
 ```tsx
-import { cn, get, hasValue } from 'shared-ui'
+import { cn, get, hasValue } from 'shared-ui';
 
 // Merge Tailwind classes
-const className = cn("base-class", condition && "conditional-class")
+const className = cn('base-class', condition && 'conditional-class');
 
 // Get nested object property
-const userName = get(user, 'profile.name') // Safe property access
+const userName = get(user, 'profile.name'); // Safe property access
 
 // Check if value exists
 if (hasValue(data)) {
@@ -201,36 +194,36 @@ if (hasValue(data)) {
 ### Using Hooks
 
 ```tsx
-import { useIsMobile } from 'shared-ui'
+import { useIsMobile } from 'shared-ui';
 
 function MyComponent() {
-  const isMobile = useIsMobile()
-  
-  return <div>{isMobile ? 'Mobile' : 'Desktop'}</div>
+  const isMobile = useIsMobile();
+
+  return <div>{isMobile ? 'Mobile' : 'Desktop'}</div>;
 }
 ```
 
 ### Using RHF Components
 
 ```tsx
-'use client' // Required for RHF components
+'use client'; // Required for RHF components
 
-import { useForm } from 'react-hook-form'
-import { RHFInput, RHFTextarea, RHFCombobox, Form } from 'shared-ui/rhf'
+import { useForm } from 'react-hook-form';
+import { RHFInput, RHFTextarea, RHFCombobox, Form } from 'shared-ui/rhf';
 
 function MyForm() {
   const { control, register } = useForm({
     defaultValues: {
       email: '',
       message: '',
-      country: ''
-    }
-  })
+      country: '',
+    },
+  });
 
   const options = [
     { id: 1, name: 'Vietnam' },
-    { id: 2, name: 'USA' }
-  ]
+    { id: 2, name: 'USA' },
+  ];
 
   return (
     <Form control={control}>
@@ -242,28 +235,17 @@ function MyForm() {
         type="email"
         required
       />
-      
-      <RHFTextarea
-        control={control}
-        register={register}
-        name="message"
-        label="Message"
-        required
-      />
-      
-      <RHFCombobox
-        control={control}
-        name="country"
-        options={options}
-        label="Country"
-        required
-      />
+
+      <RHFTextarea control={control} register={register} name="message" label="Message" required />
+
+      <RHFCombobox control={control} name="country" options={options} label="Country" required />
     </Form>
-  )
+  );
 }
 ```
 
 **Note**: If using `RHFEditor`, make sure to install `react-quill-new`:
+
 ```bash
 npm install react-quill-new
 ```
@@ -271,19 +253,17 @@ npm install react-quill-new
 ### Using Toast Notifications
 
 ```tsx
-'use client' // Required for Toaster
+'use client'; // Required for Toaster
 
-import { Toaster, toast } from 'shared-ui'
+import { Toaster, toast } from 'shared-ui';
 
 function App() {
   return (
     <>
       <Toaster />
-      <button onClick={() => toast.success('Success!')}>
-        Show Toast
-      </button>
+      <button onClick={() => toast.success('Success!')}>Show Toast</button>
     </>
-  )
+  );
 }
 ```
 
@@ -292,23 +272,21 @@ function App() {
 #### Option 1: Direct Import (Recommended for Client Components)
 
 ```tsx
-'use client' // Required
+'use client'; // Required
 
-import { DatePicker, Carousel, Chart, Sidebar } from 'shared-ui/client'
+import { DatePicker, Carousel, Chart, Sidebar } from 'shared-ui/client';
 
 function MyPage() {
   return (
     <div>
       <DatePicker value={new Date()} onChange={() => {}} />
-      <Carousel>
-        {/* Carousel content */}
-      </Carousel>
-      
+      <Carousel>{/* Carousel content */}</Carousel>
+
       <Chart config={chartConfig} data={data}>
         {/* Chart content */}
       </Chart>
     </div>
-  )
+  );
 }
 ```
 
@@ -316,16 +294,19 @@ function MyPage() {
 
 ```tsx
 // app/page.tsx (Server Component - no 'use client' needed!)
-import dynamic from 'next/dynamic'
+import dynamic from 'next/dynamic';
 
 // Dynamic import với ssr: false - không cần wrapper!
-const DatePicker = dynamic(() => import('shared-ui/client').then(mod => ({ default: mod.DatePicker })), {
-  ssr: false,
-  loading: () => <div>Loading...</div>
-})
+const DatePicker = dynamic(
+  () => import('shared-ui/client').then((mod) => ({ default: mod.DatePicker })),
+  {
+    ssr: false,
+    loading: () => <div>Loading...</div>,
+  },
+);
 
 export default function Page() {
-  return <DatePicker value={new Date()} onChange={() => {}} />
+  return <DatePicker value={new Date()} onChange={() => {}} />;
 }
 ```
 
@@ -334,6 +315,7 @@ export default function Page() {
 ## Available Components
 
 ### Layout & Structure
+
 - **accordion** - Collapsible content sections
 - **aspect-ratio** - Maintain aspect ratios
 - **card** - Container for content
@@ -343,6 +325,7 @@ export default function Page() {
 - **sidebar** - Sidebar navigation
 
 ### Navigation
+
 - **breadcrumb** - Breadcrumb navigation
 - **menubar** - Menu bar component
 - **navigation-menu** - Navigation menu
@@ -350,6 +333,7 @@ export default function Page() {
 - **tabs** - Tabbed interface
 
 ### Forms & Inputs
+
 - **button** - Button component with variants
 - **button-group** - Group of buttons
 - **checkbox** - Checkbox input
@@ -367,6 +351,7 @@ export default function Page() {
 - **field** - Form field wrapper
 
 ### React Hook Form Components (RHF)
+
 - **RHFInput** - Input with react-hook-form integration
 - **RHFTextarea** - Textarea with react-hook-form integration
 - **RHFCombobox** - Combobox with react-hook-form integration
@@ -384,6 +369,7 @@ export default function Page() {
 - **RHFFileUpload** - File upload component with react-hook-form integration
 
 ### Feedback
+
 - **alert** - Alert messages
 - **alert-dialog** - Modal alert dialog
 - **progress** - Progress indicator
@@ -393,6 +379,7 @@ export default function Page() {
 - **toast** - Toast notifications
 
 ### Overlays
+
 - **dialog** - Modal dialog
 - **drawer** - Slide-out drawer
 - **dropdown-menu** - Dropdown menu
@@ -403,6 +390,7 @@ export default function Page() {
 - **context-menu** - Right-click menu
 
 ### Data Display
+
 - **avatar** - User avatar
 - **badge** - Badge component
 - **calendar** - Date picker calendar
@@ -416,6 +404,7 @@ export default function Page() {
 - **toggle-group** - Toggle button group
 
 ### Advanced
+
 - **collapsible** - Collapsible content
 - **command** - Command palette
 - **item** - List item component
@@ -488,26 +477,31 @@ shared-ui/
 ### When to Install Peer Dependencies
 
 **Always Required:**
+
 - `react` and `react-dom` - Core React dependencies
 
 **Only if using RHF Components:**
+
 - `react-hook-form` - Required for all `RHF*` components (RHFInput, RHFTextarea, RHFCombobox, etc.)
 
 **Only if using Date Pickers:**
+
 - `date-fns` - Required for date formatting in RHFDatePicker and RHFDateRangePicker
 - `react-day-picker` - Required for Calendar component and date pickers
 
 ### Best Practices
 
 1. **Import Styles First** (Before your global.css to allow override)
+
    ```tsx
    // In your root layout or _app.tsx (Next.js) / main.tsx (Vite)
    // Import shared-ui styles BEFORE your global.css to allow override
-   import 'shared-ui/styles.css'
-   import './globals.css' // Your custom styles - can override shared-ui
+   import 'shared-ui/styles.css';
+   import './globals.css'; // Your custom styles - can override shared-ui
    ```
-   
+
    **Override CSS Variables:**
+
    ```css
    /* In your globals.css or global.css */
    :root {
@@ -519,79 +513,78 @@ shared-ui/
    ```
 
 2. **Use Correct Entry Points**
+
    ```tsx
    // ✅ Server Components (Next.js)
-   import { Button, Input, Card } from 'shared-ui'
-   
+   import { Button, Input, Card } from 'shared-ui';
+
    // ✅ Client Components with Context
-   'use client'
-   import { Carousel, Chart } from 'shared-ui/client'
-   
+   ('use client');
+   import { Carousel, Chart } from 'shared-ui/client';
+
    // ✅ React Hook Form Components
-   'use client'
-   import { RHFInput, Form } from 'shared-ui/rhf'
+   ('use client');
+   import { RHFInput, Form } from 'shared-ui/rhf';
    ```
 
 3. **Tree-shaking**
    - Import only what you need to keep bundle size small
+
    ```tsx
    // ✅ Good - Tree-shakeable
-   import { Button, Input } from 'shared-ui'
-   
+   import { Button, Input } from 'shared-ui';
+
    // ❌ Avoid - Imports everything
-   import * as SharedUI from 'shared-ui'
+   import * as SharedUI from 'shared-ui';
    ```
 
 4. **Using RHF Components**
+
    ```tsx
-   'use client' // Required
-   import { useForm } from 'react-hook-form'
-   import { RHFInput, RHFTextarea, Form } from 'shared-ui/rhf'
-   
+   'use client'; // Required
+   import { useForm } from 'react-hook-form';
+   import { RHFInput, RHFTextarea, Form } from 'shared-ui/rhf';
+
    function MyForm() {
-     const { control, register } = useForm()
-     
+     const { control, register } = useForm();
+
      return (
        <Form control={control}>
-         <RHFInput
-           control={control}
-           register={register}
-           name="email"
-           label="Email"
-           required
-         />
+         <RHFInput control={control} register={register} name="email" label="Email" required />
        </Form>
-     )
+     );
    }
    ```
-   
+
    **Note**: If using `RHFEditor`, install `react-quill-new`:
+
    ```bash
    npm install react-quill-new
    ```
 
-4. **Using Date Pickers**
+5. **Using Date Pickers**
+
    ```tsx
-   import { RHFDatePicker } from 'shared-ui'
-   import { format } from 'date-fns' // date-fns is peer dependency
-   
+   import { RHFDatePicker } from 'shared-ui';
+   import { format } from 'date-fns'; // date-fns is peer dependency
+
    // Make sure react-day-picker is installed
    ```
 
-5. **Component Props**
+6. **Component Props**
    - All `className` props use `ComponentProps['className']` for type safety
    - Always pass `id` prop when using `label` to ensure proper accessibility
 
-6. **Error Handling**
+7. **Error Handling**
    - RHF components automatically display errors from react-hook-form
    - Base components (Input, Textarea, etc.) accept `error` prop directly
 
-7. **Accessibility**
+8. **Accessibility**
    - All components follow ARIA guidelines
    - Labels are properly linked to inputs via `htmlFor` and `id`
    - Error messages are announced to screen readers
 
-8. **Available Utilities**
+9. **Available Utilities**
    - **Core**: `cn()`, `get()`, `hasValue()`, `toast`
    - **Formatting**: `formatCurrency()`, `formatDate()`, `formatPhoneNumber()`, `formatFileSize()`, `truncate()`
    - **Validation**: `validateEmail()`, `validatePhone()`, `validateURL()`, `validateVietnamesePhone()`
@@ -599,28 +592,28 @@ shared-ui/
    - **String**: `slugify()`, `camelCase()`, `kebabCase()`, `capitalize()`
    - **Performance**: `lazyLoad()`, `calculateVirtualScroll()`
 
-9. **Available Hooks**
-   - **Media**: `useIsMobile()`, `useIsTablet()`, `useMediaQuery()`, `useBreakpoint()`, `useWindowSize()`
-   - **Form**: `useDebounce()`, `useDebouncedCallback()`, `useThrottle()`
-   - **Storage**: `useLocalStorage()`, `useSessionStorage()`
-   - **UI**: `useClickOutside()`, `useCopyToClipboard()`, `useToggle()`, `usePrevious()`
-   - **Performance**: `useMemoizedCallback()`
-   - **Accessibility**: `useFocusTrap()`, `useKeyboardNavigation()`, `useAriaLabel()`
-   - **Theme**: `useTheme()` (requires ThemeProvider)
-   - **i18n**: `useTranslation()` (requires I18nProvider)
+10. **Available Hooks**
+    - **Media**: `useIsMobile()`, `useIsTablet()`, `useMediaQuery()`, `useBreakpoint()`, `useWindowSize()`
+    - **Form**: `useDebounce()`, `useDebouncedCallback()`, `useThrottle()`
+    - **Storage**: `useLocalStorage()`, `useSessionStorage()`
+    - **UI**: `useClickOutside()`, `useCopyToClipboard()`, `useToggle()`, `usePrevious()`
+    - **Performance**: `useMemoizedCallback()`
+    - **Accessibility**: `useFocusTrap()`, `useKeyboardNavigation()`, `useAriaLabel()`
+    - **Theme**: `useTheme()` (requires ThemeProvider)
+    - **i18n**: `useTranslation()` (requires I18nProvider)
 
-10. **Available Components**
+11. **Available Components**
     - **Layout**: `Container`, `Stack`, `Grid`, `Divider`
     - **Feedback**: `LoadingButton`, `ConfirmDialog`, `DeleteConfirmDialog`
     - **Data Display**: `DataTable`, `EmptyState`, `LoadingState`, `ErrorBoundary`, `StatusBadge`
     - **RHF Components**: `RHFInput`, `RHFTextarea`, `RHFNumberInput`, `RHFCheckboxGroup`, `RHFMultiSelect`, `RHFUpload`, `RHFTimePicker`, `RHFDatePicker`, `RHFDateRangePicker`, `RHFCombobox`, `RHFSwitch`, `RHFRadioGroup`, `RHFFormattedInput`
 
-11. **Available Constants**
+12. **Available Constants**
     - `BREAKPOINTS` - Responsive breakpoints (sm, md, lg, xl, 2xl)
     - `REGEX` - Common regex patterns (email, phone, URL, etc.)
     - `DATE_FORMATS` - Predefined date format strings
 
-12. **Available Types**
+13. **Available Types**
     - `ComboboxOption`, `ComboboxBaseOption`
     - `ChartConfig`
     - `DeepPartial`, `RequiredFields`, `OptionalFields`, `Prettify`
@@ -644,14 +637,14 @@ npm install @tanstack/react-table
 Simple table without any features:
 
 ```tsx
-import { DataTable, type ColumnDef } from 'shared-ui'
+import { DataTable, type ColumnDef } from 'shared-ui';
 
 type User = {
-  id: string
-  name: string
-  email: string
-  role: string
-}
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+};
 
 const columns: ColumnDef<User, unknown>[] = [
   {
@@ -666,15 +659,15 @@ const columns: ColumnDef<User, unknown>[] = [
     accessorKey: 'role',
     header: 'Role',
   },
-]
+];
 
 const data: User[] = [
   { id: '1', name: 'John Doe', email: 'john@example.com', role: 'Admin' },
   { id: '2', name: 'Jane Smith', email: 'jane@example.com', role: 'User' },
-]
+];
 
 function UsersTable() {
-  return <DataTable data={data} columns={columns} />
+  return <DataTable data={data} columns={columns} />;
 }
 ```
 
@@ -723,7 +716,7 @@ const columns: ColumnDef<User, unknown>[] = [
 Customize how cells are rendered:
 
 ```tsx
-import { Badge } from 'shared-ui'
+import { Badge } from 'shared-ui';
 
 const columns: ColumnDef<User, unknown>[] = [
   {
@@ -734,12 +727,8 @@ const columns: ColumnDef<User, unknown>[] = [
     accessorKey: 'role',
     header: 'Role',
     cell: ({ row }) => {
-      const role = row.original.role
-      return (
-        <Badge variant={role === 'Admin' ? 'default' : 'secondary'}>
-          {role}
-        </Badge>
-      )
+      const role = row.original.role;
+      return <Badge variant={role === 'Admin' ? 'default' : 'secondary'}>{role}</Badge>;
     },
   },
   {
@@ -751,7 +740,7 @@ const columns: ColumnDef<User, unknown>[] = [
       </a>
     ),
   },
-]
+];
 ```
 
 ### 5. With Pagination
@@ -778,12 +767,12 @@ Handle row clicks and dynamic row styling:
   data={data}
   columns={columns}
   onRowClick={(row) => {
-    console.log('Clicked row:', row)
+    console.log('Clicked row:', row);
     // Navigate to detail page, open modal, etc.
   }}
   rowClassName={(row) => {
     // Dynamic row styling
-    return row.role === 'Admin' ? 'bg-muted' : ''
+    return row.role === 'Admin' ? 'bg-muted' : '';
   }}
 />
 ```
@@ -793,44 +782,39 @@ Handle row clicks and dynamic row styling:
 Implement custom global filter logic:
 
 ```tsx
-import type { FilterFn } from '@tanstack/react-table'
+import type { FilterFn } from '@tanstack/react-table';
 
 const customFilter: FilterFn<User> = (row, columnId, filterValue) => {
   // Custom filtering logic
-  const searchValue = String(filterValue).toLowerCase()
+  const searchValue = String(filterValue).toLowerCase();
   return (
     row.original.name.toLowerCase().includes(searchValue) ||
     row.original.email.toLowerCase().includes(searchValue)
-  )
-}
+  );
+};
 
-<DataTable
-  data={data}
-  columns={columns}
-  searchable
-  globalFilterFn={customFilter}
-/>
+<DataTable data={data} columns={columns} searchable globalFilterFn={customFilter} />;
 ```
 
 ### 8. Complete Example with All Features
 
 ```tsx
-import { DataTable, type ColumnDef, Badge, Button } from 'shared-ui'
-import { useState } from 'react'
+import { DataTable, type ColumnDef, Badge, Button } from 'shared-ui';
+import { useState } from 'react';
 
 type User = {
-  id: string
-  name: string
-  email: string
-  role: string
-  status: 'active' | 'inactive'
-}
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  status: 'active' | 'inactive';
+};
 
 function UsersTable() {
   const [users] = useState<User[]>([
     { id: '1', name: 'John Doe', email: 'john@example.com', role: 'Admin', status: 'active' },
     { id: '2', name: 'Jane Smith', email: 'jane@example.com', role: 'User', status: 'active' },
-  ])
+  ]);
 
   const columns: ColumnDef<User, unknown>[] = [
     {
@@ -870,7 +854,7 @@ function UsersTable() {
         </Button>
       ),
     },
-  ]
+  ];
 
   return (
     <DataTable
@@ -883,7 +867,7 @@ function UsersTable() {
       onRowClick={(user) => console.log('Selected:', user)}
       emptyMessage="No users found"
     />
-  )
+  );
 }
 ```
 
@@ -915,7 +899,7 @@ Customize labels for different languages:
 Since `DataTable` uses TanStack Table's `ColumnDef`, you can leverage all TanStack Table features:
 
 ```tsx
-import { ColumnDef } from '@tanstack/react-table'
+import { ColumnDef } from '@tanstack/react-table';
 
 const columns: ColumnDef<User, unknown>[] = [
   {
@@ -940,7 +924,7 @@ const columns: ColumnDef<User, unknown>[] = [
       </div>
     ),
   },
-]
+];
 ```
 
 For more advanced features, refer to the [TanStack Table documentation](https://tanstack.com/table/latest).
@@ -948,6 +932,7 @@ For more advanced features, refer to the [TanStack Table documentation](https://
 ## Dependencies
 
 ### Peer Dependencies
+
 - `react` ^18.0.0 || ^19.0.0 (required)
 - `react-dom` ^18.0.0 || ^19.0.0 (required)
 - `react-hook-form` ^7.0.0 (optional - for RHF components)
@@ -955,6 +940,7 @@ For more advanced features, refer to the [TanStack Table documentation](https://
 - `react-day-picker` ^9.0.0 (optional - for date pickers)
 
 ### Included Dependencies
+
 - All Radix UI primitives
 - `class-variance-authority`
 - `clsx`

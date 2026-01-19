@@ -39,22 +39,31 @@ export function DesignSystemWelcome() {
               <h4 className="font-medium">Installation</h4>
               <div className="bg-muted p-4 rounded-md font-mono text-sm">
                 <div className="text-muted-foreground mb-2"># npm</div>
-                <div>npm install git+https://github.com/xizot/share-ui.git</div>
+                <div>npm install git+https://github.com/xizot/shared-ui.git</div>
                 <div className="text-muted-foreground mt-4 mb-2"># yarn</div>
-                <div>yarn add git+https://github.com/xizot/share-ui.git</div>
+                <div>yarn add git+https://github.com/xizot/shared-ui.git</div>
                 <div className="text-muted-foreground mt-4 mb-2"># pnpm</div>
-                <div>pnpm add git+https://github.com/xizot/share-ui.git</div>
+                <div>pnpm add git+https://github.com/xizot/shared-ui.git</div>
               </div>
             </div>
             <div className="space-y-2">
               <h4 className="font-medium">Peer Dependencies</h4>
               <div className="bg-muted p-4 rounded-md font-mono text-sm">
                 <div className="text-muted-foreground mb-2"># npm</div>
-                <div>npm install react react-dom react-hook-form date-fns react-day-picker @tanstack/react-table</div>
+                <div>
+                  npm install react react-dom react-hook-form date-fns react-day-picker
+                  @tanstack/react-table
+                </div>
                 <div className="text-muted-foreground mt-4 mb-2"># yarn</div>
-                <div>yarn add react react-dom react-hook-form date-fns react-day-picker @tanstack/react-table</div>
+                <div>
+                  yarn add react react-dom react-hook-form date-fns react-day-picker
+                  @tanstack/react-table
+                </div>
                 <div className="text-muted-foreground mt-4 mb-2"># pnpm</div>
-                <div>pnpm add react react-dom react-hook-form date-fns react-day-picker @tanstack/react-table</div>
+                <div>
+                  pnpm add react react-dom react-hook-form date-fns react-day-picker
+                  @tanstack/react-table
+                </div>
               </div>
             </div>
             <div className="space-y-2">
@@ -63,7 +72,9 @@ export function DesignSystemWelcome() {
                 <div className="text-muted-foreground"># 1. Import styles in your entry file</div>
                 <div>import 'shared-ui/styles.css'</div>
                 <div className="text-muted-foreground mt-3"># 2. Import components</div>
-                <div>import {'{'} Button, Card, Toaster {'}'} from 'shared-ui'</div>
+                <div>
+                  import {'{'} Button, Card, Toaster {'}'} from 'shared-ui'
+                </div>
               </div>
             </div>
             <div className="space-y-2">
@@ -72,8 +83,12 @@ export function DesignSystemWelcome() {
                 <div className="text-muted-foreground">function App() {'{'}</div>
                 <div className="ml-4">return (</div>
                 <div className="ml-8">{'<>'}</div>
-                <div className="ml-12">{'<'}Toaster /{'>'}</div>
-                <div className="ml-12">{'<'}Button{'>'}Click me{'</'}Button{'>'}</div>
+                <div className="ml-12">
+                  {'<'}Toaster /{'>'}
+                </div>
+                <div className="ml-12">
+                  {'<'}Button{'>'}Click me{'</'}Button{'>'}
+                </div>
                 <div className="ml-8">{'</>'}</div>
                 <div className="ml-4">)</div>
                 <div>{'}'}</div>
@@ -163,4 +178,3 @@ export function DesignSystemWelcome() {
     </div>
   );
 }
-
