@@ -40,7 +40,10 @@
     "./styles.css": "./dist/style.css"
   },
   "files": [
-    "dist"
+    "dist",
+    "registry",
+    "cli/dist",
+    "cli/package.json"
   ],
   "repository": {
     "type": "git",
@@ -53,6 +56,7 @@
     "build:preview:root": "cross-env GITHUB_REPO_NAME= vite build --config vite.config.preview.ts",
     "build:all": "npm run build && npm run build:preview",
     "build:dev": "vite build",
+    "generate:registry": "tsx scripts/generate-registry.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
@@ -143,6 +147,7 @@
     "react-hook-form": "^7.68.0",
     "tailwindcss": "^4.1.18",
     "tailwindcss-animate": "^1.0.7",
+    "tsx": "^4.21.0",
     "tw-animate-css": "^1.4.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",

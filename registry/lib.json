@@ -1,0 +1,85 @@
+[
+  {
+    "name": "lib-format",
+    "type": "registry:lib",
+    "dependencies": [],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "lib/format.ts",
+        "content": "import { DATE_FORMATS, type DateFormat } from '../constants/date-formats';\r\n\r\n/**\r\n * Format currency amount\r\n * @example formatCurrency(1000000, 'vi-VN', 'VND') // '1.000.000 ₫'\r\n */\r\nexport function formatCurrency(\r\n  amount: number,\r\n  locale: string = 'en-US',\r\n  currency: string = 'USD',\r\n): string {\r\n  return new Intl.NumberFormat(locale, {\r\n    style: 'currency',\r\n    currency,\r\n  }).format(amount);\r\n}\r\n\r\n/**\r\n * Format date using date-fns format or custom format\r\n * @example formatDate(new Date(), 'short') // '01/01/2024'\r\n */\r\nexport function formatDate(\r\n  date: Date | string | number,\r\n  format: DateFormat | string = 'short',\r\n): string {\r\n  const dateObj = typeof date === 'string' || typeof date === 'number' ? new Date(date) : date;\r\n\r\n  if (isNaN(dateObj.getTime())) {\r\n    return '';\r\n  }\r\n\r\n  // If format is a key in DATE_FORMATS, use it\r\n  if (format in DATE_FORMATS) {\r\n    const formatStr = DATE_FORMATS[format as DateFormat];\r\n    // Simple date formatting without date-fns dependency\r\n    return formatDateString(dateObj, formatStr);\r\n  }\r\n\r\n  // Otherwise use as custom format string\r\n  return formatDateString(dateObj, format);\r\n}\r\n\r\nfunction formatDateString(date: Date, format: string): string {\r\n  const day = date.getDate().toString().padStart(2, '0');\r\n  const month = (date.getMonth() + 1).toString().padStart(2, '0');\r\n  const year = date.getFullYear();\r\n  const hours = date.getHours().toString().padStart(2, '0');\r\n  const minutes = date.getMinutes().toString().padStart(2, '0');\r\n  const seconds = date.getSeconds().toString().padStart(2, '0');\r\n\r\n  const monthNames = [\r\n    'January',\r\n    'February',\r\n    'March',\r\n    'April',\r\n    'May',\r\n    'June',\r\n    'July',\r\n    'August',\r\n    'September',\r\n    'October',\r\n    'November',\r\n    'December',\r\n  ];\r\n\r\n  return format\r\n    .replace(/dd/g, day)\r\n    .replace(/MM/g, month)\r\n    .replace(/yyyy/g, year.toString())\r\n    .replace(/MMMM/g, monthNames[date.getMonth()])\r\n    .replace(/MMM/g, monthNames[date.getMonth()].substring(0, 3))\r\n    .replace(/HH/g, hours)\r\n    .replace(/mm/g, minutes)\r\n    .replace(/ss/g, seconds);\r\n}\r\n\r\n/**\r\n * Format phone number\r\n * @example formatPhoneNumber('0123456789') // '0123 456 789'\r\n */\r\nexport function formatPhoneNumber(phone: string): string {\r\n  const cleaned = phone.replace(/\\D/g, '');\r\n\r\n  if (cleaned.length === 10) {\r\n    return `${cleaned.slice(0, 4)} ${cleaned.slice(4, 7)} ${cleaned.slice(7)}`;\r\n  }\r\n\r\n  if (cleaned.length === 11) {\r\n    return `${cleaned.slice(0, 4)} ${cleaned.slice(4, 7)} ${cleaned.slice(7)}`;\r\n  }\r\n\r\n  return phone;\r\n}\r\n\r\n/**\r\n * Format file size in bytes to human readable format\r\n * @example formatFileSize(1024) // '1 KB'\r\n */\r\nexport function formatFileSize(bytes: number): string {\r\n  if (bytes === 0) return '0 Bytes';\r\n\r\n  const k = 1024;\r\n  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];\r\n  const i = Math.floor(Math.log(bytes) / Math.log(k));\r\n\r\n  return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];\r\n}\r\n\r\n/**\r\n * Truncate text with ellipsis\r\n * @example truncate('Hello World', 5) // 'Hello...'\r\n */\r\nexport function truncate(text: string, maxLength: number, suffix: string = '...'): string {\r\n  if (text.length <= maxLength) return text;\r\n  return text.slice(0, maxLength) + suffix;\r\n}\r\n",
+        "type": "registry:lib"
+      }
+    ]
+  },
+  {
+    "name": "lib-string",
+    "type": "registry:lib",
+    "dependencies": [],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "lib/string.ts",
+        "content": "/**\r\n * Convert text to URL-friendly slug\r\n * @example slugify('Hello World!') // 'hello-world'\r\n */\r\nexport function slugify(text: string): string {\r\n  return text\r\n    .toLowerCase()\r\n    .trim()\r\n    .replace(/[^\\w\\s-]/g, '')\r\n    .replace(/[\\s_-]+/g, '-')\r\n    .replace(/^-+|-+$/g, '');\r\n}\r\n\r\n/**\r\n * Convert text to camelCase\r\n * @example camelCase('hello world') // 'helloWorld'\r\n */\r\nexport function camelCase(text: string): string {\r\n  return text\r\n    .replace(/(?:^\\w|[A-Z]|\\b\\w)/g, (word, index) => {\r\n      return index === 0 ? word.toLowerCase() : word.toUpperCase();\r\n    })\r\n    .replace(/\\s+/g, '');\r\n}\r\n\r\n/**\r\n * Convert text to kebab-case\r\n * @example kebabCase('Hello World') // 'hello-world'\r\n */\r\nexport function kebabCase(text: string): string {\r\n  return text\r\n    .replace(/([a-z])([A-Z])/g, '$1-$2')\r\n    .replace(/[\\s_]+/g, '-')\r\n    .toLowerCase();\r\n}\r\n\r\n/**\r\n * Capitalize first letter of text\r\n * @example capitalize('hello') // 'Hello'\r\n */\r\nexport function capitalize(text: string): string {\r\n  if (!text) return text;\r\n  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();\r\n}\r\n",
+        "type": "registry:lib"
+      }
+    ]
+  },
+  {
+    "name": "lib-toast",
+    "type": "registry:lib",
+    "dependencies": [
+      "sonner"
+    ],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "lib/toast.ts",
+        "content": "import { toast as sonnerToast } from 'sonner';\r\n\r\ntype ToastOptions = {\r\n  description?: string;\r\n  duration?: number;\r\n  action?: {\r\n    label: string;\r\n    onClick: () => void;\r\n  };\r\n};\r\n\r\n/**\r\n * Toast utility functions for displaying notifications\r\n */\r\nexport const toast = {\r\n  /**\r\n   * Show a success toast\r\n   */\r\n  success: (message: string, options?: ToastOptions) => {\r\n    return sonnerToast.success(message, {\r\n      description: options?.description,\r\n      duration: options?.duration,\r\n      action: options?.action,\r\n    });\r\n  },\r\n\r\n  /**\r\n   * Show an error toast\r\n   */\r\n  error: (message: string, options?: ToastOptions) => {\r\n    return sonnerToast.error(message, {\r\n      description: options?.description,\r\n      duration: options?.duration,\r\n      action: options?.action,\r\n    });\r\n  },\r\n\r\n  /**\r\n   * Show a warning toast\r\n   */\r\n  warning: (message: string, options?: ToastOptions) => {\r\n    return sonnerToast.warning(message, {\r\n      description: options?.description,\r\n      duration: options?.duration,\r\n      action: options?.action,\r\n    });\r\n  },\r\n\r\n  /**\r\n   * Show an info toast\r\n   */\r\n  info: (message: string, options?: ToastOptions) => {\r\n    return sonnerToast.info(message, {\r\n      description: options?.description,\r\n      duration: options?.duration,\r\n      action: options?.action,\r\n    });\r\n  },\r\n\r\n  /**\r\n   * Show a default toast\r\n   */\r\n  default: (message: string, options?: ToastOptions) => {\r\n    return sonnerToast(message, {\r\n      description: options?.description,\r\n      duration: options?.duration,\r\n      action: options?.action,\r\n    });\r\n  },\r\n\r\n  /**\r\n   * Show a loading toast\r\n   */\r\n  loading: (message: string, options?: Omit<ToastOptions, 'action'>) => {\r\n    return sonnerToast.loading(message, {\r\n      description: options?.description,\r\n      duration: options?.duration,\r\n    });\r\n  },\r\n\r\n  /**\r\n   * Show a promise toast (loading -> success/error)\r\n   */\r\n  promise: <T>(\r\n    promise: Promise<T>,\r\n    messages: {\r\n      loading: string;\r\n      success: string | ((data: T) => string);\r\n      error: string | ((error: unknown) => string);\r\n    },\r\n    options?: Omit<ToastOptions, 'title' | 'description'>,\r\n  ) => {\r\n    return sonnerToast.promise(promise, {\r\n      loading: messages.loading,\r\n      success: messages.success,\r\n      error: messages.error,\r\n      duration: options?.duration,\r\n    });\r\n  },\r\n\r\n  /**\r\n   * Dismiss a toast by ID\r\n   */\r\n  dismiss: (toastId?: string | number) => {\r\n    sonnerToast.dismiss(toastId);\r\n  },\r\n\r\n  /**\r\n   * Dismiss all toasts\r\n   */\r\n  dismissAll: () => {\r\n    sonnerToast.dismiss();\r\n  },\r\n};\r\n",
+        "type": "registry:lib"
+      }
+    ]
+  },
+  {
+    "name": "lib-types",
+    "type": "registry:lib",
+    "dependencies": [],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "lib/types.ts",
+        "content": "/**\r\n * Make all properties in T optional recursively\r\n */\r\nexport type DeepPartial<T> = T extends object\r\n  ? {\r\n      [P in keyof T]?: DeepPartial<T[P]>;\r\n    }\r\n  : T;\r\n\r\n/**\r\n * Make specific fields required\r\n */\r\nexport type RequiredFields<T, K extends keyof T> = T & Required<Pick<T, K>>;\r\n\r\n/**\r\n * Make specific fields optional\r\n */\r\nexport type OptionalFields<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;\r\n\r\n/**\r\n * Prettify type for better IntelliSense\r\n */\r\nexport type Prettify<T> = {\r\n  [K in keyof T]: T[K];\r\n} & {};\r\n",
+        "type": "registry:lib"
+      }
+    ]
+  },
+  {
+    "name": "lib-utils",
+    "type": "registry:lib",
+    "dependencies": [
+      "clsx",
+      "tailwind-merge"
+    ],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "lib/utils.ts",
+        "content": "import { clsx, type ClassValue } from 'clsx';\r\nimport { twMerge } from 'tailwind-merge';\r\n\r\nexport function cn(...inputs: ClassValue[]) {\r\n  return twMerge(clsx(inputs));\r\n}\r\n\r\n/**\r\n * Get nested object property by path string\r\n * @example get({ user: { name: 'John' } }, 'user.name') // 'John'\r\n */\r\nexport function get<T = unknown>(obj: unknown, path: string): T | undefined {\r\n  const keys = path.split('.');\r\n  let result: unknown = obj;\r\n\r\n  for (const key of keys) {\r\n    if (result === null || result === undefined || typeof result !== 'object') {\r\n      return undefined;\r\n    }\r\n    result = (result as Record<string, unknown>)[key];\r\n  }\r\n\r\n  return result as T;\r\n}\r\n\r\n/**\r\n * Check if value exists (not null, undefined, or empty string)\r\n */\r\nexport function hasValue(value: unknown): boolean {\r\n  if (value === null || value === undefined) {\r\n    return false;\r\n  }\r\n  if (typeof value === 'string' && value.trim() === '') {\r\n    return false;\r\n  }\r\n  return true;\r\n}\r\n",
+        "type": "registry:lib"
+      }
+    ]
+  },
+  {
+    "name": "lib-validate",
+    "type": "registry:lib",
+    "dependencies": [],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "lib/validate.ts",
+        "content": "import { REGEX } from '../constants/regex';\r\n\r\n/**\r\n * Validate email address\r\n * @example validateEmail('test@example.com') // true\r\n */\r\nexport function validateEmail(email: string): boolean {\r\n  return REGEX.email.test(email);\r\n}\r\n\r\n/**\r\n * Validate phone number (10-11 digits)\r\n * @example validatePhone('0123456789') // true\r\n */\r\nexport function validatePhone(phone: string): boolean {\r\n  return REGEX.phone.test(phone);\r\n}\r\n\r\n/**\r\n * Validate Vietnamese phone number\r\n * @example validateVietnamesePhone('0912345678') // true\r\n */\r\nexport function validateVietnamesePhone(phone: string): boolean {\r\n  return REGEX.vietnamesePhone.test(phone);\r\n}\r\n\r\n/**\r\n * Validate URL\r\n * @example validateURL('https://example.com') // true\r\n */\r\nexport function validateURL(url: string): boolean {\r\n  return REGEX.url.test(url);\r\n}\r\n",
+        "type": "registry:lib"
+      }
+    ]
+  }
+]

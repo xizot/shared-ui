@@ -1,0 +1,32 @@
+{
+  "name": "@xizot/shared-ui-cli",
+  "version": "1.0.0",
+  "description": "CLI tool for adding shared-ui components to your project",
+  "type": "module",
+  "bin": {
+    "shared-ui": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean",
+    "dev": "tsup src/index.ts --format esm --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "chalk": "^5.4.1",
+    "ora": "^8.1.1",
+    "prompts": "^2.4.2",
+    "execa": "^9.5.2",
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.10.5",
+    "@types/prompts": "^2.4.9",
+    "tsup": "^8.4.1",
+    "typescript": "^5.9.3"
+  }
+}

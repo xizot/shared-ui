@@ -1,20 +1,47 @@
 # Shared UI Component Library
 
-A comprehensive React component library built with [shadcn/ui](https://ui.shadcn.com/), TypeScript, and Tailwind CSS. This library contains all shadcn/ui components pre-installed and ready to customize.
+A comprehensive React component library built with [shadcn/ui](https://ui.shadcn.com/), TypeScript, and Tailwind CSS. Components are designed to be **copied and pasted into your project** for full customization control.
 
 ## Features
 
-- 🎨 **54+ UI Components** - All shadcn/ui components pre-installed
+- 🎨 **70+ UI Components** - Complete shadcn/ui-based component collection
+- 📋 **React Hook Form Integration** - 17 pre-built form components
 - 🎯 **TypeScript** - Full type safety
-- 🎨 **Tailwind CSS** - Utility-first styling
-- 📦 **Tree-shakeable** - Import only what you need
-- 🔧 **Customizable** - All components are in your codebase, modify as needed
+- 🎨 **Tailwind CSS v4** - Modern utility-first styling
+- 🔧 **Full Control** - Copy components to your codebase and customize freely
 - 📱 **Responsive** - Mobile-first design
 - ♿ **Accessible** - Built on Radix UI primitives
+- 🌳 **Tree-shakeable** - Only bundle what you use
 
-## Installation
+## Installation Methods
 
-### From GitHub
+### Method 1: CLI Tool (Recommended - shadcn-style)
+
+Install components directly into your project for full customization:
+
+```bash
+# Initialize shared-ui in your project
+npx @xizot/shared-ui-cli init
+
+# Add specific components
+npx @xizot/shared-ui-cli add button input card
+
+# Add all components
+npx @xizot/shared-ui-cli add --all
+```
+
+Components will be copied to `src/components/ui/shared-ui/` (configurable during init).
+
+**Advantages:**
+- ✅ Full control over component code
+- ✅ Easy customization and modifications
+- ✅ No version lock-in
+- ✅ Automatic dependency resolution
+- ✅ Works offline after initial copy
+
+### Method 2: NPM Package (Legacy)
+
+Install as a dependency for quick setup:
 
 ```bash
 # npm
@@ -27,29 +54,55 @@ yarn add git+https://github.com/xizot/shared-ui.git
 pnpm add git+https://github.com/xizot/shared-ui.git
 ```
 
+**Note:** This method is kept for backward compatibility. For new projects, we recommend using the CLI tool for better flexibility.
+
 ### Peer Dependencies
 
-This library requires the following peer dependencies. You need to install them separately:
+Install required peer dependencies based on what you use:
 
 ```bash
-# Required peer dependencies
+# Always required
 npm install react react-dom
 
-# Optional peer dependencies (only if you use specific features)
-npm install react-hook-form date-fns react-day-picker @tanstack/react-table react-quill-new
+# For React Hook Form components
+npm install react-hook-form
+
+# For date pickers
+npm install date-fns react-day-picker
+
+# For data tables
+npm install @tanstack/react-table
+
+# For rich text editor
+npm install react-quill-new quill
 ```
 
-**Peer Dependencies:**
+### Setup
 
-- `react` ^18.0.0 || ^19.0.0 (required)
-- `react-dom` ^18.0.0 || ^19.0.0 (required)
-- `react-hook-form` ^7.0.0 (optional - only for RHF components)
-- `date-fns` ^2.0.0 || ^3.0.0 (optional - only for date pickers)
-- `react-day-picker` ^9.0.0 (optional - only for date pickers)
-- `@tanstack/react-table` ^8.0.0 || ^9.0.0 (optional - only for DataTable component)
-- `react-quill-new` (optional - only for RHFEditor component)
+#### For CLI Installation (Method 1)
 
-### Setup in Your Project
+No additional setup needed! Components are copied with all necessary imports and dependencies.
+
+**Usage:**
+```tsx
+// Import from your local components directory
+import { Button } from '@/components/ui/shared-ui/button';
+import { Input } from '@/components/ui/shared-ui/input';
+
+function MyForm() {
+  return (
+    <div>
+      <Input label="Email" type="email" />
+      <Button>Submit</Button>
+    </div>
+  );
+}
+```
+
+**Customization:**
+Simply edit the copied component files in your project. They're yours to modify!
+
+#### For NPM Package Installation (Method 2)
 
 1. **Import CSS** (required):
 
