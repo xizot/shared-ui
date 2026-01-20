@@ -151,7 +151,7 @@ export const addCommand = new Command()
 
       // Helper to convert alias to path
       const aliasToPath = (alias: string): string => {
-        return alias.replace(/^@\//, 'src/');
+        return alias.replace(/^@\//, '');
       };
 
       let installedCount = 0;

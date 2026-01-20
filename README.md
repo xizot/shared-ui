@@ -4,14 +4,14 @@ A comprehensive React component library built with [shadcn/ui](https://ui.shadcn
 
 ## Features
 
-- í¾¨ **70+ UI Components** - Complete shadcn/ui-based component collection
-- í³‹ **React Hook Form Integration** - 17 pre-built form components
-- í¾¯ **TypeScript** - Full type safety
-- í¾¨ **Tailwind CSS v4** - Modern utility-first styling
-- í´§ **Full Control** - Copy components to your codebase and customize freely
-- í³± **Responsive** - Mobile-first design
+- ï¿½ï¿½ï¿½ **70+ UI Components** - Complete shadcn/ui-based component collection
+- ï¿½ï¿½ï¿½ **React Hook Form Integration** - 17 pre-built form components
+- ï¿½ï¿½ï¿½ **TypeScript** - Full type safety
+- ï¿½ï¿½ï¿½ **Tailwind CSS v4** - Modern utility-first styling
+- ï¿½ï¿½ï¿½ **Full Control** - Copy components to your codebase and customize freely
+- ï¿½ï¿½ï¿½ **Responsive** - Mobile-first design
 - â™¿ **Accessible** - Built on Radix UI primitives
-- íº€ **CLI Tool** - Easy installation like shadcn/ui
+- ï¿½ï¿½ï¿½ **CLI Tool** - Easy installation like shadcn/ui
 
 ## Quick Start
 
@@ -32,6 +32,7 @@ shared-ui init
 ```
 
 This will:
+
 - Create a `shared-ui.json` configuration file
 - Set up the directory structure (`src/components/ui`, `src/lib`, etc.)
 - Install base dependencies (tailwindcss, clsx, tailwind-merge, lucide-react, etc.)
@@ -56,9 +57,9 @@ shared-ui add
 ### 4. Use in your code
 
 ```tsx
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { Button } from '@/shared/components/ui/button';
+import { Input } from '@/shared/components/ui/input';
+import { Card, CardHeader, CardContent } from '@/shared/components/ui/card';
 
 function MyComponent() {
   return (
@@ -82,7 +83,7 @@ After initialization:
 ```
 your-project/
 â”œâ”€â”€ shared-ui.json          # Configuration
-â”œâ”€â”€ src/
+â”œâ”€â”€ shared/
 â”‚   â”œâ”€â”€ components/
 â”‚   â”‚   â””â”€â”€ ui/             # UI components (added via CLI)
 â”‚   â”‚       â”œâ”€â”€ button.tsx
@@ -94,6 +95,8 @@ your-project/
 â”‚   â””â”€â”€ constants/          # Constants (optional)
 â””â”€â”€ ...
 ```
+
+````
 
 ## Why CLI-based Installation?
 
@@ -147,7 +150,7 @@ shared-ui add button
 shared-ui add button input card
 shared-ui add --all
 shared-ui add -o  # Overwrite existing
-```
+````
 
 ## Configuration
 
@@ -162,11 +165,11 @@ The `shared-ui.json` file controls where components are installed:
     "css": "src/index.css"
   },
   "aliases": {
-    "components": "@/components",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks",
-    "constants": "@/constants"
+    "components": "@/shared/components",
+    "ui": "@/shared/components/ui",
+    "lib": "@/shared/lib",
+    "hooks": "@/shared/hooks",
+    "constants": "@/shared/constants"
   }
 }
 ```
@@ -176,21 +179,18 @@ The `shared-ui.json` file controls where components are installed:
 Since components are copied to your project, customize freely:
 
 ```tsx
-// src/components/ui/button.tsx
+// shared/components/ui/button.tsx
 // Modify this file directly!
 
-const buttonVariants = cva(
-  'inline-flex items-center justify-center...',
-  {
-    variants: {
-      variant: {
-        default: 'bg-primary text-primary-foreground...',
-        // Add your custom variant:
-        brand: 'bg-brand-500 text-white hover:bg-brand-600',
-      },
+const buttonVariants = cva('inline-flex items-center justify-center...', {
+  variants: {
+    variant: {
+      default: 'bg-primary text-primary-foreground...',
+      // Add your custom variant:
+      brand: 'bg-brand-500 text-white hover:bg-brand-600',
     },
-  }
-);
+  },
+});
 ```
 
 ## Requirements
@@ -198,30 +198,32 @@ const buttonVariants = cva(
 - React 18+ or 19+
 - TypeScript (recommended)
 - Tailwind CSS v4
-- Path aliases configured (`@/` â†’ `./src/`)
+- Path aliases configured (`@/` â†’ `./`)
 
 ### Path Aliases Setup
 
 **tsconfig.json:**
+
 ```json
 {
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./*"]
     }
   }
 }
 ```
 
 **vite.config.ts:**
+
 ```ts
 import path from 'path';
 
 export default defineConfig({
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, './'),
     },
   },
 });

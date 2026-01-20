@@ -74,11 +74,11 @@ export const initCommand = new Command()
             css: 'src/index.css',
           },
           aliases: {
-            components: '@/components',
-            ui: '@/components/ui',
-            lib: '@/lib',
-            hooks: '@/hooks',
-            constants: '@/constants',
+            components: '@/shared/components',
+            ui: '@/shared/components/ui',
+            lib: '@/shared/lib',
+            hooks: '@/shared/hooks',
+            constants: '@/shared/constants',
           },
         };
       } else {
@@ -109,31 +109,31 @@ export const initCommand = new Command()
             type: 'text',
             name: 'componentsAlias',
             message: 'Configure the import alias for components:',
-            initial: '@/components',
+            initial: '@/shared/components',
           },
           {
             type: 'text',
             name: 'uiAlias',
             message: 'Configure the import alias for ui:',
-            initial: '@/components/ui',
+            initial: '@/shared/components/ui',
           },
           {
             type: 'text',
             name: 'libAlias',
             message: 'Configure the import alias for lib:',
-            initial: '@/lib',
+            initial: '@/shared/lib',
           },
           {
             type: 'text',
             name: 'hooksAlias',
             message: 'Configure the import alias for hooks:',
-            initial: '@/hooks',
+            initial: '@/shared/hooks',
           },
           {
             type: 'text',
             name: 'constantsAlias',
             message: 'Configure the import alias for constants:',
-            initial: '@/constants',
+            initial: '@/shared/constants',
           },
         ]);
 
@@ -170,8 +170,8 @@ export const initCommand = new Command()
       spinner.start('Creating directory structure...');
 
       const aliasToPath = (alias: string): string => {
-        // Convert @/components -> src/components
-        return alias.replace(/^@\//, 'src/');
+        // Convert @/shared/components -> shared/components
+        return alias.replace(/^@\//, '');
       };
 
       const directories = [

@@ -38,11 +38,11 @@ export async function getProjectConfig(cwd: string): Promise<Config | null> {
         css: 'src/index.css',
       },
       aliases: {
-        components: config.aliases?.components || '@/components',
-        ui: '@/components/ui',
-        lib: config.aliases?.lib || '@/lib',
-        hooks: config.aliases?.hooks || '@/hooks',
-        constants: config.aliases?.constants || '@/constants',
+        components: config.aliases?.components || '@/shared/components',
+        ui: '@/shared/components/ui',
+        lib: config.aliases?.lib || '@/shared/lib',
+        hooks: config.aliases?.hooks || '@/shared/hooks',
+        constants: config.aliases?.constants || '@/shared/constants',
       },
     };
   }
