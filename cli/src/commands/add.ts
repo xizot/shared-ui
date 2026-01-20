@@ -323,55 +323,98 @@ export const addCommand = new Command()
 
 /**
  * Get the relative path from a source file to a target directory
- * @param sourceFilePath - The path of the source file (e.g., 'ui/button.tsx')
- * @param targetDir - The target directory (e.g., 'lib', 'hooks', 'constants', 'ui', 'rhf')
+ *
+ * Actual installed structure:
+ * src/shared/
+ * ├── components/
+ * │   ├── ui/       <- ui/* files go here
+ * │   └── rhf/      <- rhf/* files go here
+ * ├── lib/          <- lib/* files go here
+ * ├── hooks/        <- hooks/* files go here
+ * └── constants/    <- constants/* files go here
+ *
+ * @param sourceFilePath - The registry path of the source file (e.g., 'ui/button.tsx')
+ * @param targetType - The target type (e.g., 'lib', 'hooks', 'constants', 'ui', 'rhf')
  */
-function getRelativePath(sourceFilePath: string, targetDir: string): string {
-  // Get the directory of the source file
-  const sourceDir = path.dirname(sourceFilePath);
-
-  // Calculate depth from shared root
-  // ui/button.tsx -> depth 1 (ui)
-  // ui/sidebar/index.tsx -> depth 2 (ui/sidebar)
+function getRelativePath(sourceFilePath: string, targetType: string): string {
+  const sourceType = sourceFilePath.split('/')[0]; // ui, rhf, lib, hooks, constants
+  const sourceDir = path.dirname(sourceFilePath); // ui, ui/sidebar, lib, etc.
   const sourceParts = sourceDir.split('/').filter(Boolean);
 
-  // Build relative path
-  // From ui/ to lib/ -> ../lib/
-  // From ui/sidebar/ to lib/ -> ../../lib/
-  const upLevels = sourceParts.length;
-  const prefix = upLevels > 0 ? '../'.repeat(upLevels) : './';
+  // Calculate depth within the source type directory
+  // ui/button.tsx -> depth 0 (directly in ui/)
+  // ui/sidebar/index.tsx -> depth 1 (in ui/sidebar/)
+  const depthInSourceType = sourceParts.length - 1;
 
-  return `${prefix}${targetDir}/`;
+  // Determine if source is under components/ (ui, rhf) or directly under shared/ (lib, hooks, constants)
+  const sourceUnderComponents = sourceType === 'ui' || sourceType === 'rhf';
+  const targetUnderComponents = targetType === 'ui' || targetType === 'rhf';
+
+  let upLevels = depthInSourceType; // First, go up to the type root (e.g., ui/)
+
+  if (sourceUnderComponents && targetUnderComponents) {
+    // Both under components/ (e.g., ui -> rhf)
+    // From components/ui/ to components/rhf/ -> ../rhf/
+    upLevels += 1;
+    return '../'.repeat(upLevels) + targetType + '/';
+  } else if (sourceUnderComponents && !targetUnderComponents) {
+    // Source under components/, target under shared/ (e.g., ui -> lib)
+    // From components/ui/ to lib/ -> ../../lib/
+    upLevels += 2;
+    return '../'.repeat(upLevels) + targetType + '/';
+  } else if (!sourceUnderComponents && targetUnderComponents) {
+    // Source under shared/, target under components/ (e.g., lib -> ui)
+    // From lib/ to components/ui/ -> ../components/ui/
+    upLevels += 1;
+    return '../'.repeat(upLevels) + 'components/' + targetType + '/';
+  } else {
+    // Both under shared/ (e.g., lib -> hooks)
+    // From lib/ to hooks/ -> ../hooks/
+    upLevels += 1;
+    return '../'.repeat(upLevels) + targetType + '/';
+  }
 }
 
 /**
  * Transform imports in content to use relative paths
  */
 function transformImportsToRelative(content: string, filePath: string): string {
-  // Get the source directory type (ui, rhf, lib, hooks, constants)
   const sourceType = filePath.split('/')[0];
+  const sourceDir = path.dirname(filePath);
+  const sourceParts = sourceDir.split('/').filter(Boolean);
+  const depthInSourceType = sourceParts.length - 1;
 
   // Replace @/components/ui/ imports
   content = content.replace(/@\/components\/ui\//g, () => {
     if (sourceType === 'ui') {
-      // Same directory, use ./
-      return './';
+      // Same type directory
+      if (depthInSourceType === 0) {
+        return './';
+      }
+      // In subdirectory, go up
+      return '../'.repeat(depthInSourceType);
     }
-    return getRelativePath(filePath, 'components/ui');
+    return getRelativePath(filePath, 'ui');
   });
 
   // Replace @/components/rhf/ imports
   content = content.replace(/@\/components\/rhf\//g, () => {
     if (sourceType === 'rhf') {
-      return './';
+      if (depthInSourceType === 0) {
+        return './';
+      }
+      return '../'.repeat(depthInSourceType);
     }
-    return getRelativePath(filePath, 'components/rhf');
+    return getRelativePath(filePath, 'rhf');
   });
 
   // Replace @/lib/ imports
   content = content.replace(/@\/lib\//g, () => {
     if (sourceType === 'lib') {
-      return './';
+      if (depthInSourceType === 0) {
+        return './';
+      }
+      return '../'.repeat(depthInSourceType);
     }
     return getRelativePath(filePath, 'lib');
   });
@@ -379,7 +422,10 @@ function transformImportsToRelative(content: string, filePath: string): string {
   // Replace @/hooks/ imports
   content = content.replace(/@\/hooks\//g, () => {
     if (sourceType === 'hooks') {
-      return './';
+      if (depthInSourceType === 0) {
+        return './';
+      }
+      return '../'.repeat(depthInSourceType);
     }
     return getRelativePath(filePath, 'hooks');
   });
@@ -387,7 +433,10 @@ function transformImportsToRelative(content: string, filePath: string): string {
   // Replace @/constants/ imports
   content = content.replace(/@\/constants\//g, () => {
     if (sourceType === 'constants') {
-      return './';
+      if (depthInSourceType === 0) {
+        return './';
+      }
+      return '../'.repeat(depthInSourceType);
     }
     return getRelativePath(filePath, 'constants');
   });
