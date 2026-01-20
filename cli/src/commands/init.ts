@@ -232,11 +232,11 @@ export function cn(...inputs: ClassValue[]) {
 
       console.log(chalk.cyan('\nNext steps:'));
       console.log(chalk.gray('  1. Add components:'));
-      console.log(chalk.white('     npx @xizot/shared-ui add button'));
+      console.log(chalk.white('     npx github:xizot/shared-ui add button'));
       console.log(chalk.gray('  2. Add multiple components:'));
-      console.log(chalk.white('     npx @xizot/shared-ui add button input card'));
+      console.log(chalk.white('     npx github:xizot/shared-ui add button input card'));
       console.log(chalk.gray('  3. Add all components:'));
-      console.log(chalk.white('     npx @xizot/shared-ui add --all'));
+      console.log(chalk.white('     npx github:xizot/shared-ui add --all'));
       console.log(chalk.gray('\n  4. Import in your code:'));
       console.log(chalk.white(`     import { Button } from '${config.aliases.ui}/button'`));
       console.log();

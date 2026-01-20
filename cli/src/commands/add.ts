@@ -26,7 +26,7 @@ export const addCommand = new Command()
       if (!config) {
         spinner.fail('Could not find shared-ui.json configuration');
         console.log(
-          chalk.yellow('\nRun `npx @xizot/shared-ui init` to initialize the project first.'),
+          chalk.yellow('\nRun `npx github:xizot/shared-ui init` to initialize the project first.'),
         );
         process.exit(1);
       }
@@ -73,9 +73,9 @@ export const addCommand = new Command()
         }
 
         console.log(chalk.cyan('\nUsage:'));
-        console.log(chalk.gray('  npx @xizot/shared-ui add <component-name>'));
-        console.log(chalk.gray('  npx @xizot/shared-ui add button input card'));
-        console.log(chalk.gray('  npx @xizot/shared-ui add --all'));
+        console.log(chalk.gray('  npx github:xizot/shared-ui add <component-name>'));
+        console.log(chalk.gray('  npx github:xizot/shared-ui add button input card'));
+        console.log(chalk.gray('  npx github:xizot/shared-ui add --all'));
         process.exit(0);
       }
 
@@ -96,7 +96,9 @@ export const addCommand = new Command()
       if (invalidComponents.length > 0) {
         console.log(chalk.red('\n❌ The following components could not be found:'));
         invalidComponents.forEach((name) => console.log(chalk.red(`  - ${name}`)));
-        console.log(chalk.yellow('\nUse `npx @xizot/shared-ui add` to see available components.'));
+        console.log(
+          chalk.yellow('\nUse `npx github:xizot/shared-ui add` to see available components.'),
+        );
         process.exit(1);
       }
 
