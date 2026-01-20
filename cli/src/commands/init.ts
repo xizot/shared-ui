@@ -35,6 +35,38 @@ const BASE_DEPENDENCIES = [
   'tailwindcss-animate',
 ];
 
+type BuildTool = 'vite' | 'next' | 'other';
+
+interface BuildToolInfo {
+  tailwindPlugin: string;
+  configInstructions: string[];
+}
+
+const BUILD_TOOL_CONFIG: Record<BuildTool, BuildToolInfo> = {
+  vite: {
+    tailwindPlugin: '@tailwindcss/vite',
+    configInstructions: [
+      'Add to vite.config.ts:',
+      "  import tailwindcss from '@tailwindcss/vite'",
+      '  plugins: [react(), tailwindcss()]',
+    ],
+  },
+  next: {
+    tailwindPlugin: '@tailwindcss/postcss',
+    configInstructions: [
+      'Add to postcss.config.mjs:',
+      '  export default { plugins: { "@tailwindcss/postcss": {} } }',
+    ],
+  },
+  other: {
+    tailwindPlugin: '@tailwindcss/postcss',
+    configInstructions: [
+      'Add PostCSS config:',
+      '  module.exports = { plugins: { "@tailwindcss/postcss": {} } }',
+    ],
+  },
+};
+
 // CSS content for default style
 const DEFAULT_STYLE_CSS = `@import "tailwindcss";
 @plugin "tailwindcss-animate";
@@ -562,39 +594,77 @@ export function cn(...inputs: ClassValue[]) {
 
       // Install dependencies
       if (!options.skipDeps) {
+        // Ask user to select build tool
+        const { buildTool } = await prompts({
+          type: 'select',
+          name: 'buildTool',
+          message: 'Which build tool are you using?',
+          choices: [
+            { title: 'Vite', value: 'vite' },
+            { title: 'Next.js', value: 'next' },
+            { title: 'Other (PostCSS)', value: 'other' },
+          ],
+        });
+
+        if (!buildTool) {
+          console.log(chalk.yellow('\nSkipping dependency installation.'));
+          return;
+        }
+
+        const buildToolInfo = BUILD_TOOL_CONFIG[buildTool as BuildTool];
+
         spinner.start('Installing dependencies...');
         const packageManager = await detectPackageManager(cwd);
 
+        // Add tailwind plugin based on selected build tool
+        const depsToInstall = [...BASE_DEPENDENCIES, buildToolInfo.tailwindPlugin];
+
         try {
-          await installDependencies(BASE_DEPENDENCIES, packageManager, cwd);
+          await installDependencies(depsToInstall, packageManager, cwd);
           spinner.succeed(`Dependencies installed with ${packageManager}`);
         } catch (error) {
           spinner.warn('Failed to install some dependencies');
           console.log(chalk.yellow('\nYou may need to install these packages manually:'));
-          BASE_DEPENDENCIES.forEach((dep) =>
-            console.log(chalk.gray(`  ${packageManager} add ${dep}`)),
-          );
+          depsToInstall.forEach((dep) => console.log(chalk.gray(`  ${packageManager} add ${dep}`)));
         }
+
+        // Print success message
+        console.log(chalk.green('\n✅ Successfully initialized shared-ui!\n'));
+
+        console.log(chalk.cyan('Project structure:'));
+        console.log(chalk.gray(`  ${aliasToPath(config.aliases.ui)}/     → UI components`));
+        console.log(chalk.gray(`  ${aliasToPath(config.aliases.lib)}/    → Utility functions`));
+        console.log(chalk.gray(`  ${aliasToPath(config.aliases.hooks)}/  → Custom hooks`));
+        console.log(chalk.gray(`  ${aliasToPath(config.aliases.constants)}/ → Constants`));
+
+        console.log(chalk.cyan('\nNext steps:'));
+        console.log(chalk.gray('  1. Configure Tailwind CSS:'));
+        buildToolInfo.configInstructions.forEach((line) => {
+          console.log(chalk.white(`     ${line}`));
+        });
+        console.log(chalk.gray('\n  2. Add components:'));
+        console.log(chalk.white('     npx github:xizot/shared-ui add button'));
+        console.log(chalk.gray('  3. Add multiple components:'));
+        console.log(chalk.white('     npx github:xizot/shared-ui add button input card'));
+        console.log(chalk.gray('  4. Add all components:'));
+        console.log(chalk.white('     npx github:xizot/shared-ui add --all'));
+        console.log(chalk.gray('\n  5. Import in your code:'));
+        console.log(chalk.white(`     import { Button } from '${config.aliases.ui}/button'`));
+      } else {
+        // Print success message without deps
+        console.log(chalk.green('\n✅ Successfully initialized shared-ui!\n'));
+
+        console.log(chalk.cyan('Project structure:'));
+        console.log(chalk.gray(`  ${aliasToPath(config.aliases.ui)}/     → UI components`));
+        console.log(chalk.gray(`  ${aliasToPath(config.aliases.lib)}/    → Utility functions`));
+        console.log(chalk.gray(`  ${aliasToPath(config.aliases.hooks)}/  → Custom hooks`));
+        console.log(chalk.gray(`  ${aliasToPath(config.aliases.constants)}/ → Constants`));
+
+        console.log(chalk.cyan('\nNext steps:'));
+        console.log(chalk.gray('  1. Install dependencies and configure Tailwind CSS'));
+        console.log(chalk.gray('  2. Add components:'));
+        console.log(chalk.white('     npx github:xizot/shared-ui add button'));
       }
-
-      // Print success message
-      console.log(chalk.green('\n✅ Successfully initialized shared-ui!\n'));
-
-      console.log(chalk.cyan('Project structure:'));
-      console.log(chalk.gray(`  ${aliasToPath(config.aliases.ui)}/     → UI components`));
-      console.log(chalk.gray(`  ${aliasToPath(config.aliases.lib)}/    → Utility functions`));
-      console.log(chalk.gray(`  ${aliasToPath(config.aliases.hooks)}/  → Custom hooks`));
-      console.log(chalk.gray(`  ${aliasToPath(config.aliases.constants)}/ → Constants`));
-
-      console.log(chalk.cyan('\nNext steps:'));
-      console.log(chalk.gray('  1. Add components:'));
-      console.log(chalk.white('     npx github:xizot/shared-ui add button'));
-      console.log(chalk.gray('  2. Add multiple components:'));
-      console.log(chalk.white('     npx github:xizot/shared-ui add button input card'));
-      console.log(chalk.gray('  3. Add all components:'));
-      console.log(chalk.white('     npx github:xizot/shared-ui add --all'));
-      console.log(chalk.gray('\n  4. Import in your code:'));
-      console.log(chalk.white(`     import { Button } from '${config.aliases.ui}/button'`));
       console.log();
     } catch (error) {
       console.error(chalk.red('\n❌ Error:'), error);
