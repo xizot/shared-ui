@@ -93,48 +93,6 @@ export const initCommand = new Command()
             ],
             initial: 0,
           },
-          {
-            type: 'text',
-            name: 'tailwindConfig',
-            message: 'Where is your tailwind.config file?',
-            initial: 'tailwind.config.js',
-          },
-          {
-            type: 'text',
-            name: 'globalCss',
-            message: 'Where is your global CSS file?',
-            initial: 'src/index.css',
-          },
-          {
-            type: 'text',
-            name: 'componentsAlias',
-            message: 'Configure the import alias for components:',
-            initial: '@/shared/components',
-          },
-          {
-            type: 'text',
-            name: 'uiAlias',
-            message: 'Configure the import alias for ui:',
-            initial: '@/shared/components/ui',
-          },
-          {
-            type: 'text',
-            name: 'libAlias',
-            message: 'Configure the import alias for lib:',
-            initial: '@/shared/lib',
-          },
-          {
-            type: 'text',
-            name: 'hooksAlias',
-            message: 'Configure the import alias for hooks:',
-            initial: '@/shared/hooks',
-          },
-          {
-            type: 'text',
-            name: 'constantsAlias',
-            message: 'Configure the import alias for constants:',
-            initial: '@/shared/constants',
-          },
         ]);
 
         if (!responses.style) {
@@ -146,15 +104,15 @@ export const initCommand = new Command()
           $schema: 'https://shared-ui.xizot.dev/schema.json',
           style: responses.style,
           tailwind: {
-            config: responses.tailwindConfig,
-            css: responses.globalCss,
+            config: 'tailwind.config.js',
+            css: 'src/index.css',
           },
           aliases: {
-            components: responses.componentsAlias,
-            ui: responses.uiAlias,
-            lib: responses.libAlias,
-            hooks: responses.hooksAlias,
-            constants: responses.constantsAlias,
+            components: '@/shared/components',
+            ui: '@/shared/components/ui',
+            lib: '@/shared/lib',
+            hooks: '@/shared/hooks',
+            constants: '@/shared/constants',
           },
         };
       }
