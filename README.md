@@ -202,6 +202,40 @@ const buttonVariants = cva('inline-flex items-center justify-center...', {
 - Tailwind CSS v4
 - Path aliases configured (`@/` → `./src/`)
 
+### Tailwind CSS v4 Setup
+
+**For Vite projects:**
+
+```bash
+npm install @tailwindcss/vite
+```
+
+```ts
+// vite.config.ts
+import tailwindcss from '@tailwindcss/vite';
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+});
+```
+
+**For Next.js / Other projects:**
+
+```bash
+npm install @tailwindcss/postcss
+```
+
+```js
+// postcss.config.mjs
+export default {
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+};
+```
+
 ### Path Aliases Setup
 
 **tsconfig.json:**

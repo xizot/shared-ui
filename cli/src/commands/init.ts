@@ -67,6 +67,97 @@ const BUILD_TOOL_CONFIG: Record<BuildTool, BuildToolInfo> = {
   },
 };
 
+// Auto-configure Vite
+async function configureVite(cwd: string): Promise<boolean> {
+  const viteConfigPaths = [
+    'vite.config.ts',
+    'vite.config.js',
+    'vite.config.mts',
+    'vite.config.mjs',
+  ];
+
+  for (const configFile of viteConfigPaths) {
+    const configPath = path.join(cwd, configFile);
+    if (await fs.pathExists(configPath)) {
+      let content = await fs.readFile(configPath, 'utf-8');
+
+      // Check if already configured
+      if (content.includes('@tailwindcss/vite')) {
+        return true; // Already configured
+      }
+
+      // Add import at the top
+      const importStatement = `import tailwindcss from "@tailwindcss/vite";\n`;
+
+      // Find where to insert import (after other imports or at the top)
+      if (content.includes('import ')) {
+        // Find the last import statement and add after it
+        const lines = content.split('\n');
+        let lastImportIndex = -1;
+        for (let i = 0; i < lines.length; i++) {
+          if (lines[i].trim().startsWith('import ')) {
+            lastImportIndex = i;
+          }
+        }
+        if (lastImportIndex >= 0) {
+          lines.splice(lastImportIndex + 1, 0, importStatement.trim());
+          content = lines.join('\n');
+        }
+      } else {
+        content = importStatement + content;
+      }
+
+      // Add tailwindcss() to plugins array
+      // Match plugins: [...] or plugins: [...]
+      const pluginsRegex = /plugins:\s*\[([^\]]*)\]/;
+      const match = content.match(pluginsRegex);
+
+      if (match) {
+        const existingPlugins = match[1].trim();
+        if (existingPlugins) {
+          // Add tailwindcss() at the end of existing plugins
+          content = content.replace(pluginsRegex, `plugins: [${existingPlugins}, tailwindcss()]`);
+        } else {
+          content = content.replace(pluginsRegex, `plugins: [tailwindcss()]`);
+        }
+      }
+
+      await fs.writeFile(configPath, content);
+      return true;
+    }
+  }
+  return false;
+}
+
+// Auto-configure PostCSS for Next.js and other frameworks
+async function configurePostCSS(cwd: string): Promise<boolean> {
+  const postcssConfigPath = path.join(cwd, 'postcss.config.mjs');
+  const postcssConfigCjsPath = path.join(cwd, 'postcss.config.cjs');
+  const postcssConfigJsPath = path.join(cwd, 'postcss.config.js');
+
+  // Check if any postcss config exists
+  const existingConfigs = [postcssConfigPath, postcssConfigCjsPath, postcssConfigJsPath];
+  for (const configPath of existingConfigs) {
+    if (await fs.pathExists(configPath)) {
+      const content = await fs.readFile(configPath, 'utf-8');
+      if (content.includes('@tailwindcss/postcss')) {
+        return true; // Already configured
+      }
+    }
+  }
+
+  // Create new postcss.config.mjs
+  const postcssContent = `export default {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+`;
+
+  await fs.writeFile(postcssConfigPath, postcssContent);
+  return true;
+}
+
 // CSS content for default style
 const DEFAULT_STYLE_CSS = `@import "tailwindcss";
 @plugin "tailwindcss-animate";
@@ -628,6 +719,24 @@ export function cn(...inputs: ClassValue[]) {
           depsToInstall.forEach((dep) => console.log(chalk.gray(`  ${packageManager} add ${dep}`)));
         }
 
+        // Auto-configure Tailwind CSS based on build tool
+        spinner.start('Configuring Tailwind CSS...');
+        let configSuccess = false;
+
+        if (buildTool === 'vite') {
+          configSuccess = await configureVite(cwd);
+          if (configSuccess) {
+            spinner.succeed('Tailwind CSS configured in vite.config');
+          } else {
+            spinner.warn('Could not find vite.config file');
+          }
+        } else {
+          configSuccess = await configurePostCSS(cwd);
+          if (configSuccess) {
+            spinner.succeed('Tailwind CSS configured in postcss.config.mjs');
+          }
+        }
+
         // Print success message
         console.log(chalk.green('\n✅ Successfully initialized shared-ui!\n'));
 
@@ -637,18 +746,24 @@ export function cn(...inputs: ClassValue[]) {
         console.log(chalk.gray(`  ${aliasToPath(config.aliases.hooks)}/  → Custom hooks`));
         console.log(chalk.gray(`  ${aliasToPath(config.aliases.constants)}/ → Constants`));
 
-        console.log(chalk.cyan('\nNext steps:'));
-        console.log(chalk.gray('  1. Configure Tailwind CSS:'));
-        buildToolInfo.configInstructions.forEach((line) => {
-          console.log(chalk.white(`     ${line}`));
-        });
-        console.log(chalk.gray('\n  2. Add components:'));
+        // Only show manual config instructions if auto-config failed
+        if (!configSuccess) {
+          console.log(chalk.cyan('\nNext steps:'));
+          console.log(chalk.gray('  1. Configure Tailwind CSS:'));
+          buildToolInfo.configInstructions.forEach((line) => {
+            console.log(chalk.white(`     ${line}`));
+          });
+          console.log(chalk.gray('\n  2. Add components:'));
+        } else {
+          console.log(chalk.cyan('\nNext steps:'));
+          console.log(chalk.gray('  1. Add components:'));
+        }
         console.log(chalk.white('     npx github:xizot/shared-ui add button'));
-        console.log(chalk.gray('  3. Add multiple components:'));
+        console.log(chalk.gray('  2. Add multiple components:'));
         console.log(chalk.white('     npx github:xizot/shared-ui add button input card'));
-        console.log(chalk.gray('  4. Add all components:'));
+        console.log(chalk.gray('  3. Add all components:'));
         console.log(chalk.white('     npx github:xizot/shared-ui add --all'));
-        console.log(chalk.gray('\n  5. Import in your code:'));
+        console.log(chalk.gray('\n  4. Import in your code:'));
         console.log(chalk.white(`     import { Button } from '${config.aliases.ui}/button'`));
       } else {
         // Print success message without deps
