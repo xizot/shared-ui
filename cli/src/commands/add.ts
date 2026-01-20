@@ -159,6 +159,74 @@ export const addCommand = new Command()
       let installedCount = 0;
       let skippedCount = 0;
 
+      // Collect existing files first
+      const existingFiles: { entry: string; filePath: string; file: any }[] = [];
+
+      for (const entry of tree) {
+        for (const file of entry.files) {
+          let targetDir: string;
+
+          if (file.path.startsWith('ui/')) {
+            targetDir = aliasToPath(config.aliases.ui);
+          } else if (file.path.startsWith('rhf/')) {
+            targetDir = path.join(aliasToPath(config.aliases.components), 'rhf');
+          } else if (file.path.startsWith('lib/')) {
+            targetDir = aliasToPath(config.aliases.lib);
+          } else if (file.path.startsWith('hooks/')) {
+            targetDir = aliasToPath(config.aliases.hooks);
+          } else if (file.path.startsWith('constants/')) {
+            targetDir = aliasToPath(config.aliases.constants);
+          } else {
+            targetDir = aliasToPath(config.aliases.ui);
+          }
+
+          const relativePath = file.path.replace(/^(ui|rhf|lib|hooks|constants)\//, '');
+          const filePath = path.join(cwd, targetDir, relativePath);
+          const fileExists = await fs.pathExists(filePath);
+
+          if (fileExists && !options.overwrite) {
+            existingFiles.push({ entry: entry.name, filePath, file });
+          }
+        }
+      }
+
+      // Ask user about existing files
+      const filesToOverwrite: Set<string> = new Set();
+
+      if (existingFiles.length > 0 && !options.overwrite) {
+        spinner.stop();
+        console.log(chalk.yellow('\n⚠️  The following files already exist:\n'));
+        existingFiles.forEach(({ filePath }) => {
+          const relativePath = path.relative(cwd, filePath);
+          console.log(chalk.gray(`  - ${relativePath}`));
+        });
+        console.log();
+
+        const { overwriteChoice } = await prompts({
+          type: 'select',
+          name: 'overwriteChoice',
+          message: 'How would you like to handle existing files?',
+          choices: [
+            { title: 'Skip existing files', value: 'skip' },
+            { title: 'Overwrite all existing files', value: 'overwrite-all' },
+            { title: 'Cancel installation', value: 'cancel' },
+          ],
+          initial: 0,
+        });
+
+        if (overwriteChoice === 'cancel') {
+          console.log(chalk.gray('Installation cancelled'));
+          process.exit(0);
+        }
+
+        if (overwriteChoice === 'overwrite-all') {
+          existingFiles.forEach(({ filePath }) => filesToOverwrite.add(filePath));
+        }
+
+        spinner.start('Installing components...');
+      }
+
+      // Now install files
       for (const entry of tree) {
         for (const file of entry.files) {
           // Determine target path based on file type
@@ -183,7 +251,7 @@ export const addCommand = new Command()
           const filePath = path.join(cwd, targetDir, relativePath);
           const fileExists = await fs.pathExists(filePath);
 
-          if (fileExists && !options.overwrite) {
+          if (fileExists && !options.overwrite && !filesToOverwrite.has(filePath)) {
             skippedCount++;
             continue;
           }
@@ -206,7 +274,7 @@ export const addCommand = new Command()
       if (skippedCount > 0) {
         console.log(
           chalk.yellow(
-            `\n⚠️  Skipped ${skippedCount} existing file${skippedCount > 1 ? 's' : ''}. Use --overwrite to replace them.`,
+            `\n⚠️  Skipped ${skippedCount} existing file${skippedCount > 1 ? 's' : ''}.`,
           ),
         );
       }
