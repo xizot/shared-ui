@@ -138,9 +138,7 @@ npx github:xizot/shared-ui add --all
 npx github:xizot/shared-ui add -o  # Overwrite existing
 
 # Install AI agent skills (interactive)
-npx github:xizot/shared-ui skills              # Interactive mode with checkboxes
-npx github:xizot/shared-ui skills --list       # List available skills
-npx github:xizot/shared-ui skills --all        # Install all skills for all IDEs
+npx github:xizot/shared-ui skills                 # Install all skills for all IDEs
 ```
 
 See [CLI.md](./CLI.md) for detailed CLI documentation.
