@@ -3,6 +3,7 @@
 import { Command } from 'commander';
 import { addCommand } from './commands/add.js';
 import { initCommand } from './commands/init.js';
+import { skillsCommand } from './commands/skills.js';
 
 const program = new Command();
 
@@ -13,5 +14,6 @@ program
 
 program.addCommand(addCommand);
 program.addCommand(initCommand);
+program.addCommand(skillsCommand);
 
 program.parse();

@@ -2,59 +2,50 @@
 
 A comprehensive React component library built with [shadcn/ui](https://ui.shadcn.com/), TypeScript, and Tailwind CSS. Components are designed to be **copied and pasted into your project** for full customization control.
 
-## Features
+## ✨ Features
 
-- ��� **70+ UI Components** - Complete shadcn/ui-based component collection
-- ��� **React Hook Form Integration** - 17 pre-built form components
-- ��� **TypeScript** - Full type safety
-- ��� **Tailwind CSS v4** - Modern utility-first styling
-- ��� **Full Control** - Copy components to your codebase and customize freely
-- ��� **Responsive** - Mobile-first design
+- 🧩 **70+ UI Components** - Complete shadcn/ui-based component collection
+- 📝 **React Hook Form Integration** - 17 pre-built form components
+- 🔷 **TypeScript** - Full type safety
+- 🎨 **Tailwind CSS v4** - Modern utility-first styling
+- 🎯 **Full Control** - Copy components to your codebase and customize freely
+- 📱 **Responsive** - Mobile-first design
 - ♿ **Accessible** - Built on Radix UI primitives
-- ��� **CLI Tool** - Easy installation like shadcn/ui
+- ⚡ **CLI Tool** - Easy installation with auto-configuration
 
-## Quick Start
+## 🚀 Quick Start
 
-### 1. Install CLI
+### 1️⃣ Initialize in your project
 
 ```bash
-# Install globally from GitHub
-npm install -g github:xizot/shared-ui
-
-# Or run directly with npx
 npx github:xizot/shared-ui init
-```
-
-### 2. Initialize in your project
-
-```bash
-shared-ui init
 ```
 
 This will:
 
-- Create a `shared-ui.json` configuration file
-- Set up the directory structure (`src/components/ui`, `src/lib`, etc.)
-- Install base dependencies (tailwindcss, clsx, tailwind-merge, lucide-react, etc.)
-- Create the `cn()` utility function
+- 📄 Create a `shared-ui.json` configuration file
+- 📁 Set up the directory structure (`src/shared/components/ui`, `src/shared/lib`, etc.)
+- 📦 Install base dependencies (tailwindcss, clsx, tailwind-merge, lucide-react, etc.)
+- 🎨 Auto-configure Tailwind CSS for your build tool (Vite/Next.js/PostCSS)
+- 🛠️ Create the `cn()` utility function
 
-### 3. Add components
+### 2️⃣ Add components
 
 ```bash
 # Add a single component
-shared-ui add button
+npx github:xizot/shared-ui add button
 
 # Add multiple components
-shared-ui add button input card dialog
+npx github:xizot/shared-ui add button input card dialog
 
 # Add all components
-shared-ui add --all
+npx github:xizot/shared-ui add --all
 
 # See all available components
-shared-ui add
+npx github:xizot/shared-ui add
 ```
 
-### 4. Use in your code
+### 3️⃣ Use in your code
 
 ```tsx
 import { Button } from '@/shared/components/ui/button';
@@ -76,7 +67,7 @@ function MyComponent() {
 }
 ```
 
-## Project Structure
+## 📂 Project Structure
 
 After initialization:
 
@@ -84,23 +75,20 @@ After initialization:
 your-project/
 ├── shared-ui.json          # Configuration
 ├── src/
-│   ├── shared/
-│   │   ├── components/
-│   │   │   └── ui/             # UI components (added via CLI)
-│   │   │       ├── button.tsx
-│   │   │       ├── input.tsx
-│   │   │       └── ...
-│   │   ├── lib/
-│   │   │   └── utils.ts        # Utility functions
-│   │   ├── hooks/              # Custom hooks (optional)
-│   │   └── constants/          # Constants (optional)
-│   └── ...
+│   └── shared/
+│       ├── components/
+│       │   └── ui/         # UI components (added via CLI)
+│       │       ├── button.tsx
+│       │       ├── input.tsx
+│       │       └── ...
+│       ├── lib/
+│       │   └── utils.ts    # Utility functions
+│       ├── hooks/          # Custom hooks (optional)
+│       └── constants/      # Constants (optional)
 └── ...
 ```
 
-````
-
-## Why CLI-based Installation?
+## 💡 Why CLI-based Installation?
 
 Unlike traditional npm packages, this approach gives you:
 
@@ -110,17 +98,17 @@ Unlike traditional npm packages, this approach gives you:
 - ✅ **Smaller bundle** - Only install what you need
 - ✅ **No breaking changes** - Your code, your rules
 
-## Available Components
+## 📦 Available Components
 
-### UI Components (70+)
+### 🧩 UI Components (70+)
 
 Accordion, Alert, AlertDialog, AspectRatio, Avatar, Badge, Breadcrumb, Button, ButtonGroup, Calendar, Card, Carousel, Chart, Checkbox, Collapsible, Combobox, Command, ConfirmDialog, Container, ContextMenu, DataTable, DatePicker, DateRangePicker, Dialog, Divider, Drawer, DropdownMenu, Editor, Empty, EmptyState, ErrorBoundary, Field, FileUpload, Form, Grid, HoverCard, ImageLightbox, ImagePreview, Input, InputGroup, InputOTP, Item, Kbd, Label, LoadingButton, LoadingState, Menubar, MonthPicker, MultipleCombobox, NavigationMenu, Pagination, Popover, Progress, RadioGroup, Resizable, ScrollArea, Select, Separator, Sheet, Sidebar, Skeleton, Slider, Sonner, Spinner, Stack, StatusBadge, Switch, Table, Tabs, Textarea, TimePicker, Toggle, ToggleGroup, Tooltip
 
-### React Hook Form Components (17)
+### 📝 React Hook Form Components (17)
 
 RHFCheckboxGroup, RHFCombobox, RHFDatePicker, RHFDateRangePicker, RHFEditor, RHFErrorMessage, RHFFileUpload, RHFFormattedInput, RHFInput, RHFMultiSelect, RHFNumberInput, RHFRadioGroup, RHFSwitch, RHFTextarea, RHFTimePicker, RHFUpload
 
-### Utilities
+### 🛠️ Utilities
 
 - `lib/utils` - cn(), get(), hasValue()
 - `lib/format` - formatCurrency(), formatDate(), formatFileSize(), etc.
@@ -128,33 +116,52 @@ RHFCheckboxGroup, RHFCombobox, RHFDatePicker, RHFDateRangePicker, RHFEditor, RHF
 - `lib/toast` - Toast notifications
 - `lib/string` - slugify(), camelCase(), kebabCase(), etc.
 
-### Hooks (18)
+### 🪝 Hooks (18)
 
 useAriaLabel, useBreakpoint, useClickOutside, useCopyToClipboard, useDebounce, useDebouncedCallback, useFocusTrap, useIsTablet, useKeyboardNavigation, useLocalStorage, useMediaQuery, useMemoizedCallback, useMobile, usePrevious, useSessionStorage, useThrottle, useToggle, useWindowSize
 
-### Constants
+### 📋 Constants
 
 breakpoints, common, date-formats, form-sizes, regex
 
-## CLI Reference
-
-See [CLI.md](./CLI.md) for detailed CLI documentation.
-
-### Commands
+## ⚙️ CLI Commands
 
 ```bash
 # Initialize project
-shared-ui init
-shared-ui init -y  # Use defaults
+npx github:xizot/shared-ui init
+npx github:xizot/shared-ui init -y  # Use defaults
 
 # Add components
-shared-ui add button
-shared-ui add button input card
-shared-ui add --all
-shared-ui add -o  # Overwrite existing
-````
+npx github:xizot/shared-ui add button
+npx github:xizot/shared-ui add button input card
+npx github:xizot/shared-ui add --all
+npx github:xizot/shared-ui add -o  # Overwrite existing
 
-## Configuration
+# Install AI agent skills
+npx github:xizot/shared-ui skills              # List available skills
+npx github:xizot/shared-ui skills vercel-react-best-practices
+npx github:xizot/shared-ui skills --all        # Install all skills
+```
+
+See [CLI.md](./CLI.md) for detailed CLI documentation.
+
+## 🤖 AI Agent Skills
+
+Install AI coding assistant skills to improve code quality:
+
+```bash
+npx github:xizot/shared-ui skills --all
+```
+
+**Available Skills:**
+
+| Skill                         | Description                                                    |
+| ----------------------------- | -------------------------------------------------------------- |
+| `vercel-react-best-practices` | React & Next.js performance optimization guidelines (45 rules) |
+
+Skills are installed to `.github/skills/` and automatically used by AI assistants like GitHub Copilot, Cursor, etc.
+
+## 🔧 Configuration
 
 The `shared-ui.json` file controls where components are installed:
 
@@ -176,7 +183,7 @@ The `shared-ui.json` file controls where components are installed:
 }
 ```
 
-## Customization
+## 🎨 Customization
 
 Since components are copied to your project, customize freely:
 
@@ -195,16 +202,19 @@ const buttonVariants = cva('inline-flex items-center justify-center...', {
 });
 ```
 
-## Requirements
+## 📋 Requirements
 
-- React 18+ or 19+
-- TypeScript (recommended)
-- Tailwind CSS v4
-- Path aliases configured (`@/` → `./src/`)
+- ⚛️ React 18+ or 19+
+- 🔷 TypeScript (recommended)
+- 🎨 Tailwind CSS v4
+- 🔗 Path aliases configured (`@/` → `./src/`)
 
-### Tailwind CSS v4 Setup
+### 🎨 Tailwind CSS v4 Setup
 
-**For Vite projects:**
+> **Note:** The CLI will auto-configure Tailwind CSS for you when you run `init`. Manual setup is only needed if auto-configuration fails.
+
+<details>
+<summary>📦 For Vite projects</summary>
 
 ```bash
 npm install @tailwindcss/vite
@@ -221,7 +231,10 @@ export default defineConfig({
 });
 ```
 
-**For Next.js / Other projects:**
+</details>
+
+<details>
+<summary>📦 For Next.js / Other projects</summary>
 
 ```bash
 npm install @tailwindcss/postcss
@@ -236,9 +249,12 @@ export default {
 };
 ```
 
-### Path Aliases Setup
+</details>
 
-**tsconfig.json:**
+### 🔗 Path Aliases Setup
+
+<details>
+<summary>tsconfig.json</summary>
 
 ```json
 {
@@ -251,7 +267,10 @@ export default {
 }
 ```
 
-**vite.config.ts:**
+</details>
+
+<details>
+<summary>vite.config.ts</summary>
 
 ```ts
 import path from 'path';
@@ -265,7 +284,9 @@ export default defineConfig({
 });
 ```
 
-## Development
+</details>
+
+## 🛠️ Development
 
 ```bash
 # Install dependencies
@@ -281,7 +302,7 @@ npm run build
 npm run dev
 ```
 
-## Design System Preview
+## 🎨 Design System Preview
 
 See [PREVIEW.md](./PREVIEW.md) for the interactive design system documentation.
 
@@ -290,13 +311,13 @@ npm run build:preview
 npm run preview:design
 ```
 
-## License
+## 📄 License
 
 MIT
 
-## Resources
+## 🔗 Resources
 
-- [CLI Documentation](./CLI.md)
-- [shadcn/ui](https://ui.shadcn.com/)
-- [Radix UI](https://www.radix-ui.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
+- 📖 [CLI Documentation](./CLI.md)
+- 🎨 [shadcn/ui](https://ui.shadcn.com/)
+- 🧩 [Radix UI](https://www.radix-ui.com/)
+- 💨 [Tailwind CSS](https://tailwindcss.com/)
