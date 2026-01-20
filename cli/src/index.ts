@@ -7,7 +7,7 @@ import { initCommand } from './commands/init.js';
 const program = new Command();
 
 program
-  .name('shared-ui')
+  .name('@xizot/shared-ui')
   .description('CLI tool for adding shared-ui components to your project')
   .version('1.0.0');
 

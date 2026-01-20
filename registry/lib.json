@@ -1,6 +1,6 @@
 [
   {
-    "name": "lib-format",
+    "name": "lib/format",
     "type": "registry:lib",
     "dependencies": [],
     "registryDependencies": [],
@@ -13,7 +13,7 @@
     ]
   },
   {
-    "name": "lib-string",
+    "name": "lib/string",
     "type": "registry:lib",
     "dependencies": [],
     "registryDependencies": [],
@@ -26,7 +26,7 @@
     ]
   },
   {
-    "name": "lib-toast",
+    "name": "lib/toast",
     "type": "registry:lib",
     "dependencies": [
       "sonner"
@@ -41,7 +41,7 @@
     ]
   },
   {
-    "name": "lib-types",
+    "name": "lib/types",
     "type": "registry:lib",
     "dependencies": [],
     "registryDependencies": [],
@@ -54,7 +54,7 @@
     ]
   },
   {
-    "name": "lib-utils",
+    "name": "lib/utils",
     "type": "registry:lib",
     "dependencies": [
       "clsx",
@@ -70,7 +70,7 @@
     ]
   },
   {
-    "name": "lib-validate",
+    "name": "lib/validate",
     "type": "registry:lib",
     "dependencies": [],
     "registryDependencies": [],

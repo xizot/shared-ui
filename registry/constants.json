@@ -1,6 +1,6 @@
 [
   {
-    "name": "const-breakpoints",
+    "name": "constants/breakpoints",
     "type": "registry:constant",
     "dependencies": [],
     "registryDependencies": [],
@@ -13,7 +13,7 @@
     ]
   },
   {
-    "name": "const-common",
+    "name": "constants/common",
     "type": "registry:constant",
     "dependencies": [],
     "registryDependencies": [],
@@ -26,7 +26,7 @@
     ]
   },
   {
-    "name": "const-date-formats",
+    "name": "constants/date-formats",
     "type": "registry:constant",
     "dependencies": [],
     "registryDependencies": [],
@@ -39,7 +39,7 @@
     ]
   },
   {
-    "name": "const-form-sizes",
+    "name": "constants/form-sizes",
     "type": "registry:constant",
     "dependencies": [
       "class-variance-authority"
@@ -54,7 +54,7 @@
     ]
   },
   {
-    "name": "const-regex",
+    "name": "constants/regex",
     "type": "registry:constant",
     "dependencies": [],
     "registryDependencies": [],

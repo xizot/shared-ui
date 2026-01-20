@@ -1,7 +1,8 @@
 {
-  "name": "@xizot/shared-ui-cli",
+  "name": "@xizot/shared-ui-cli-internal",
+  "private": true,
   "version": "1.0.0",
-  "description": "CLI tool for adding shared-ui components to your project",
+  "description": "Internal CLI build for @xizot/shared-ui",
   "type": "module",
   "bin": {
     "shared-ui": "./dist/index.js"

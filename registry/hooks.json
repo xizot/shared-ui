@@ -1,23 +1,8 @@
 [
   {
-    "name": "hook-index",
+    "name": "hooks/use-aria-label",
     "type": "registry:hook",
     "dependencies": [],
-    "registryDependencies": [],
-    "files": [
-      {
-        "path": "hooks/index.ts",
-        "content": "export * from './use-mobile';\r\nexport * from './use-media-query';\r\nexport * from './use-breakpoint';\r\nexport * from './use-window-size';\r\nexport * from './use-is-tablet';\r\nexport * from './use-debounce';\r\nexport * from './use-debounced-callback';\r\nexport * from './use-throttle';\r\nexport * from './use-click-outside';\r\nexport * from './use-local-storage';\r\nexport * from './use-session-storage';\r\nexport * from './use-copy-to-clipboard';\r\nexport * from './use-toggle';\r\nexport * from './use-previous';\r\nexport * from './use-memoized-callback';\r\nexport * from './use-focus-trap';\r\nexport * from './use-keyboard-navigation';\r\nexport * from './use-aria-label';\r\n",
-        "type": "registry:hook"
-      }
-    ]
-  },
-  {
-    "name": "hook-use-aria-label",
-    "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
     "registryDependencies": [],
     "files": [
       {
@@ -28,7 +13,7 @@
     ]
   },
   {
-    "name": "hook-use-breakpoint",
+    "name": "hooks/use-breakpoint",
     "type": "registry:hook",
     "dependencies": [],
     "registryDependencies": [],
@@ -41,11 +26,9 @@
     ]
   },
   {
-    "name": "hook-use-click-outside",
+    "name": "hooks/use-click-outside",
     "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
+    "dependencies": [],
     "registryDependencies": [],
     "files": [
       {
@@ -56,11 +39,9 @@
     ]
   },
   {
-    "name": "hook-use-copy-to-clipboard",
+    "name": "hooks/use-copy-to-clipboard",
     "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
+    "dependencies": [],
     "registryDependencies": [],
     "files": [
       {
@@ -71,11 +52,9 @@
     ]
   },
   {
-    "name": "hook-use-debounce",
+    "name": "hooks/use-debounce",
     "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
+    "dependencies": [],
     "registryDependencies": [],
     "files": [
       {
@@ -86,11 +65,9 @@
     ]
   },
   {
-    "name": "hook-use-debounced-callback",
+    "name": "hooks/use-debounced-callback",
     "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
+    "dependencies": [],
     "registryDependencies": [],
     "files": [
       {
@@ -101,11 +78,9 @@
     ]
   },
   {
-    "name": "hook-use-focus-trap",
+    "name": "hooks/use-focus-trap",
     "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
+    "dependencies": [],
     "registryDependencies": [],
     "files": [
       {
@@ -116,7 +91,7 @@
     ]
   },
   {
-    "name": "hook-use-is-tablet",
+    "name": "hooks/use-is-tablet",
     "type": "registry:hook",
     "dependencies": [],
     "registryDependencies": [],
@@ -129,11 +104,9 @@
     ]
   },
   {
-    "name": "hook-use-keyboard-navigation",
+    "name": "hooks/use-keyboard-navigation",
     "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
+    "dependencies": [],
     "registryDependencies": [],
     "files": [
       {
@@ -144,11 +117,9 @@
     ]
   },
   {
-    "name": "hook-use-local-storage",
+    "name": "hooks/use-local-storage",
     "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
+    "dependencies": [],
     "registryDependencies": [],
     "files": [
       {
@@ -159,11 +130,9 @@
     ]
   },
   {
-    "name": "hook-use-media-query",
+    "name": "hooks/use-media-query",
     "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
+    "dependencies": [],
     "registryDependencies": [],
     "files": [
       {
@@ -174,11 +143,9 @@
     ]
   },
   {
-    "name": "hook-use-memoized-callback",
+    "name": "hooks/use-memoized-callback",
     "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
+    "dependencies": [],
     "registryDependencies": [],
     "files": [
       {
@@ -189,11 +156,9 @@
     ]
   },
   {
-    "name": "hook-use-mobile",
+    "name": "hooks/use-mobile",
     "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
+    "dependencies": [],
     "registryDependencies": [],
     "files": [
       {
@@ -204,11 +169,9 @@
     ]
   },
   {
-    "name": "hook-use-previous",
+    "name": "hooks/use-previous",
     "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
+    "dependencies": [],
     "registryDependencies": [],
     "files": [
       {
@@ -219,11 +182,9 @@
     ]
   },
   {
-    "name": "hook-use-session-storage",
+    "name": "hooks/use-session-storage",
     "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
+    "dependencies": [],
     "registryDependencies": [],
     "files": [
       {
@@ -234,11 +195,9 @@
     ]
   },
   {
-    "name": "hook-use-throttle",
+    "name": "hooks/use-throttle",
     "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
+    "dependencies": [],
     "registryDependencies": [],
     "files": [
       {
@@ -249,11 +208,9 @@
     ]
   },
   {
-    "name": "hook-use-toggle",
+    "name": "hooks/use-toggle",
     "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
+    "dependencies": [],
     "registryDependencies": [],
     "files": [
       {
@@ -264,11 +221,9 @@
     ]
   },
   {
-    "name": "hook-use-window-size",
+    "name": "hooks/use-window-size",
     "type": "registry:hook",
-    "dependencies": [
-      "react"
-    ],
+    "dependencies": [],
     "registryDependencies": [],
     "files": [
       {

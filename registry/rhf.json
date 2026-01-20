@@ -1,6 +1,6 @@
 [
   {
-    "name": "rhf-rhf-checkbox-group",
+    "name": "rhf-checkbox-group",
     "type": "registry:ui",
     "dependencies": [
       "react-hook-form"
@@ -8,107 +8,107 @@
     "registryDependencies": [
       "checkbox",
       "label",
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-checkbox-group.tsx",
+        "path": "rhf/rhf-checkbox-group.tsx",
         "content": "'use client';\r\n\r\nimport { Checkbox } from '@/components/ui/checkbox';\r\nimport { Label } from '@/components/ui/label';\r\nimport { cn, get } from '@/lib/utils';\r\nimport type { ComponentProps } from 'react';\r\nimport type { Control, FieldValues, Path } from 'react-hook-form';\r\nimport { Controller, useFormState } from 'react-hook-form';\r\n\r\nexport type RHFCheckboxGroupOption = {\r\n  value: string;\r\n  label: string;\r\n  disabled?: boolean;\r\n};\r\n\r\nexport type RHFCheckboxGroupProps<T extends FieldValues = FieldValues> = {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  options: RHFCheckboxGroupOption[];\r\n  label?: string;\r\n  error?: string;\r\n  required?: boolean;\r\n  wrapperClassName?: ComponentProps<'div'>['className'];\r\n  orientation?: 'horizontal' | 'vertical';\r\n};\r\n\r\nexport function RHFCheckboxGroup<T extends FieldValues = FieldValues>({\r\n  control,\r\n  name,\r\n  options,\r\n  label,\r\n  error,\r\n  required = false,\r\n  wrapperClassName,\r\n  orientation = 'vertical',\r\n}: RHFCheckboxGroupProps<T>) {\r\n  const formState = useFormState({ control, name });\r\n  const fieldError = error || get<string>(formState.errors, `${name}.message`);\r\n\r\n  return (\r\n    <div className={cn('w-full', wrapperClassName)}>\r\n      {label && (\r\n        <Label htmlFor={name} className=\"mb-2 block\">\r\n          {label}\r\n          {required && <span className=\"text-destructive ml-1\">*</span>}\r\n        </Label>\r\n      )}\r\n      <Controller\r\n        control={control}\r\n        name={name}\r\n        render={({ field }) => (\r\n          <div className={cn('flex gap-4', orientation === 'horizontal' ? 'flex-row' : 'flex-col')}>\r\n            {options.map((option) => (\r\n              <div key={option.value} className=\"flex items-center gap-2\">\r\n                <Checkbox\r\n                  id={`${name}-${option.value}`}\r\n                  checked={Array.isArray(field.value) && field.value.includes(option.value)}\r\n                  onCheckedChange={(checked) => {\r\n                    const currentValue = Array.isArray(field.value) ? field.value : [];\r\n                    if (checked) {\r\n                      field.onChange([...currentValue, option.value]);\r\n                    } else {\r\n                      field.onChange(currentValue.filter((v: string) => v !== option.value));\r\n                    }\r\n                  }}\r\n                  disabled={option.disabled}\r\n                />\r\n                <Label htmlFor={`${name}-${option.value}`} className=\"font-normal cursor-pointer\">\r\n                  {option.label}\r\n                </Label>\r\n              </div>\r\n            ))}\r\n          </div>\r\n        )}\r\n      />\r\n      {fieldError && <p className=\"text-sm text-destructive mt-1\">{fieldError}</p>}\r\n    </div>\r\n  );\r\n}\r\n",
         "type": "registry:ui"
       }
     ]
   },
   {
-    "name": "rhf-rhf-combobox",
+    "name": "rhf-combobox",
     "type": "registry:ui",
     "dependencies": [
       "react-hook-form"
     ],
     "registryDependencies": [
       "combobox",
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-combobox.tsx",
+        "path": "rhf/rhf-combobox.tsx",
         "content": "'use client';\r\n\r\nimport { Combobox, type ComboboxOption } from '@/components/ui/combobox';\r\nimport { cn, get } from '@/lib/utils';\r\nimport type { ComponentProps } from 'react';\r\nimport type { Control, FieldValues, Path } from 'react-hook-form';\r\nimport { Controller, useFormState } from 'react-hook-form';\r\n\r\n// Re-export for backward compatibility\r\nexport type { ComboboxBaseOption } from '@/components/ui/combobox';\r\n\r\nexport type RHFComboboxProps<T extends FieldValues = FieldValues> = Omit<\r\n  ComponentProps<typeof Combobox>,\r\n  'value' | 'onChange' | 'label' | 'error' | 'required'\r\n> & {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  label?: string;\r\n  required?: boolean;\r\n  callback?: (newValue: string, newOption: ComboboxOption | undefined) => void;\r\n};\r\n\r\nexport function RHFCombobox<T extends FieldValues = FieldValues>({\r\n  control,\r\n  name,\r\n  label,\r\n  required,\r\n  callback = () => {},\r\n  className,\r\n  ...comboboxProps\r\n}: RHFComboboxProps<T>) {\r\n  const formState = useFormState({ control, name });\r\n  const displayError = get<string>(formState.errors, `${name}.message`);\r\n\r\n  return (\r\n    <Controller\r\n      control={control}\r\n      name={name}\r\n      render={({ field }) => {\r\n        return (\r\n          <Combobox\r\n            {...comboboxProps}\r\n            value={field.value}\r\n            onChange={(value, option) => {\r\n              field.onChange(value);\r\n              callback(value, option);\r\n            }}\r\n            label={label}\r\n            error={displayError}\r\n            required={required}\r\n            className={cn('w-full', className)}\r\n          />\r\n        );\r\n      }}\r\n    />\r\n  );\r\n}\r\n",
         "type": "registry:ui"
       }
     ]
   },
   {
-    "name": "rhf-rhf-date-picker",
+    "name": "rhf-date-picker",
     "type": "registry:ui",
     "dependencies": [
       "react-hook-form"
     ],
     "registryDependencies": [
       "date-picker",
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-date-picker.tsx",
+        "path": "rhf/rhf-date-picker.tsx",
         "content": "'use client';\r\n\r\nimport { DatePicker, type DatePickerProps } from '@/components/ui/date-picker';\r\nimport { cn } from '@/lib/utils';\r\nimport type { ComponentProps } from 'react';\r\nimport type { Control, FieldValues, Path } from 'react-hook-form';\r\nimport { Controller } from 'react-hook-form';\r\n\r\nexport type RHFDatePickerProps<T extends FieldValues = FieldValues> = Omit<\r\n  DatePickerProps,\r\n  'value' | 'onChange' | 'label' | 'error' | 'required'\r\n> & {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  label?: string | React.ReactNode;\r\n  required?: boolean;\r\n  error?: string;\r\n  className?: ComponentProps<'div'>['className'];\r\n  callback?: (value: Date | undefined) => void;\r\n};\r\n\r\nexport function RHFDatePicker<T extends FieldValues = FieldValues>({\r\n  control,\r\n  name,\r\n  label,\r\n  required,\r\n  error,\r\n  className,\r\n  callback = () => {},\r\n  ...datePickerProps\r\n}: RHFDatePickerProps<T>) {\r\n  return (\r\n    <Controller\r\n      control={control}\r\n      name={name}\r\n      render={({ field, fieldState: { error: fieldError } }) => {\r\n        const displayError = error || fieldError?.message;\r\n\r\n        return (\r\n          <DatePicker\r\n            {...datePickerProps}\r\n            value={field.value}\r\n            onChange={(date) => {\r\n              field.onChange(date);\r\n              callback(date);\r\n            }}\r\n            label={label}\r\n            error={displayError}\r\n            required={required}\r\n            className={cn('w-full', className)}\r\n          />\r\n        );\r\n      }}\r\n    />\r\n  );\r\n}\r\n",
         "type": "registry:ui"
       }
     ]
   },
   {
-    "name": "rhf-rhf-date-range-picker",
+    "name": "rhf-date-range-picker",
     "type": "registry:ui",
     "dependencies": [
       "react-hook-form"
     ],
     "registryDependencies": [
       "date-range-picker",
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-date-range-picker.tsx",
+        "path": "rhf/rhf-date-range-picker.tsx",
         "content": "'use client';\r\n\r\nimport {\r\n    DateRangePicker,\r\n    type DateRangePickerProps,\r\n} from '@/components/ui/date-range-picker';\r\nimport { cn } from '@/lib/utils';\r\nimport type { ComponentProps } from 'react';\r\nimport type { Control, FieldValues, Path } from 'react-hook-form';\r\nimport { Controller } from 'react-hook-form';\r\n\r\nexport type RHFDateRangePickerProps<T extends FieldValues = FieldValues> = Omit<\r\n  DateRangePickerProps,\r\n  'value' | 'onChange' | 'label' | 'error' | 'required'\r\n> & {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  label?: string | React.ReactNode;\r\n  required?: boolean;\r\n  error?: string;\r\n  className?: ComponentProps<'div'>['className'];\r\n  callback?: (value: { from?: Date; to?: Date } | undefined) => void;\r\n};\r\n\r\nexport function RHFDateRangePicker<T extends FieldValues = FieldValues>({\r\n  control,\r\n  name,\r\n  label,\r\n  required,\r\n  error,\r\n  className,\r\n  callback = () => {},\r\n  ...dateRangePickerProps\r\n}: RHFDateRangePickerProps<T>) {\r\n  return (\r\n    <Controller\r\n      control={control}\r\n      name={name}\r\n      render={({ field, fieldState: { error: fieldError } }) => {\r\n        const displayError = error || fieldError?.message;\r\n\r\n        return (\r\n          <DateRangePicker\r\n            {...dateRangePickerProps}\r\n            value={field.value}\r\n            onChange={(range) => {\r\n              field.onChange(range);\r\n              callback(range);\r\n            }}\r\n            label={label}\r\n            error={displayError}\r\n            required={required}\r\n            className={cn('w-full', className)}\r\n          />\r\n        );\r\n      }}\r\n    />\r\n  );\r\n}\r\n",
         "type": "registry:ui"
       }
     ]
   },
   {
-    "name": "rhf-rhf-editor",
+    "name": "rhf-editor",
     "type": "registry:ui",
     "dependencies": [
       "react-hook-form"
     ],
     "registryDependencies": [
       "editor",
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-editor.tsx",
+        "path": "rhf/rhf-editor.tsx",
         "content": "'use client';\r\n\r\nimport { Editor, type EditorProps } from '@/components/ui/editor';\r\nimport { cn } from '@/lib/utils';\r\nimport type { ComponentProps } from 'react';\r\nimport { Controller, useFormState } from 'react-hook-form';\r\nimport type { Control, FieldValues, Path } from 'react-hook-form';\r\nimport { get } from '@/lib/utils';\r\n\r\nexport type RHFEditorProps<T extends FieldValues = FieldValues> = Omit<\r\n  EditorProps,\r\n  'value' | 'onChange' | 'label' | 'error' | 'required'\r\n> & {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  label?: string;\r\n  wrapperClassName?: ComponentProps<'div'>['className'];\r\n  required?: boolean;\r\n  callback?: (value: string) => void;\r\n};\r\n\r\nexport function RHFEditor<T extends FieldValues = FieldValues>({\r\n  control,\r\n  name,\r\n  label,\r\n  className,\r\n  wrapperClassName,\r\n  required = false,\r\n  callback = () => {},\r\n  ...editorProps\r\n}: RHFEditorProps<T>) {\r\n  const formState = useFormState({ control, name });\r\n  const error = get<string>(formState.errors, `${name}.message`);\r\n\r\n  return (\r\n    <div className={cn('w-full', wrapperClassName)}>\r\n      <Controller\r\n        control={control}\r\n        name={name}\r\n        render={({ field }) => (\r\n          <Editor\r\n            {...editorProps}\r\n            value={field.value || ''}\r\n            onChange={(value) => {\r\n              field.onChange(value);\r\n              callback(value);\r\n            }}\r\n            label={label}\r\n            error={error}\r\n            required={required}\r\n            className={className}\r\n          />\r\n        )}\r\n      />\r\n    </div>\r\n  );\r\n}\r\n\r\n",
         "type": "registry:ui"
       }
     ]
   },
   {
-    "name": "rhf-rhf-error-message",
+    "name": "rhf-error-message",
     "type": "registry:ui",
     "dependencies": [
       "react-hook-form"
     ],
     "registryDependencies": [
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-error-message.tsx",
+        "path": "rhf/rhf-error-message.tsx",
         "content": "'use client';\r\n\r\nimport { cn, get, hasValue } from '@/lib/utils';\r\nimport { useFormState } from 'react-hook-form';\r\nimport type { Control, FieldValues, Path } from 'react-hook-form';\r\n\r\nexport type RHFErrorMessageProps<T extends FieldValues> = {\r\n  name: Path<T>;\r\n  control: Control<T>;\r\n  showErrorWithTooltip?: boolean;\r\n};\r\n\r\nexport function RHFErrorMessage<T extends FieldValues = FieldValues>({\r\n  name,\r\n  control,\r\n}: RHFErrorMessageProps<T>) {\r\n  const formState = useFormState({\r\n    control,\r\n    name,\r\n  });\r\n  const error = get<string>(formState.errors, `${name}.message`);\r\n\r\n  return (\r\n    <p\r\n      className={cn(\r\n        'text-xs text-destructive hidden',\r\n        hasValue(error) && 'input-error block mt-1.5',\r\n      )}\r\n    >\r\n      {error}\r\n    </p>\r\n  );\r\n};\r\n\r\n",
         "type": "registry:ui"
       }
     ]
   },
   {
-    "name": "rhf-rhf-file-upload",
+    "name": "rhf-file-upload",
     "type": "registry:ui",
     "dependencies": [
       "react-hook-form"
@@ -116,54 +116,54 @@
     "registryDependencies": [
       "file-upload",
       "label",
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-file-upload.tsx",
+        "path": "rhf/rhf-file-upload.tsx",
         "content": "'use client';\r\n\r\nimport { FileUpload, type FileUploadProps } from '@/components/ui/file-upload';\r\nimport { Label } from '@/components/ui/label';\r\nimport { cn, get } from '@/lib/utils';\r\nimport type { ComponentProps } from 'react';\r\nimport type { Control, FieldValues, Path } from 'react-hook-form';\r\nimport { Controller, useFormState } from 'react-hook-form';\r\n\r\nexport type RHFFileUploadProps<T extends FieldValues = FieldValues> = Omit<\r\n  FileUploadProps,\r\n  'value' | 'onChange' | 'onError'\r\n> & {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  label?: string;\r\n  error?: string;\r\n  required?: boolean;\r\n  wrapperClassName?: ComponentProps<'div'>['className'];\r\n};\r\n\r\nexport function RHFFileUpload<T extends FieldValues = FieldValues>({\r\n  control,\r\n  name,\r\n  label,\r\n  error,\r\n  required = false,\r\n  wrapperClassName,\r\n  ...fileUploadProps\r\n}: RHFFileUploadProps<T>) {\r\n  const formState = useFormState({ control, name });\r\n  const fieldError = error || get<string>(formState.errors, `${name}.message`);\r\n\r\n  return (\r\n    <div className={cn('w-full', wrapperClassName)} data-slot=\"rhf-file-upload\">\r\n      {label && (\r\n        <Label htmlFor={name} className=\"mb-2 block\">\r\n          {label}\r\n          {required && <span className=\"text-destructive ml-1\">*</span>}\r\n        </Label>\r\n      )}\r\n      <Controller\r\n        control={control}\r\n        name={name}\r\n        render={({ field: { onChange, value, ...field } }) => {\r\n          const files = value ? (Array.isArray(value) ? value : [value]).filter(Boolean) : [];\r\n\r\n          return (\r\n            <FileUpload\r\n              {...fileUploadProps}\r\n              {...field}\r\n              value={files}\r\n              onChange={(newFiles) => {\r\n                if (fileUploadProps.multiple) {\r\n                  onChange(newFiles);\r\n                } else {\r\n                  onChange(newFiles.length > 0 ? newFiles[0] : undefined);\r\n                }\r\n              }}\r\n              onError={(errorMessage) => {\r\n                // You can handle error here if needed\r\n                console.error('File upload error:', errorMessage);\r\n              }}\r\n              disabled={fileUploadProps.disabled}\r\n            />\r\n          );\r\n        }}\r\n      />\r\n      {fieldError && (\r\n        <p className=\"text-sm text-destructive mt-1\" data-slot=\"rhf-file-upload-error\">\r\n          {fieldError}\r\n        </p>\r\n      )}\r\n    </div>\r\n  );\r\n}\r\n\r\n\r\n",
         "type": "registry:ui"
       }
     ]
   },
   {
-    "name": "rhf-rhf-formatted-input",
+    "name": "rhf-formatted-input",
     "type": "registry:ui",
     "dependencies": [
       "react-hook-form"
     ],
     "registryDependencies": [
       "input",
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-formatted-input.tsx",
+        "path": "rhf/rhf-formatted-input.tsx",
         "content": "'use client';\r\n\r\nimport { Input } from '@/components/ui/input';\r\nimport { cn } from '@/lib/utils';\r\nimport type { ComponentProps } from 'react';\r\nimport { Controller, useFormState } from 'react-hook-form';\r\nimport type { Control, FieldValues, Path } from 'react-hook-form';\r\nimport { get } from '@/lib/utils';\r\n\r\nexport type FormatType = 'text' | 'integer' | 'decimal' | 'currency';\r\n\r\nexport type RHFFormattedInputProps<T extends FieldValues = FieldValues> = Omit<\r\n  ComponentProps<typeof Input>,\r\n  'value' | 'onChange' | 'type' | 'label' | 'error' | 'required'\r\n> & {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  label?: string;\r\n  format?: FormatType;\r\n  required?: boolean;\r\n  wrapperClassName?: ComponentProps<'div'>['className'];\r\n  callback?: (value: string) => void;\r\n};\r\n\r\nconst formatValue = (value: string, format: FormatType): string => {\r\n  if (format === 'text' || !value) return value;\r\n\r\n  if (format === 'integer' || format === 'currency') {\r\n    return value.replace(/\\D/g, '');\r\n  }\r\n\r\n  if (format === 'decimal') {\r\n    return value.replace(/[^\\d.,]/g, '').replace(/\\./g, ',');\r\n  }\r\n\r\n  return value;\r\n};\r\n\r\nexport function RHFFormattedInput<T extends FieldValues = FieldValues>({\r\n  control,\r\n  name,\r\n  label,\r\n  format = 'text',\r\n  required,\r\n  wrapperClassName,\r\n  callback = () => {},\r\n  ...inputProps\r\n}: RHFFormattedInputProps<T>) {\r\n  const formState = useFormState({ control, name });\r\n  const error = get<string>(formState.errors, `${name}.message`);\r\n\r\n  return (\r\n    <Controller\r\n      control={control}\r\n      name={name}\r\n      render={({ field }) => {\r\n        return (\r\n          <div className={cn('w-full', wrapperClassName)}>\r\n            <Input\r\n              {...inputProps}\r\n              {...field}\r\n              type=\"text\"\r\n              label={label}\r\n              error={error}\r\n              required={required}\r\n              value={field.value || ''}\r\n              onChange={(e) => {\r\n                const formatted = formatValue(e.target.value, format);\r\n                field.onChange(formatted);\r\n                callback(formatted);\r\n              }}\r\n            />\r\n          </div>\r\n        );\r\n      }}\r\n    />\r\n  );\r\n}\r\n",
         "type": "registry:ui"
       }
     ]
   },
   {
-    "name": "rhf-rhf-input",
+    "name": "rhf-input",
     "type": "registry:ui",
     "dependencies": [
       "react-hook-form"
     ],
     "registryDependencies": [
       "input",
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-input.tsx",
+        "path": "rhf/rhf-input.tsx",
         "content": "'use client';\r\n\r\nimport { Input } from '@/components/ui/input';\r\nimport { cn } from '@/lib/utils';\r\nimport { useFormState } from 'react-hook-form';\r\nimport type { ComponentProps } from 'react';\r\nimport type { Control, FieldValues, Path, UseFormRegister } from 'react-hook-form';\r\nimport { get } from '@/lib/utils';\r\n\r\nexport type RHFInputProps<T extends FieldValues = FieldValues> = Omit<\r\n  ComponentProps<typeof Input>,\r\n  'label' | 'error' | 'required'\r\n> & {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  register: UseFormRegister<T>;\r\n  label?: string;\r\n  wrapperClassName?: ComponentProps<'div'>['className'];\r\n  required?: boolean;\r\n};\r\n\r\nexport function RHFInput<T extends FieldValues = FieldValues>({\r\n  control,\r\n  register,\r\n  name,\r\n  label,\r\n  placeholder,\r\n  className,\r\n  wrapperClassName,\r\n  required = false,\r\n  ...rest\r\n}: RHFInputProps<T>) {\r\n  const formState = useFormState({ control, name });\r\n  const error = get<string>(formState.errors, `${name}.message`);\r\n\r\n  return (\r\n    <div className={cn('w-full', wrapperClassName)}>\r\n      <Input\r\n        {...rest}\r\n        {...register(name)}\r\n        label={label}\r\n        error={error}\r\n        required={required}\r\n        className={className}\r\n        placeholder={placeholder}\r\n      />\r\n    </div>\r\n  );\r\n}\r\n",
         "type": "registry:ui"
       }
     ]
   },
   {
-    "name": "rhf-rhf-multi-select",
+    "name": "rhf-multi-select",
     "type": "registry:ui",
     "dependencies": [
       "lucide-react",
@@ -173,36 +173,36 @@
       "badge",
       "label",
       "select",
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-multi-select.tsx",
+        "path": "rhf/rhf-multi-select.tsx",
         "content": "'use client';\r\n\r\nimport { Badge } from '@/components/ui/badge';\r\nimport { Label } from '@/components/ui/label';\r\nimport {\r\n  Select,\r\n  SelectContent,\r\n  SelectItem,\r\n  SelectTrigger,\r\n  SelectValue,\r\n} from '@/components/ui/select';\r\nimport { cn, get } from '@/lib/utils';\r\nimport { X } from 'lucide-react';\r\nimport type { ComponentProps } from 'react';\r\nimport type { Control, FieldValues, Path } from 'react-hook-form';\r\nimport { Controller, useFormState } from 'react-hook-form';\r\n\r\nexport type RHFMultiSelectOption = {\r\n  value: string;\r\n  label: string;\r\n  disabled?: boolean;\r\n};\r\n\r\nexport type RHFMultiSelectProps<T extends FieldValues = FieldValues> = {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  options: RHFMultiSelectOption[];\r\n  label?: string;\r\n  error?: string;\r\n  required?: boolean;\r\n  placeholder?: string;\r\n  wrapperClassName?: ComponentProps<'div'>['className'];\r\n};\r\n\r\nexport function RHFMultiSelect<T extends FieldValues = FieldValues>({\r\n  control,\r\n  name,\r\n  options,\r\n  label,\r\n  error,\r\n  required = false,\r\n  placeholder = 'Select options...',\r\n  wrapperClassName,\r\n}: RHFMultiSelectProps<T>) {\r\n  const formState = useFormState({ control, name });\r\n  const fieldError = error || get<string>(formState.errors, `${name}.message`);\r\n\r\n  return (\r\n    <div className={cn('w-full', wrapperClassName)}>\r\n      {label && (\r\n        <Label htmlFor={name} className=\"mb-2 block\">\r\n          {label}\r\n          {required && <span className=\"text-destructive ml-1\">*</span>}\r\n        </Label>\r\n      )}\r\n      <Controller\r\n        control={control}\r\n        name={name}\r\n        render={({ field }) => {\r\n          const selectedValues: string[] = Array.isArray(field.value) ? field.value : [];\r\n\r\n          return (\r\n            <div className=\"space-y-2\">\r\n              <Select\r\n                value=\"\"\r\n                onValueChange={(value) => {\r\n                  if (!selectedValues.includes(value)) {\r\n                    field.onChange([...selectedValues, value]);\r\n                  }\r\n                }}\r\n              >\r\n                <SelectTrigger className={cn(fieldError && 'border-destructive')}>\r\n                  <SelectValue placeholder={placeholder} />\r\n                </SelectTrigger>\r\n                <SelectContent>\r\n                  {options.map((option) => (\r\n                    <SelectItem\r\n                      key={option.value}\r\n                      value={option.value}\r\n                      disabled={option.disabled || selectedValues.includes(option.value)}\r\n                    >\r\n                      {option.label}\r\n                    </SelectItem>\r\n                  ))}\r\n                </SelectContent>\r\n              </Select>\r\n\r\n              {selectedValues.length > 0 && (\r\n                <div className=\"flex flex-wrap gap-2\">\r\n                  {selectedValues.map((value: string) => {\r\n                    const option = options.find((opt) => opt.value === value);\r\n                    return (\r\n                      <Badge key={value} variant=\"secondary\" className=\"gap-1\">\r\n                        {option?.label || value}\r\n                        <button\r\n                          type=\"button\"\r\n                          onClick={() => {\r\n                            field.onChange(selectedValues.filter((v: string) => v !== value));\r\n                          }}\r\n                          className=\"ml-1 hover:bg-destructive/20 rounded-full p-0.5\"\r\n                        >\r\n                          <X className=\"h-3 w-3\" />\r\n                        </button>\r\n                      </Badge>\r\n                    );\r\n                  })}\r\n                </div>\r\n              )}\r\n            </div>\r\n          );\r\n        }}\r\n      />\r\n      {fieldError && <p className=\"text-sm text-destructive mt-1\">{fieldError}</p>}\r\n    </div>\r\n  );\r\n}\r\n",
         "type": "registry:ui"
       }
     ]
   },
   {
-    "name": "rhf-rhf-number-input",
+    "name": "rhf-number-input",
     "type": "registry:ui",
     "dependencies": [
       "react-hook-form"
     ],
     "registryDependencies": [
       "input",
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-number-input.tsx",
+        "path": "rhf/rhf-number-input.tsx",
         "content": "'use client';\r\n\r\nimport { Input } from '@/components/ui/input';\r\nimport { cn } from '@/lib/utils';\r\nimport { useFormState } from 'react-hook-form';\r\nimport type { ComponentProps } from 'react';\r\nimport type { Control, FieldValues, Path, UseFormRegister } from 'react-hook-form';\r\nimport { get } from '@/lib/utils';\r\n\r\nexport type RHFNumberInputProps<T extends FieldValues = FieldValues> = Omit<\r\n  ComponentProps<typeof Input>,\r\n  'label' | 'error' | 'required' | 'type'\r\n> & {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  register: UseFormRegister<T>;\r\n  label?: string;\r\n  wrapperClassName?: ComponentProps<'div'>['className'];\r\n  required?: boolean;\r\n  min?: number;\r\n  max?: number;\r\n  step?: number;\r\n};\r\n\r\nexport function RHFNumberInput<T extends FieldValues = FieldValues>({\r\n  control,\r\n  register,\r\n  name,\r\n  label,\r\n  placeholder,\r\n  className,\r\n  wrapperClassName,\r\n  required = false,\r\n  min,\r\n  max,\r\n  step,\r\n  ...rest\r\n}: RHFNumberInputProps<T>) {\r\n  const formState = useFormState({ control, name });\r\n  const error = get<string>(formState.errors, `${name}.message`);\r\n\r\n  return (\r\n    <div className={cn('w-full', wrapperClassName)}>\r\n      <Input\r\n        {...rest}\r\n        {...register(name, { valueAsNumber: true })}\r\n        type=\"number\"\r\n        label={label}\r\n        error={error}\r\n        required={required}\r\n        className={className}\r\n        placeholder={placeholder}\r\n        min={min}\r\n        max={max}\r\n        step={step}\r\n      />\r\n    </div>\r\n  );\r\n}\r\n",
         "type": "registry:ui"
       }
     ]
   },
   {
-    "name": "rhf-rhf-radio-group",
+    "name": "rhf-radio-group",
     "type": "registry:ui",
     "dependencies": [
       "react-hook-form"
@@ -210,18 +210,18 @@
     "registryDependencies": [
       "label",
       "radio-group",
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-radio-group.tsx",
+        "path": "rhf/rhf-radio-group.tsx",
         "content": "'use client';\r\n\r\nimport { Label } from '@/components/ui/label';\r\nimport { RadioGroup } from '@/components/ui/radio-group';\r\nimport { cn } from '@/lib/utils';\r\nimport type { ComponentProps } from 'react';\r\nimport { Controller } from 'react-hook-form';\r\nimport type { Control, FieldPathValue, FieldValues, Path } from 'react-hook-form';\r\n\r\nexport type RHFRadioGroupProps<T extends FieldValues = FieldValues> = Omit<\r\n  ComponentProps<typeof RadioGroup>,\r\n  'onValueChange' | 'value'\r\n> & {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  label?: string;\r\n  required?: boolean;\r\n  children: React.ReactNode;\r\n\r\n  onBeforeChange?: (\r\n    newValue: string,\r\n    currentValue: FieldPathValue<T, Path<T>>,\r\n    onNextAction: () => void,\r\n  ) => void;\r\n\r\n  callback?: (newValue: string) => void;\r\n};\r\n\r\nexport function RHFRadioGroup<T extends FieldValues = FieldValues>({\r\n  control,\r\n  name,\r\n  label,\r\n  required,\r\n  children,\r\n  className,\r\n  callback = () => {},\r\n  onBeforeChange,\r\n  ...radioGroupProps\r\n}: RHFRadioGroupProps<T>) {\r\n  const handleChange = (newValue: string, field: FieldValues) => {\r\n    const performChange = () => {\r\n      field.onChange(newValue);\r\n      callback(newValue);\r\n    };\r\n\r\n    if (onBeforeChange) {\r\n      onBeforeChange(newValue, field.value, performChange);\r\n    } else {\r\n      performChange();\r\n    }\r\n  };\r\n\r\n  return (\r\n    <Controller\r\n      control={control}\r\n      name={name}\r\n      render={({ field, fieldState: { error } }) => {\r\n        return (\r\n          <div className=\"space-y-1.5 w-full\">\r\n            {label && (\r\n              <Label\r\n                htmlFor={radioGroupProps.id || name}\r\n                className=\"text-foreground leading-5 cursor-pointer select-none flex-1\"\r\n              >\r\n                {label}\r\n                {required && <span className=\"font-semibold text-destructive ml-1\">*</span>}\r\n              </Label>\r\n            )}\r\n            <RadioGroup\r\n              {...radioGroupProps}\r\n              id={radioGroupProps.id || name}\r\n              className={cn('flex flex-row gap-4', className)}\r\n              onValueChange={(val) => {\r\n                handleChange(val, field);\r\n              }}\r\n              value={field.value?.toString()}\r\n            >\r\n              {children}\r\n            </RadioGroup>\r\n            {error && <p className=\"text-xs text-destructive\">{error.message}</p>}\r\n          </div>\r\n        );\r\n      }}\r\n    />\r\n  );\r\n}\r\n",
         "type": "registry:ui"
       }
     ]
   },
   {
-    "name": "rhf-rhf-switch",
+    "name": "rhf-switch",
     "type": "registry:ui",
     "dependencies": [
       "react-hook-form"
@@ -229,18 +229,18 @@
     "registryDependencies": [
       "label",
       "switch",
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-switch.tsx",
+        "path": "rhf/rhf-switch.tsx",
         "content": "'use client';\r\n\r\nimport { Label } from '@/components/ui/label';\r\nimport { Switch } from '@/components/ui/switch';\r\nimport { cn } from '@/lib/utils';\r\nimport type { ComponentProps } from 'react';\r\nimport { Controller } from 'react-hook-form';\r\nimport type { Control, FieldPathValue, FieldValues, Path } from 'react-hook-form';\r\n\r\nexport type RHFSwitchProps<T extends FieldValues = FieldValues> = Omit<\r\n  ComponentProps<typeof Switch>,\r\n  'checked' | 'onCheckedChange'\r\n> & {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  label?: string;\r\n  required?: boolean;\r\n\r\n  onBeforeChange?: (\r\n    newValue: boolean,\r\n    currentValue: FieldPathValue<T, Path<T>>,\r\n    onNextAction: () => void,\r\n  ) => void;\r\n\r\n  callback?: (newValue: boolean) => void;\r\n};\r\n\r\nexport function RHFSwitch<T extends FieldValues = FieldValues>({\r\n  control,\r\n  name,\r\n  label,\r\n  required,\r\n  callback = () => {},\r\n  onBeforeChange,\r\n  className,\r\n  ...switchProps\r\n}: RHFSwitchProps<T>) {\r\n  const handleChange = (newValue: boolean, field: FieldValues) => {\r\n    const performChange = () => {\r\n      field.onChange(newValue);\r\n      callback(newValue);\r\n    };\r\n\r\n    if (onBeforeChange) {\r\n      onBeforeChange(newValue, field.value, performChange);\r\n    } else {\r\n      performChange();\r\n    }\r\n  };\r\n\r\n  return (\r\n    <Controller\r\n      control={control}\r\n      name={name}\r\n      render={({ field, fieldState: { error } }) => {\r\n        return (\r\n          <div className=\"space-y-1.5 w-full\">\r\n            <div className={cn('flex items-center gap-3', className)}>\r\n              {label && (\r\n                <Label\r\n                  htmlFor={switchProps.id || name}\r\n                  className=\"text-foreground leading-5 cursor-pointer select-none flex-1\"\r\n                >\r\n                  {label}\r\n                  {required && <span className=\"font-semibold text-destructive ml-1\">*</span>}\r\n                </Label>\r\n              )}\r\n              <Switch\r\n                {...switchProps}\r\n                id={switchProps.id || name}\r\n                checked={!!field.value}\r\n                onCheckedChange={(val) => {\r\n                  handleChange(val, field);\r\n                }}\r\n              />\r\n            </div>\r\n\r\n            {error && <p className=\"text-xs text-destructive\">{error.message}</p>}\r\n          </div>\r\n        );\r\n      }}\r\n    />\r\n  );\r\n}\r\n",
         "type": "registry:ui"
       }
     ]
   },
   {
-    "name": "rhf-rhf-textarea",
+    "name": "rhf-textarea",
     "type": "registry:ui",
     "dependencies": [
       "react-hook-form"
@@ -248,36 +248,36 @@
     "registryDependencies": [
       "badge",
       "textarea",
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-textarea.tsx",
+        "path": "rhf/rhf-textarea.tsx",
         "content": "'use client';\r\n\r\nimport { Badge } from '@/components/ui/badge';\r\nimport { Textarea } from '@/components/ui/textarea';\r\nimport { cn } from '@/lib/utils';\r\nimport type { ComponentProps } from 'react';\r\nimport { useController, useFormState } from 'react-hook-form';\r\nimport type { Control, FieldValues, Path, UseFormRegister } from 'react-hook-form';\r\nimport { get } from '@/lib/utils';\r\n\r\nexport type RHFTextAreaProps<T extends FieldValues = FieldValues> = Omit<\r\n  ComponentProps<typeof Textarea>,\r\n  'label' | 'error' | 'required'\r\n> & {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  register: UseFormRegister<T>;\r\n  label?: string;\r\n  wrapperClassName?: ComponentProps<'div'>['className'];\r\n  required?: boolean;\r\n  showMaxLength?: boolean;\r\n};\r\n\r\nexport function RHFTextArea<T extends FieldValues = FieldValues>({\r\n  control,\r\n  register,\r\n  name,\r\n  label,\r\n  placeholder,\r\n  className,\r\n  wrapperClassName,\r\n  required = false,\r\n  showMaxLength = true,\r\n  maxLength = 512,\r\n  rows = 5,\r\n  ...rest\r\n}: RHFTextAreaProps<T>) {\r\n  const formState = useFormState({ control, name });\r\n  const error = get<string>(formState.errors, `${name}.message`);\r\n\r\n  return (\r\n    <div className={cn('relative w-full', wrapperClassName)}>\r\n      <Textarea\r\n        {...rest}\r\n        {...register(name)}\r\n        label={label}\r\n        error={error}\r\n        required={required}\r\n        className={className}\r\n        placeholder={placeholder}\r\n        maxLength={maxLength}\r\n        rows={rows}\r\n      />\r\n      {showMaxLength && <TextAreaBadge control={control} name={name} maxLength={maxLength} />}\r\n    </div>\r\n  );\r\n}\r\n\r\nconst TextAreaBadge = <T extends FieldValues = FieldValues>({\r\n  control,\r\n  name,\r\n  maxLength,\r\n}: {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  maxLength: number;\r\n}) => {\r\n  const { field } = useController({ control, name });\r\n\r\n  return (\r\n    <Badge variant=\"secondary\" className=\"absolute rounded-sm right-3 bottom-2 text-[8px]\">\r\n      {field.value?.length || 0}/{maxLength}\r\n    </Badge>\r\n  );\r\n};\r\n",
         "type": "registry:ui"
       }
     ]
   },
   {
-    "name": "rhf-rhf-time-picker",
+    "name": "rhf-time-picker",
     "type": "registry:ui",
     "dependencies": [
       "react-hook-form"
     ],
     "registryDependencies": [
       "input",
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-time-picker.tsx",
+        "path": "rhf/rhf-time-picker.tsx",
         "content": "'use client';\r\n\r\nimport { Input } from '@/components/ui/input';\r\nimport { cn } from '@/lib/utils';\r\nimport { useFormState } from 'react-hook-form';\r\nimport type { ComponentProps } from 'react';\r\nimport type { Control, FieldValues, Path, UseFormRegister } from 'react-hook-form';\r\nimport { get } from '@/lib/utils';\r\n\r\nexport type RHFTimePickerProps<T extends FieldValues = FieldValues> = Omit<\r\n  ComponentProps<typeof Input>,\r\n  'label' | 'error' | 'required' | 'type'\r\n> & {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  register: UseFormRegister<T>;\r\n  label?: string;\r\n  wrapperClassName?: ComponentProps<'div'>['className'];\r\n  required?: boolean;\r\n};\r\n\r\nexport function RHFTimePicker<T extends FieldValues = FieldValues>({\r\n  control,\r\n  register,\r\n  name,\r\n  label,\r\n  placeholder = 'HH:mm',\r\n  className,\r\n  wrapperClassName,\r\n  required = false,\r\n  ...rest\r\n}: RHFTimePickerProps<T>) {\r\n  const formState = useFormState({ control, name });\r\n  const error = get<string>(formState.errors, `${name}.message`);\r\n\r\n  return (\r\n    <div className={cn('w-full', wrapperClassName)}>\r\n      <Input\r\n        {...rest}\r\n        {...register(name)}\r\n        type=\"time\"\r\n        label={label}\r\n        error={error}\r\n        required={required}\r\n        className={className}\r\n        placeholder={placeholder}\r\n      />\r\n    </div>\r\n  );\r\n}\r\n",
         "type": "registry:ui"
       }
     ]
   },
   {
-    "name": "rhf-rhf-upload",
+    "name": "rhf-upload",
     "type": "registry:ui",
     "dependencies": [
       "react-hook-form",
@@ -286,11 +286,11 @@
     "registryDependencies": [
       "input",
       "label",
-      "lib-utils"
+      "lib/utils"
     ],
     "files": [
       {
-        "path": "components/rhf/rhf-upload.tsx",
+        "path": "rhf/rhf-upload.tsx",
         "content": "'use client';\r\n\r\nimport { Input } from '@/components/ui/input';\r\nimport { Label } from '@/components/ui/label';\r\nimport { cn } from '@/lib/utils';\r\nimport { useFormState, Controller } from 'react-hook-form';\r\nimport type { ComponentProps } from 'react';\r\nimport type { Control, FieldValues, Path } from 'react-hook-form';\r\nimport { get } from '@/lib/utils';\r\nimport { Upload } from 'lucide-react';\r\n\r\nexport type RHFUploadProps<T extends FieldValues = FieldValues> = {\r\n  control: Control<T>;\r\n  name: Path<T>;\r\n  label?: string;\r\n  error?: string;\r\n  required?: boolean;\r\n  accept?: string;\r\n  multiple?: boolean;\r\n  wrapperClassName?: ComponentProps<'div'>['className'];\r\n  className?: ComponentProps<'input'>['className'];\r\n};\r\n\r\nexport function RHFUpload<T extends FieldValues = FieldValues>({\r\n  control,\r\n  name,\r\n  label,\r\n  error,\r\n  required = false,\r\n  accept,\r\n  multiple = false,\r\n  wrapperClassName,\r\n  className,\r\n}: RHFUploadProps<T>) {\r\n  const formState = useFormState({ control, name });\r\n  const fieldError = error || get<string>(formState.errors, `${name}.message`);\r\n\r\n  return (\r\n    <div className={cn('w-full', wrapperClassName)}>\r\n      {label && (\r\n        <Label htmlFor={name} className=\"mb-2 block\">\r\n          {label}\r\n          {required && <span className=\"text-destructive ml-1\">*</span>}\r\n        </Label>\r\n      )}\r\n      <Controller\r\n        control={control}\r\n        name={name}\r\n        render={({ field: { onChange, value, ...field } }) => (\r\n          <div className=\"space-y-2\">\r\n            <Label\r\n              htmlFor={name}\r\n              className={cn(\r\n                'flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-accent transition-colors',\r\n                fieldError && 'border-destructive',\r\n                className,\r\n              )}\r\n            >\r\n              <div className=\"flex flex-col items-center justify-center pt-5 pb-6\">\r\n                <Upload className=\"w-8 h-8 mb-2 text-muted-foreground\" />\r\n                <p className=\"mb-2 text-sm text-muted-foreground\">\r\n                  <span className=\"font-semibold\">Click to upload</span> or drag and drop\r\n                </p>\r\n                <p className=\"text-xs text-muted-foreground\">\r\n                  {accept || 'Any file'}\r\n                  {multiple && ' (multiple files allowed)'}\r\n                </p>\r\n              </div>\r\n              <Input\r\n                {...field}\r\n                id={name}\r\n                type=\"file\"\r\n                accept={accept}\r\n                multiple={multiple}\r\n                className=\"hidden\"\r\n                onChange={(e) => {\r\n                  const files = e.target.files;\r\n                  if (files) {\r\n                    onChange(multiple ? Array.from(files) : files[0]);\r\n                  }\r\n                }}\r\n              />\r\n            </Label>\r\n            {value && (\r\n              <p className=\"text-sm text-muted-foreground\">\r\n                {multiple\r\n                  ? `${Array.isArray(value) ? value.length : 0} file(s) selected`\r\n                  : typeof value === 'string'\r\n                    ? value\r\n                    : value?.name || 'File selected'}\r\n              </p>\r\n            )}\r\n          </div>\r\n        )}\r\n      />\r\n      {fieldError && <p className=\"text-sm text-destructive mt-1\">{fieldError}</p>}\r\n    </div>\r\n  );\r\n}\r\n",
         "type": "registry:ui"
       }
