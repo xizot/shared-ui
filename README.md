@@ -83,16 +83,18 @@ After initialization:
 ```
 your-project/
 ├── shared-ui.json          # Configuration
-├── shared/
-│   ├── components/
-│   │   └── ui/             # UI components (added via CLI)
-│   │       ├── button.tsx
-│   │       ├── input.tsx
-│   │       └── ...
-│   ├── lib/
-│   │   └── utils.ts        # Utility functions
-│   ├── hooks/              # Custom hooks (optional)
-│   └── constants/          # Constants (optional)
+├── src/
+│   ├── shared/
+│   │   ├── components/
+│   │   │   └── ui/             # UI components (added via CLI)
+│   │   │       ├── button.tsx
+│   │   │       ├── input.tsx
+│   │   │       └── ...
+│   │   ├── lib/
+│   │   │   └── utils.ts        # Utility functions
+│   │   ├── hooks/              # Custom hooks (optional)
+│   │   └── constants/          # Constants (optional)
+│   └── ...
 └── ...
 ```
 
@@ -179,7 +181,7 @@ The `shared-ui.json` file controls where components are installed:
 Since components are copied to your project, customize freely:
 
 ```tsx
-// shared/components/ui/button.tsx
+// src/shared/components/ui/button.tsx
 // Modify this file directly!
 
 const buttonVariants = cva('inline-flex items-center justify-center...', {
@@ -198,7 +200,7 @@ const buttonVariants = cva('inline-flex items-center justify-center...', {
 - React 18+ or 19+
 - TypeScript (recommended)
 - Tailwind CSS v4
-- Path aliases configured (`@/` → `./`)
+- Path aliases configured (`@/` → `./src/`)
 
 ### Path Aliases Setup
 
@@ -209,7 +211,7 @@ const buttonVariants = cva('inline-flex items-center justify-center...', {
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     }
   }
 }
@@ -223,7 +225,7 @@ import path from 'path';
 export default defineConfig({
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './'),
+      '@': path.resolve(__dirname, './src'),
     },
   },
 });

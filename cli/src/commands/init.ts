@@ -518,8 +518,8 @@ export const initCommand = new Command()
       spinner.start('Creating directory structure...');
 
       const aliasToPath = (alias: string): string => {
-        // Convert @/shared/components -> shared/components
-        return alias.replace(/^@\//, '');
+        // Convert @/shared/components -> src/shared/components
+        return alias.replace(/^@\//, 'src/');
       };
 
       const directories = [

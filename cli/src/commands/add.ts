@@ -4,7 +4,7 @@ import fs from 'fs-extra';
 import ora from 'ora';
 import path from 'path';
 import prompts from 'prompts';
-import { getProjectConfig, type Config } from '../utils/config.js';
+import { getProjectConfig } from '../utils/config.js';
 import { detectPackageManager, installDependencies } from '../utils/package-manager.js';
 import { getRegistry, resolveTree } from '../utils/registry.js';
 
@@ -153,7 +153,7 @@ export const addCommand = new Command()
 
       // Helper to convert alias to path
       const aliasToPath = (alias: string): string => {
-        return alias.replace(/^@\//, '');
+        return alias.replace(/^@\//, 'src/');
       };
 
       let installedCount = 0;
@@ -259,9 +259,9 @@ export const addCommand = new Command()
           // Ensure directory exists
           await fs.ensureDir(path.dirname(filePath));
 
-          // Transform imports in content to use configured aliases
+          // Transform imports in content to use relative paths
           let content = file.content || '';
-          content = transformImports(content, config);
+          content = transformImportsToRelative(content, file.path);
 
           // Write file
           await fs.writeFile(filePath, content);
@@ -307,10 +307,12 @@ export const addCommand = new Command()
             .split('-')
             .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
             .join('');
+          // Show relative import from src folder
           console.log(
-            chalk.gray(`  import { ${componentName} } from '${config.aliases.ui}/${entry.name}'`),
+            chalk.gray(`  import { ${componentName} } from '@/shared/components/ui/${entry.name}'`),
           );
         });
+        console.log(chalk.gray('\n  Note: Configure @/ alias or use relative imports'));
       }
       console.log();
     } catch (error) {
@@ -320,29 +322,75 @@ export const addCommand = new Command()
   });
 
 /**
- * Transform imports in content to use configured aliases
+ * Get the relative path from a source file to a target directory
+ * @param sourceFilePath - The path of the source file (e.g., 'ui/button.tsx')
+ * @param targetDir - The target directory (e.g., 'lib', 'hooks', 'constants', 'ui', 'rhf')
  */
-function transformImports(content: string, config: Config): string {
-  // Replace @/components/ui/ with ui alias
-  content = content.replace(/@\/components\/ui\//g, `${config.aliases.ui}/`.replace(/\/\//g, '/'));
+function getRelativePath(sourceFilePath: string, targetDir: string): string {
+  // Get the directory of the source file
+  const sourceDir = path.dirname(sourceFilePath);
 
-  // Replace @/components/rhf/ with components/rhf
-  content = content.replace(
-    /@\/components\/rhf\//g,
-    `${config.aliases.components}/rhf/`.replace(/\/\//g, '/'),
-  );
+  // Calculate depth from shared root
+  // ui/button.tsx -> depth 1 (ui)
+  // ui/sidebar/index.tsx -> depth 2 (ui/sidebar)
+  const sourceParts = sourceDir.split('/').filter(Boolean);
 
-  // Replace @/lib/ with lib alias
-  content = content.replace(/@\/lib\//g, `${config.aliases.lib}/`.replace(/\/\//g, '/'));
+  // Build relative path
+  // From ui/ to lib/ -> ../lib/
+  // From ui/sidebar/ to lib/ -> ../../lib/
+  const upLevels = sourceParts.length;
+  const prefix = upLevels > 0 ? '../'.repeat(upLevels) : './';
 
-  // Replace @/hooks/ with hooks alias
-  content = content.replace(/@\/hooks\//g, `${config.aliases.hooks}/`.replace(/\/\//g, '/'));
+  return `${prefix}${targetDir}/`;
+}
 
-  // Replace @/constants/ with constants alias
-  content = content.replace(
-    /@\/constants\//g,
-    `${config.aliases.constants}/`.replace(/\/\//g, '/'),
-  );
+/**
+ * Transform imports in content to use relative paths
+ */
+function transformImportsToRelative(content: string, filePath: string): string {
+  // Get the source directory type (ui, rhf, lib, hooks, constants)
+  const sourceType = filePath.split('/')[0];
+
+  // Replace @/components/ui/ imports
+  content = content.replace(/@\/components\/ui\//g, () => {
+    if (sourceType === 'ui') {
+      // Same directory, use ./
+      return './';
+    }
+    return getRelativePath(filePath, 'components/ui');
+  });
+
+  // Replace @/components/rhf/ imports
+  content = content.replace(/@\/components\/rhf\//g, () => {
+    if (sourceType === 'rhf') {
+      return './';
+    }
+    return getRelativePath(filePath, 'components/rhf');
+  });
+
+  // Replace @/lib/ imports
+  content = content.replace(/@\/lib\//g, () => {
+    if (sourceType === 'lib') {
+      return './';
+    }
+    return getRelativePath(filePath, 'lib');
+  });
+
+  // Replace @/hooks/ imports
+  content = content.replace(/@\/hooks\//g, () => {
+    if (sourceType === 'hooks') {
+      return './';
+    }
+    return getRelativePath(filePath, 'hooks');
+  });
+
+  // Replace @/constants/ imports
+  content = content.replace(/@\/constants\//g, () => {
+    if (sourceType === 'constants') {
+      return './';
+    }
+    return getRelativePath(filePath, 'constants');
+  });
 
   return content;
 }
