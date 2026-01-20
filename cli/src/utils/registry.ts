@@ -2,8 +2,21 @@ import fs from 'fs-extra';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Get __dirname equivalent that works in both ESM and bundled CJS
+function getDirname(): string {
+  // For ESM
+  if (typeof import.meta !== 'undefined' && import.meta.url) {
+    return path.dirname(fileURLToPath(import.meta.url));
+  }
+  // For CJS (bundled)
+  if (typeof __dirname !== 'undefined') {
+    return __dirname;
+  }
+  // Fallback
+  return process.cwd();
+}
+
+const currentDir = getDirname();
 
 export interface RegistryEntry {
   name: string;
@@ -34,7 +47,7 @@ export async function getRegistry(): Promise<RegistryEntry[]> {
 
   try {
     // Try local registry first (for development)
-    const localRegistryPath = path.resolve(__dirname, '../../../registry/index.json');
+    const localRegistryPath = path.resolve(currentDir, '../../../registry/index.json');
     if (await fs.pathExists(localRegistryPath)) {
       registryCache = await fs.readJSON(localRegistryPath);
       return registryCache!;
@@ -44,7 +57,7 @@ export async function getRegistry(): Promise<RegistryEntry[]> {
     // When installed globally or via npx, the structure is:
     // node_modules/@xizot/shared-ui/cli/dist/index.js
     // node_modules/@xizot/shared-ui/registry/index.json
-    const packageRegistryPath = path.resolve(__dirname, '../../registry/index.json');
+    const packageRegistryPath = path.resolve(currentDir, '../../registry/index.json');
     if (await fs.pathExists(packageRegistryPath)) {
       registryCache = await fs.readJSON(packageRegistryPath);
       return registryCache!;
