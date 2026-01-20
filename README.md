@@ -137,10 +137,10 @@ npx github:xizot/shared-ui add button input card
 npx github:xizot/shared-ui add --all
 npx github:xizot/shared-ui add -o  # Overwrite existing
 
-# Install AI agent skills
-npx github:xizot/shared-ui skills              # List available skills
-npx github:xizot/shared-ui skills vercel-react-best-practices
-npx github:xizot/shared-ui skills --all        # Install all skills
+# Install AI agent skills (interactive)
+npx github:xizot/shared-ui skills              # Interactive mode with checkboxes
+npx github:xizot/shared-ui skills --list       # List available skills
+npx github:xizot/shared-ui skills --all        # Install all skills for all IDEs
 ```
 
 See [CLI.md](./CLI.md) for detailed CLI documentation.
@@ -150,8 +150,13 @@ See [CLI.md](./CLI.md) for detailed CLI documentation.
 Install AI coding assistant skills to improve code quality:
 
 ```bash
-npx github:xizot/shared-ui skills --all
+npx github:xizot/shared-ui skills
 ```
+
+This will show an interactive prompt to:
+
+1. **Select skills** - Choose which skills to install (checkbox, default all selected)
+2. **Select IDEs** - Choose which AI assistants to configure (checkbox, default all selected)
 
 **Available Skills:**
 
@@ -159,7 +164,19 @@ npx github:xizot/shared-ui skills --all
 | ----------------------------- | -------------------------------------------------------------- |
 | `vercel-react-best-practices` | React & Next.js performance optimization guidelines (45 rules) |
 
-Skills are installed to `.github/skills/` and automatically used by AI assistants like GitHub Copilot, Cursor, etc.
+**Supported IDEs/AI Assistants:**
+
+| IDE/Assistant  | Skills Location     |
+| -------------- | ------------------- |
+| Cursor         | `.cursor/skills/`   |
+| GitHub Copilot | `.github/skills/`   |
+| Claude         | `.claude/skills/`   |
+| Codex          | `.codex/skills/`    |
+| Gemini         | `.gemini/skills/`   |
+| Windsurf       | `.windsurf/skills/` |
+| Cline          | `.cline/skills/`    |
+
+Skills are automatically downloaded from the repository and installed to the appropriate folders for each selected IDE.
 
 ## 🔧 Configuration
 

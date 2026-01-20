@@ -17,7 +17,7 @@ interface SkillInfo {
 }
 
 // IDE configurations - where skills should be installed
-type IdeType = 'cursor' | 'github-copilot' | 'gemini' | 'windsurf' | 'cline';
+type IdeType = 'cursor' | 'github-copilot' | 'claude' | 'codex' | 'gemini' | 'windsurf' | 'cline';
 
 interface IdeConfig {
   name: string;
@@ -35,6 +35,16 @@ const IDE_CONFIGS: Record<IdeType, IdeConfig> = {
     name: 'GitHub Copilot',
     description: 'GitHub Copilot in VS Code',
     skillsPath: '.github/skills',
+  },
+  claude: {
+    name: 'Claude',
+    description: 'Anthropic Claude Code',
+    skillsPath: '.claude/skills',
+  },
+  codex: {
+    name: 'Codex',
+    description: 'OpenAI Codex CLI',
+    skillsPath: '.codex/skills',
   },
   gemini: {
     name: 'Gemini',
@@ -303,6 +313,7 @@ export const skillsCommand = new Command()
 
           // Download all files
           let downloadedCount = 0;
+          const failedFiles: string[] = [];
           for (const fileName of skill.files) {
             try {
               spinner.text = `Downloading ${skill.name}: ${fileName}...`;
@@ -312,14 +323,21 @@ export const skillsCommand = new Command()
               await fs.ensureDir(path.dirname(filePath));
               await fs.writeFile(filePath, content);
               downloadedCount++;
-            } catch {
-              // Skip files that fail to download
+            } catch (err) {
+              // Track failed files
+              failedFiles.push(fileName);
             }
           }
 
-          spinner.succeed(
-            `Installed ${skill.name} for ${ideConfig.name} (${downloadedCount} files)`,
-          );
+          if (downloadedCount > 0) {
+            spinner.succeed(
+              `Installed ${skill.name} for ${ideConfig.name} (${downloadedCount} files)`,
+            );
+          } else {
+            spinner.fail(`Failed to download ${skill.name} for ${ideConfig.name}`);
+            console.log(chalk.yellow('    Make sure the repository has been pushed to GitHub.'));
+            console.log(chalk.gray(`    URL: ${GITHUB_RAW_BASE}/${skill.name}/`));
+          }
         }
       }
 
