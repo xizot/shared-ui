@@ -4,6 +4,7 @@ import fs from 'fs-extra';
 import ora from 'ora';
 import path from 'path';
 import prompts from 'prompts';
+import { AI_TOOL_CHOICES, setupMultipleAITools } from '../ai-tools/index.js';
 import { STYLE_CHOICES, getStyleCSS, type StyleName } from '../styles/index.js';
 import { detectPackageManager, installDependencies } from '../utils/package-manager.js';
 
@@ -252,6 +253,23 @@ export const initCommand = new Command()
         };
       }
 
+      // Prompt for AI tools
+      let selectedAITools: string[] = [];
+      if (!options.yes && !options.defaults) {
+        const aiResponse = await prompts({
+          type: 'multiselect',
+          name: 'aiTools',
+          message: 'Setup AI coding assistants? (optional)',
+          choices: AI_TOOL_CHOICES.map((choice) => ({
+            title: choice.title,
+            value: choice.value,
+          })),
+          hint: '- Space to select. Enter to skip/confirm',
+          instructions: false,
+        });
+        selectedAITools = aiResponse.aiTools || [];
+      }
+
       const spinner = ora('Initializing shared-ui...').start();
 
       // Save configuration
@@ -303,6 +321,15 @@ export function cn(...inputs: ClassValue[]) {
 `;
         await fs.writeFile(utilsPath, utilsContent);
         spinner.succeed('Utility files created');
+      }
+
+      // Setup AI tools if selected
+      if (selectedAITools.length > 0) {
+        console.log(''); // Add spacing
+        const aiResults = await setupMultipleAITools(cwd, selectedAITools, { silent: false });
+        if (aiResults.success.length > 0) {
+          console.log(chalk.dim(`  AI tools configured: ${aiResults.success.join(', ')}`));
+        }
       }
 
       // Install dependencies

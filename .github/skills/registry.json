@@ -55,5 +55,14 @@
       "rules/server-parallel-fetching.md",
       "rules/server-serialization.md"
     ]
+  },
+  {
+    "name": "shared-ui-components",
+    "description": "Guidelines for AI agents to use @xizot/shared-ui components when building React applications. Provides component selection, import patterns, and best practices for UI implementation.",
+    "author": "xizot",
+    "version": "1.0.0",
+    "files": [
+      "SKILL.md"
+    ]
   }
 ]

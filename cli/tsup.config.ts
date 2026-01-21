@@ -1,3 +1,5 @@
+import fs from 'fs-extra';
+import path from 'path';
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
@@ -21,4 +23,14 @@ export default defineConfig({
     };
   },
   noExternal: ['commander', 'chalk', 'ora', 'prompts', 'execa', 'fs-extra'],
+  async onSuccess() {
+    // Copy .shared/skills to dist/.shared/skills
+    const srcSkills = path.resolve(__dirname, '../.shared/skills');
+    const destSkills = path.resolve(__dirname, 'dist/.shared/skills');
+
+    if (await fs.pathExists(srcSkills)) {
+      await fs.copy(srcSkills, destSkills);
+      console.log('✓ Copied skills to dist/.shared/skills');
+    }
+  },
 });

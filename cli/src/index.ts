@@ -2,6 +2,7 @@
 
 import { Command } from 'commander';
 import { addCommand } from './commands/add.js';
+import { aiCommand } from './commands/ai.js';
 import { initCommand } from './commands/init.js';
 import { skillsCommand } from './commands/skills.js';
 
@@ -15,5 +16,6 @@ program
 program.addCommand(addCommand);
 program.addCommand(initCommand);
 program.addCommand(skillsCommand);
+program.addCommand(aiCommand);
 
 program.parse();
