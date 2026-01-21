@@ -159,163 +159,6 @@ async function configurePostCSS(cwd: string): Promise<boolean> {
   return true;
 }
 
-// Auto-configure TypeScript path aliases in tsconfig.json
-async function configureTsConfig(cwd: string): Promise<boolean> {
-  const tsconfigPaths = ['tsconfig.json', 'tsconfig.app.json'];
-
-  for (const configFile of tsconfigPaths) {
-    const configPath = path.join(cwd, configFile);
-    if (await fs.pathExists(configPath)) {
-      try {
-        const content = await fs.readFile(configPath, 'utf-8');
-
-        // Check if already has @/* alias
-        if (content.includes('"@/*"') || content.includes("'@/*'")) {
-          return true; // Already configured
-        }
-
-        // Parse JSON (handle comments by removing them)
-        const jsonContent = content.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
-        const tsconfig = JSON.parse(jsonContent);
-
-        // Ensure compilerOptions exists
-        if (!tsconfig.compilerOptions) {
-          tsconfig.compilerOptions = {};
-        }
-
-        // Add baseUrl if not present
-        if (!tsconfig.compilerOptions.baseUrl) {
-          tsconfig.compilerOptions.baseUrl = '.';
-        }
-
-        // Add paths if not present
-        if (!tsconfig.compilerOptions.paths) {
-          tsconfig.compilerOptions.paths = {};
-        }
-
-        // Add @/* alias
-        if (!tsconfig.compilerOptions.paths['@/*']) {
-          tsconfig.compilerOptions.paths['@/*'] = ['./src/*'];
-        }
-
-        await fs.writeJSON(configPath, tsconfig, { spaces: 2 });
-        return true;
-      } catch {
-        // If JSON parsing fails, try string manipulation
-        let content = await fs.readFile(configPath, 'utf-8');
-
-        if (content.includes('"@/*"') || content.includes("'@/*'")) {
-          return true;
-        }
-
-        // Try to add paths to compilerOptions
-        if (content.includes('"compilerOptions"')) {
-          // Check if paths already exists
-          if (!content.includes('"paths"')) {
-            // Add baseUrl and paths after compilerOptions opening brace
-            const compilerOptionsMatch = content.match(/"compilerOptions"\s*:\s*\{/);
-            if (compilerOptionsMatch) {
-              const insertIndex = compilerOptionsMatch.index! + compilerOptionsMatch[0].length;
-              const pathsConfig = `\n    "baseUrl": ".",\n    "paths": {\n      "@/*": ["./src/*"]\n    },`;
-              content =
-                content.slice(0, insertIndex) + pathsConfig + content.slice(insertIndex);
-              await fs.writeFile(configPath, content);
-              return true;
-            }
-          }
-        }
-        return false;
-      }
-    }
-  }
-  return false;
-}
-
-// Auto-configure Vite path aliases
-async function configureViteAlias(cwd: string): Promise<boolean> {
-  const viteConfigPaths = [
-    'vite.config.ts',
-    'vite.config.js',
-    'vite.config.mts',
-    'vite.config.mjs',
-  ];
-
-  for (const configFile of viteConfigPaths) {
-    const configPath = path.join(cwd, configFile);
-    if (await fs.pathExists(configPath)) {
-      let content = await fs.readFile(configPath, 'utf-8');
-
-      // Check if already has alias configured
-      if (content.includes("'@'") || content.includes('"@"')) {
-        return true; // Already configured
-      }
-
-      // Check if path import exists, if not add it
-      if (!content.includes("import path from") && !content.includes('import * as path from')) {
-        // Add path import at the top
-        const pathImport = `import path from "path";\n`;
-        if (content.includes('import ')) {
-          const lines = content.split('\n');
-          let lastImportIndex = -1;
-          for (let i = 0; i < lines.length; i++) {
-            if (lines[i].trim().startsWith('import ')) {
-              lastImportIndex = i;
-            }
-          }
-          if (lastImportIndex >= 0) {
-            lines.splice(lastImportIndex + 1, 0, pathImport.trim());
-            content = lines.join('\n');
-          }
-        } else {
-          content = pathImport + content;
-        }
-      }
-
-      // Check if resolve.alias exists
-      if (content.includes('resolve:') && content.includes('alias:')) {
-        // Alias section exists, try to add @
-        const aliasMatch = content.match(/alias:\s*\{([^}]*)\}/);
-        if (aliasMatch) {
-          const existingAliases = aliasMatch[1].trim();
-          if (existingAliases) {
-            content = content.replace(
-              /alias:\s*\{([^}]*)\}/,
-              `alias: {\n      "@": path.resolve(__dirname, "./src"),${existingAliases}\n    }`
-            );
-          } else {
-            content = content.replace(
-              /alias:\s*\{([^}]*)\}/,
-              `alias: {\n      "@": path.resolve(__dirname, "./src")\n    }`
-            );
-          }
-        }
-      } else if (content.includes('resolve:')) {
-        // resolve exists but no alias
-        const resolveMatch = content.match(/resolve:\s*\{([^}]*)\}/);
-        if (resolveMatch) {
-          const existingResolve = resolveMatch[1].trim();
-          content = content.replace(
-            /resolve:\s*\{([^}]*)\}/,
-            `resolve: {\n    alias: {\n      "@": path.resolve(__dirname, "./src")\n    },${existingResolve}\n  }`
-          );
-        }
-      } else {
-        // No resolve section, add it to defineConfig
-        const defineConfigMatch = content.match(/defineConfig\s*\(\s*\{/);
-        if (defineConfigMatch) {
-          const insertIndex = defineConfigMatch.index! + defineConfigMatch[0].length;
-          const resolveConfig = `\n  resolve: {\n    alias: {\n      "@": path.resolve(__dirname, "./src"),\n    },\n  },`;
-          content = content.slice(0, insertIndex) + resolveConfig + content.slice(insertIndex);
-        }
-      }
-
-      await fs.writeFile(configPath, content);
-      return true;
-    }
-  }
-  return false;
-}
-
 export const initCommand = new Command()
   .name('init')
   .description('Initialize shared-ui in your project')
@@ -516,43 +359,6 @@ export function cn(...inputs: ClassValue[]) {
           }
         }
 
-        // Auto-configure path aliases
-        spinner.start('Configuring path aliases...');
-        const tsConfigSuccess = await configureTsConfig(cwd);
-        let aliasConfigSuccess = false;
-
-        if (buildTool === 'vite') {
-          aliasConfigSuccess = await configureViteAlias(cwd);
-          if (tsConfigSuccess && aliasConfigSuccess) {
-            spinner.succeed('Path aliases configured in tsconfig.json and vite.config');
-          } else if (tsConfigSuccess) {
-            spinner.succeed('Path aliases configured in tsconfig.json');
-            console.log(
-              chalk.yellow(
-                '  ⚠️  Could not auto-configure vite.config. Add manually:\n' +
-                  '     resolve: { alias: { "@": path.resolve(__dirname, "./src") } }'
-              )
-            );
-          } else {
-            spinner.warn('Could not auto-configure path aliases');
-          }
-        } else if (buildTool === 'next') {
-          // Next.js uses tsconfig paths directly, no additional config needed
-          if (tsConfigSuccess) {
-            spinner.succeed('Path aliases configured in tsconfig.json');
-          } else {
-            spinner.warn('Could not auto-configure path aliases in tsconfig.json');
-          }
-          aliasConfigSuccess = tsConfigSuccess;
-        } else {
-          if (tsConfigSuccess) {
-            spinner.succeed('Path aliases configured in tsconfig.json');
-          } else {
-            spinner.warn('Could not auto-configure path aliases');
-          }
-          aliasConfigSuccess = tsConfigSuccess;
-        }
-
         // Print success message
         console.log(chalk.green('\n✅ Successfully initialized shared-ui!\n'));
 
@@ -563,37 +369,17 @@ export function cn(...inputs: ClassValue[]) {
         console.log(chalk.gray(`  ${aliasToPath(config.aliases.constants)}/ → Constants`));
 
         // Only show manual config instructions if auto-config failed
-        const needsManualConfig = !configSuccess || !aliasConfigSuccess;
-        if (needsManualConfig) {
-          console.log(chalk.cyan('\nManual configuration needed:'));
-          let stepNum = 1;
-
-          if (!configSuccess) {
-            console.log(chalk.gray(`  ${stepNum}. Configure Tailwind CSS:`));
-            buildToolInfo.configInstructions.forEach((line) => {
-              console.log(chalk.white(`     ${line}`));
-            });
-            stepNum++;
-          }
-
-          if (!aliasConfigSuccess) {
-            console.log(chalk.gray(`\n  ${stepNum}. Configure path aliases in tsconfig.json:`));
-            console.log(chalk.white('     "compilerOptions": {'));
-            console.log(chalk.white('       "baseUrl": ".",'));
-            console.log(chalk.white('       "paths": { "@/*": ["./src/*"] }'));
-            console.log(chalk.white('     }'));
-
-            if (buildTool === 'vite') {
-              console.log(chalk.gray('\n     And in vite.config.ts:'));
-              console.log(chalk.white('     resolve: {'));
-              console.log(chalk.white('       alias: { "@": path.resolve(__dirname, "./src") }'));
-              console.log(chalk.white('     }'));
-            }
-          }
+        if (!configSuccess) {
+          console.log(chalk.cyan('\nNext steps:'));
+          console.log(chalk.gray('  1. Configure Tailwind CSS:'));
+          buildToolInfo.configInstructions.forEach((line) => {
+            console.log(chalk.white(`     ${line}`));
+          });
+          console.log(chalk.gray('\n  2. Add components:'));
+        } else {
+          console.log(chalk.cyan('\nNext steps:'));
+          console.log(chalk.gray('  1. Add components:'));
         }
-
-        console.log(chalk.cyan('\nNext steps:'));
-        console.log(chalk.gray('  1. Add components:'));
         console.log(chalk.white('     npx github:xizot/shared-ui add button'));
         console.log(chalk.gray('  2. Add multiple components:'));
         console.log(chalk.white('     npx github:xizot/shared-ui add button input card'));
