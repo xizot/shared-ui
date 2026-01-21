@@ -217,7 +217,8 @@ async function configureTsConfig(cwd: string): Promise<boolean> {
             if (compilerOptionsMatch) {
               const insertIndex = compilerOptionsMatch.index! + compilerOptionsMatch[0].length;
               const pathsConfig = `\n    "baseUrl": ".",\n    "paths": {\n      "@/*": ["./src/*"]\n    },`;
-              content = content.slice(0, insertIndex) + pathsConfig + content.slice(insertIndex);
+              content =
+                content.slice(0, insertIndex) + pathsConfig + content.slice(insertIndex);
               await fs.writeFile(configPath, content);
               return true;
             }
@@ -250,7 +251,7 @@ async function configureViteAlias(cwd: string): Promise<boolean> {
       }
 
       // Check if path import exists, if not add it
-      if (!content.includes('import path from') && !content.includes('import * as path from')) {
+      if (!content.includes("import path from") && !content.includes('import * as path from')) {
         // Add path import at the top
         const pathImport = `import path from "path";\n`;
         if (content.includes('import ')) {
@@ -279,12 +280,12 @@ async function configureViteAlias(cwd: string): Promise<boolean> {
           if (existingAliases) {
             content = content.replace(
               /alias:\s*\{([^}]*)\}/,
-              `alias: {\n      "@": path.resolve(__dirname, "./src"),${existingAliases}\n    }`,
+              `alias: {\n      "@": path.resolve(__dirname, "./src"),${existingAliases}\n    }`
             );
           } else {
             content = content.replace(
               /alias:\s*\{([^}]*)\}/,
-              `alias: {\n      "@": path.resolve(__dirname, "./src")\n    }`,
+              `alias: {\n      "@": path.resolve(__dirname, "./src")\n    }`
             );
           }
         }
@@ -295,7 +296,7 @@ async function configureViteAlias(cwd: string): Promise<boolean> {
           const existingResolve = resolveMatch[1].trim();
           content = content.replace(
             /resolve:\s*\{([^}]*)\}/,
-            `resolve: {\n    alias: {\n      "@": path.resolve(__dirname, "./src")\n    },${existingResolve}\n  }`,
+            `resolve: {\n    alias: {\n      "@": path.resolve(__dirname, "./src")\n    },${existingResolve}\n  }`
           );
         }
       } else {
@@ -529,8 +530,8 @@ export function cn(...inputs: ClassValue[]) {
             console.log(
               chalk.yellow(
                 '  ⚠️  Could not auto-configure vite.config. Add manually:\n' +
-                  '     resolve: { alias: { "@": path.resolve(__dirname, "./src") } }',
-              ),
+                  '     resolve: { alias: { "@": path.resolve(__dirname, "./src") } }'
+              )
             );
           } else {
             spinner.warn('Could not auto-configure path aliases');
