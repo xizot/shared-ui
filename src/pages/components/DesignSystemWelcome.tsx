@@ -19,7 +19,7 @@ export function DesignSystemWelcome() {
           </div>
         </div>
         <Badge variant="outline" className="text-sm">
-          Version 1.0.0
+          Version 0.0.0
         </Badge>
       </div>
 

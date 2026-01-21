@@ -154,8 +154,8 @@ function MultipleCombobox<TOptions extends readonly MultipleComboboxBaseOption[]
                     key={option.id}
                     variant="secondary"
                     className={cn(
-                      'gap-1 shrink-0',
-                      !autoResize && 'truncate max-w-[120px]',
+                      'gap-1 shrink-0 border border-border',
+                      !autoResize && 'truncate',
                       (disabled || readonly) && 'pr-2',
                     )}
                   >
@@ -176,7 +176,10 @@ function MultipleCombobox<TOptions extends readonly MultipleComboboxBaseOption[]
                   </Badge>
                 ))}
                 {remainingCount > 0 && (
-                  <Badge variant="secondary" className="shrink-0">
+                  <Badge
+                    variant="secondary"
+                    className="shrink-0 bg-transparent text-primary font-semibold text-sm px-1"
+                  >
                     +{remainingCount}
                   </Badge>
                 )}
@@ -287,6 +290,5 @@ export {
   type MultipleComboboxBaseOption,
   type MultipleComboboxOnChange,
   type MultipleComboboxProps,
-  type MultipleComboboxValue
+  type MultipleComboboxValue,
 };
-

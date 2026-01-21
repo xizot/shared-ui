@@ -34,8 +34,8 @@ const lightTokens: ThemeTokens = {
   chart3: 'oklch(0.45 0.12 220)', // Blue-teal - darker
   chart4: 'oklch(0.58 0.14 165)', // Mint - darker
   chart5: 'oklch(0.50 0.13 150)', // Green-teal - darker
-  // Sidebar - Teal tinted
-  sidebar: 'oklch(0.98 0.005 197)',
+  // Sidebar - same as background
+  sidebar: 'oklch(1 0 0)',
   sidebarForeground: 'oklch(0.145 0.035 197)',
   sidebarPrimary: 'oklch(0.42 0.12 197)',
   sidebarPrimaryForeground: 'oklch(0.99 0.002 197)',
@@ -72,8 +72,8 @@ const darkTokens: ThemeTokens = {
   chart3: 'oklch(0.63 0.13 220)', // Blue-teal
   chart4: 'oklch(0.76 0.15 165)', // Mint
   chart5: 'oklch(0.68 0.14 150)', // Green-teal
-  // Sidebar - Teal tinted dark
-  sidebar: 'oklch(0.18 0.035 197)',
+  // Sidebar - same as background
+  sidebar: 'oklch(0.145 0.035 197)',
   sidebarForeground: 'oklch(0.96 0.005 197)',
   sidebarPrimary: 'oklch(0.60 0.13 197)',
   sidebarPrimaryForeground: 'oklch(0.96 0.005 197)',
