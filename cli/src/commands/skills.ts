@@ -5,7 +5,7 @@ import ora from 'ora';
 import path from 'path';
 import prompts from 'prompts';
 
-const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/xizot/shared-ui/master/.github/skills';
+const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/xizot/shared-ui/master/.shared/skills';
 const SKILLS_REGISTRY_URL = `${GITHUB_RAW_BASE}/registry.json`;
 
 interface SkillInfo {
