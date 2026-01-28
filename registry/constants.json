@@ -7,7 +7,7 @@
     "files": [
       {
         "path": "constants/breakpoints.ts",
-        "content": "export const BREAKPOINTS = {\r\n  sm: 640,\r\n  md: 768,\r\n  lg: 1024,\r\n  xl: 1280,\r\n  '2xl': 1536,\r\n} as const;\r\n\r\nexport type Breakpoint = keyof typeof BREAKPOINTS;\r\n",
+        "content": "export const BREAKPOINTS = {\n  sm: 640,\n  md: 768,\n  lg: 1024,\n  xl: 1280,\n  '2xl': 1536,\n} as const;\n\nexport type Breakpoint = keyof typeof BREAKPOINTS;\n",
         "type": "registry:constant"
       }
     ]
@@ -20,7 +20,7 @@
     "files": [
       {
         "path": "constants/common.ts",
-        "content": "export const DEFAULT_PAGE_INDEX = 1;\r\nexport const DEFAULT_PAGE_SIZE = 10;\r\nexport const DEFAULT_PAGE_SIZE_OPTIONS = [\r\n  { id: 10, name: '10/trang' },\r\n  { id: 20, name: '20/trang' },\r\n  { id: 50, name: '50/trang' },\r\n  { id: 100, name: '100/trang' },\r\n];\r\n",
+        "content": "export const DEFAULT_PAGE_INDEX = 1;\nexport const DEFAULT_PAGE_SIZE = 10;\nexport const DEFAULT_PAGE_SIZE_OPTIONS = [\n  { id: 10, name: '10/trang' },\n  { id: 20, name: '20/trang' },\n  { id: 50, name: '50/trang' },\n  { id: 100, name: '100/trang' },\n];\n",
         "type": "registry:constant"
       }
     ]
@@ -33,7 +33,7 @@
     "files": [
       {
         "path": "constants/date-formats.ts",
-        "content": "export const DATE_FORMATS = {\r\n  short: 'dd/MM/yyyy',\r\n  long: 'dd MMMM yyyy',\r\n  datetime: 'dd/MM/yyyy HH:mm',\r\n  datetimeLong: 'dd MMMM yyyy HH:mm',\r\n  time: 'HH:mm',\r\n  iso: 'yyyy-MM-dd',\r\n  isoDateTime: \"yyyy-MM-dd'T'HH:mm:ss\",\r\n} as const;\r\n\r\nexport type DateFormat = keyof typeof DATE_FORMATS;\r\n",
+        "content": "export const DATE_FORMATS = {\n  short: 'dd/MM/yyyy',\n  long: 'dd MMMM yyyy',\n  datetime: 'dd/MM/yyyy HH:mm',\n  datetimeLong: 'dd MMMM yyyy HH:mm',\n  time: 'HH:mm',\n  iso: 'yyyy-MM-dd',\n  isoDateTime: \"yyyy-MM-dd'T'HH:mm:ss\",\n} as const;\n\nexport type DateFormat = keyof typeof DATE_FORMATS;\n",
         "type": "registry:constant"
       }
     ]
@@ -48,7 +48,7 @@
     "files": [
       {
         "path": "constants/form-sizes.ts",
-        "content": "import { cva, type VariantProps } from 'class-variance-authority';\r\n\r\n/**\r\n * Default text size class for form components and labels\r\n * Uses CSS variable --default-text-size which can be configured in CSS\r\n */\r\n\r\n/**\r\n * Form component size variants\r\n * All form components should use these sizes for consistency\r\n */\r\nexport const formSizeVariants = cva('', {\r\n  variants: {\r\n    size: {\r\n      xxs: 'h-6 text-xs',\r\n      xs: 'h-8 text-xs',\r\n      sm: 'h-9 text-sm',\r\n      md: 'h-10 text-base',\r\n      lg: 'h-11 text-base',\r\n      xl: 'h-12 text-base',\r\n      xxl: 'h-14 text-lg',\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    size: 'md',\r\n  },\r\n});\r\n\r\nexport type FormSize = VariantProps<typeof formSizeVariants>['size'];\r\n\r\n/**\r\n * Size mapping for form components\r\n * - xxs: 24px height (h-6)\r\n * - xs: 32px height (h-8)\r\n * - sm: 36px height (h-9)\r\n * - md: 40px height (h-10) - default\r\n * - lg: 44px height (h-11)\r\n * - xl: 48px height (h-12)\r\n * - xxl: 56px height (h-14)\r\n */\r\nexport const FORM_SIZES = {\r\n  xxs: {\r\n    height: 'h-6',\r\n    text: 'text-xs',\r\n    padding: 'px-2 py-1',\r\n    icon: 'size-3.5',\r\n    iconButton: 'size-6',\r\n  },\r\n  xs: {\r\n    height: 'h-8',\r\n    text: 'text-xs',\r\n    padding: 'px-2.5 py-1.5',\r\n    icon: 'size-4',\r\n    iconButton: 'size-8',\r\n  },\r\n  sm: {\r\n    height: 'h-9',\r\n    text: 'text-sm',\r\n    padding: 'px-3 py-2',\r\n    icon: 'size-5',\r\n    iconButton: 'size-9',\r\n  },\r\n  md: {\r\n    height: 'h-10',\r\n    text: 'text-base',\r\n    padding: 'px-4 py-2',\r\n    icon: 'size-5',\r\n    iconButton: 'size-10',\r\n  },\r\n  lg: {\r\n    height: 'h-11',\r\n    text: 'text-base',\r\n    padding: 'px-4 py-2.5',\r\n    icon: 'size-6',\r\n    iconButton: 'size-11',\r\n  },\r\n  xl: {\r\n    height: 'h-12',\r\n    text: 'text-base',\r\n    padding: 'px-5 py-3',\r\n    icon: 'size-6',\r\n    iconButton: 'size-12',\r\n  },\r\n  xxl: {\r\n    height: 'h-14',\r\n    text: 'text-lg',\r\n    padding: 'px-6 py-3.5',\r\n    icon: 'size-7',\r\n    iconButton: 'size-14',\r\n  },\r\n} as const;\r\n\r\n",
+        "content": "import { cva, type VariantProps } from 'class-variance-authority';\n\n/**\n * Default text size class for form components and labels\n * Uses CSS variable --default-text-size which can be configured in CSS\n */\n\n/**\n * Form component size variants\n * All form components should use these sizes for consistency\n */\nexport const formSizeVariants = cva('', {\n  variants: {\n    size: {\n      xxs: 'h-6 text-xs',\n      xs: 'h-8 text-xs',\n      sm: 'h-9 text-sm',\n      md: 'h-10 text-base',\n      lg: 'h-11 text-base',\n      xl: 'h-12 text-base',\n      xxl: 'h-14 text-lg',\n    },\n  },\n  defaultVariants: {\n    size: 'md',\n  },\n});\n\nexport type FormSize = VariantProps<typeof formSizeVariants>['size'];\n\n/**\n * Size mapping for form components\n * - xxs: 24px height (h-6)\n * - xs: 32px height (h-8)\n * - sm: 36px height (h-9)\n * - md: 40px height (h-10) - default\n * - lg: 44px height (h-11)\n * - xl: 48px height (h-12)\n * - xxl: 56px height (h-14)\n */\nexport const FORM_SIZES = {\n  xxs: {\n    height: 'h-6',\n    text: 'text-xs',\n    padding: 'px-2 py-1',\n    icon: 'size-3.5',\n    iconButton: 'size-6',\n  },\n  xs: {\n    height: 'h-8',\n    text: 'text-xs',\n    padding: 'px-2.5 py-1.5',\n    icon: 'size-4',\n    iconButton: 'size-8',\n  },\n  sm: {\n    height: 'h-9',\n    text: 'text-sm',\n    padding: 'px-3 py-2',\n    icon: 'size-5',\n    iconButton: 'size-9',\n  },\n  md: {\n    height: 'h-10',\n    text: 'text-base',\n    padding: 'px-4 py-2',\n    icon: 'size-5',\n    iconButton: 'size-10',\n  },\n  lg: {\n    height: 'h-11',\n    text: 'text-base',\n    padding: 'px-4 py-2.5',\n    icon: 'size-6',\n    iconButton: 'size-11',\n  },\n  xl: {\n    height: 'h-12',\n    text: 'text-base',\n    padding: 'px-5 py-3',\n    icon: 'size-6',\n    iconButton: 'size-12',\n  },\n  xxl: {\n    height: 'h-14',\n    text: 'text-lg',\n    padding: 'px-6 py-3.5',\n    icon: 'size-7',\n    iconButton: 'size-14',\n  },\n} as const;\n\n",
         "type": "registry:constant"
       }
     ]
@@ -61,7 +61,7 @@
     "files": [
       {
         "path": "constants/regex.ts",
-        "content": "export const REGEX = {\r\n  email: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/,\r\n  phone: /^[0-9]{10,11}$/,\r\n  vietnamesePhone: /^(0|\\+84)[1-9][0-9]{8,9}$/,\r\n  url: /^https?:\\/\\/.+/,\r\n  slug: /^[a-z0-9]+(?:-[a-z0-9]+)*$/,\r\n  hexColor: /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,\r\n  uuid: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,\r\n} as const;\r\n",
+        "content": "export const REGEX = {\n  email: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/,\n  phone: /^[0-9]{10,11}$/,\n  vietnamesePhone: /^(0|\\+84)[1-9][0-9]{8,9}$/,\n  url: /^https?:\\/\\/.+/,\n  slug: /^[a-z0-9]+(?:-[a-z0-9]+)*$/,\n  hexColor: /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,\n  uuid: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,\n} as const;\n",
         "type": "registry:constant"
       }
     ]
