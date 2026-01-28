@@ -178,7 +178,7 @@ function MultipleCombobox<TOptions extends readonly MultipleComboboxBaseOption[]
                 {remainingCount > 0 && (
                   <Badge
                     variant="secondary"
-                    className="shrink-0 bg-transparent text-primary font-semibold text-sm px-1"
+                    className="px-1 text-sm font-semibold bg-transparent shrink-0 text-primary"
                   >
                     +{remainingCount}
                   </Badge>
@@ -186,7 +186,7 @@ function MultipleCombobox<TOptions extends readonly MultipleComboboxBaseOption[]
               </>
             )}
           </div>
-          <div className="flex items-center gap-1 shrink-0 ml-2">
+          <div className="flex gap-1 items-center ml-2 shrink-0">
             {selectedValues.length > 0 && !disabled && !readonly ? (
               <span
                 onMouseDown={(e) => {
@@ -196,17 +196,17 @@ function MultipleCombobox<TOptions extends readonly MultipleComboboxBaseOption[]
                 onClick={handleClearAll}
                 className="cursor-pointer"
               >
-                <XCircle className="text-muted-foreground hidden group-hover/combobox:block h-4 w-4" />
-                <ChevronDown className="text-muted-foreground block group-hover/combobox:hidden h-4 w-4" />
+                <XCircle className="hidden w-4 h-4 text-muted-foreground group-hover/combobox:block" />
+                <ChevronDown className="block w-4 h-4 text-muted-foreground group-hover/combobox:hidden" />
               </span>
             ) : (
-              <ChevronDown className="text-muted-foreground h-4 w-4" />
+              <ChevronDown className="w-4 h-4 text-muted-foreground" />
             )}
           </div>
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className={cn('w-(--radix-popover-trigger-width) p-0', popoverClassName)}
+        className={cn('p-0 w-(--radix-popover-trigger-width)', popoverClassName)}
         align="start"
       >
         <Command>
@@ -224,7 +224,7 @@ function MultipleCombobox<TOptions extends readonly MultipleComboboxBaseOption[]
                     onSelect={() => {
                       handleToggle(option.id);
                     }}
-                    className="flex items-center gap-2 cursor-pointer"
+                    className="flex gap-2 items-center cursor-pointer"
                   >
                     <div
                       onMouseDown={(e) => e.preventDefault()}
@@ -233,7 +233,7 @@ function MultipleCombobox<TOptions extends readonly MultipleComboboxBaseOption[]
                         e.stopPropagation();
                         handleToggle(option.id);
                       }}
-                      className="shrink-0"
+                      className="flex items-center shrink-0"
                     >
                       <Checkbox
                         checked={isSelected}
@@ -241,7 +241,7 @@ function MultipleCombobox<TOptions extends readonly MultipleComboboxBaseOption[]
                         size={size}
                       />
                     </div>
-                    <div className="flex-1 flex items-center gap-2 min-w-0">
+                    <div className="flex flex-1 gap-2 items-center min-w-0">
                       {showCode && option.code !== undefined && (
                         <span className="text-muted-foreground shrink-0">{option.code}</span>
                       )}
@@ -249,7 +249,7 @@ function MultipleCombobox<TOptions extends readonly MultipleComboboxBaseOption[]
                     </div>
                     <CheckIcon
                       className={cn(
-                        'h-4 w-4 shrink-0 text-primary',
+                        'w-4 h-4 shrink-0 text-primary',
                         isSelected ? 'opacity-100' : 'opacity-0',
                       )}
                     />
@@ -270,7 +270,7 @@ function MultipleCombobox<TOptions extends readonly MultipleComboboxBaseOption[]
   return (
     <div className={cn('w-full', className)}>
       {label && (
-        <Label className="text-foreground leading-5 block">
+        <Label className="block leading-5 text-foreground">
           {label}
           {required && <span className="text-destructive">*</span>}
         </Label>
