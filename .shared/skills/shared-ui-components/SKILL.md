@@ -34,15 +34,15 @@ Reference these guidelines when:
 
 ## Import Pattern
 
-**Always import from `@/shared/components/ui/[component-name]`:**
+**Always import from `@/src/shared/components/ui/[component-name]`:**
 
 ```tsx
-import { Button } from '@/shared/components/ui/button';
-import { Input } from '@/shared/components/ui/input';
-import { Card, CardHeader, CardTitle, CardContent } from '@/shared/components/ui/card';
+import { Button } from '@/src/shared/components/ui/button';
+import { Input } from '@/src/shared/components/ui/input';
+import { Card, CardHeader, CardTitle, CardContent } from '@/src/shared/components/ui/card';
 ```
 
-**Note:** The `@/shared` alias is configured in `shared-ui.json`. If you see `@/components/ui/` in examples, replace it with `@/shared/components/ui/`.
+**Note:** The `@/shared` alias is configured in `shared-ui.json`. If you see `@/components/ui/` in examples, replace it with `@/src/shared/components/ui/`.
 
 ## Component Categories
 
