@@ -1,16 +1,27 @@
 ````skill
 ---
 name: shared-ui-components
-description: Guidelines for AI agents to use @xizot/shared-ui components when building React applications. This skill provides component selection, import patterns, and best practices for UI implementation. Triggers on tasks involving UI components, forms, layouts, data display, or any React component development.
+description: Guidelines for AI agents to use shared-ui components that are already installed in src/shared/. This skill provides component selection, import patterns, usage examples, and best practices for UI implementation. Triggers on tasks involving UI components, forms, layouts, data display, or any React component development.
 license: MIT
 metadata:
   author: xizot
   version: "1.0.0"
 ---
 
-# Shared UI Components Guidelines
+# Shared UI Components Usage Guide
 
-This skill helps AI agents effectively use @xizot/shared-ui components when building React applications. The library provides 70+ pre-built, accessible, and customizable components based on Radix UI and Tailwind CSS v4.
+This skill helps AI agents effectively use shared-ui components that are **already installed** in `src/shared/`. The library provides 70+ pre-built, accessible, and customizable components based on Radix UI and Tailwind CSS v4.
+
+## Prerequisites
+
+**Components must already be installed in `src/shared/`.** 
+
+Before using any component:
+1. **Check if the component exists** in `src/shared/components/ui/[component-name].tsx`
+2. If the component doesn't exist, it needs to be installed first using: `npx @xizot/shared-ui add [component-name]`
+3. This guide focuses on **using** components that are already installed, not installing them
+
+**Example:** To use `Button`, verify `src/shared/components/ui/button.tsx` exists. If not, install it first.
 
 ## When to Apply
 
@@ -21,20 +32,17 @@ Reference these guidelines when:
 - Adding user feedback (toasts, alerts, confirmations)
 - Implementing data input (selects, comboboxes, date pickers)
 
-## Quick Start
+## Import Pattern
 
-### Installation
-```bash
-npx @xizot/shared-ui init
-```
+**Always import from `@/shared/components/ui/[component-name]`:**
 
-### Import Pattern
-Always import from `@/components/ui/[component-name]`:
 ```tsx
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Button } from '@/shared/components/ui/button';
+import { Input } from '@/shared/components/ui/input';
+import { Card, CardHeader, CardTitle, CardContent } from '@/shared/components/ui/card';
 ```
+
+**Note:** The `@/shared` alias is configured in `shared-ui.json`. If you see `@/components/ui/` in examples, replace it with `@/shared/components/ui/`.
 
 ## Component Categories
 
@@ -58,9 +66,9 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 **Form Example:**
 ```tsx
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/components/ui/select';
 
 function MyForm() {
   return (
@@ -100,9 +108,9 @@ function MyForm() {
 
 **Layout Example:**
 ```tsx
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Container } from '@/components/ui/container';
-import { Grid } from '@/components/ui/grid';
+import { Card, CardHeader, CardTitle, CardContent } from '@/shared/components/ui/card';
+import { Container } from '@/shared/components/ui/container';
+import { Grid } from '@/shared/components/ui/grid';
 
 function Dashboard() {
   return (
@@ -137,7 +145,7 @@ function Dashboard() {
 
 **DataTable Example:**
 ```tsx
-import { DataTable, type ColumnDef } from '@/components/ui/data-table';
+import { DataTable, type ColumnDef } from '@/shared/components/ui/data-table';
 
 const columns: ColumnDef<User>[] = [
   { accessorKey: 'name', header: 'Name' },
@@ -187,8 +195,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+} from '@/shared/components/ui/dialog';
+import { Button } from '@/shared/components/ui/button';
 
 function EditDialog() {
   return (
@@ -306,8 +314,8 @@ The library provides pre-built RHF (React Hook Form) components that handle form
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { RHFInput, RHFTextArea, RHFCombobox } from '@/components/rhf';
-import { Button } from '@/components/ui/button';
+import { RHFInput, RHFTextArea, RHFCombobox } from '@/shared/components/rhf';
+import { Button } from '@/shared/components/ui/button';
 
 const schema = z.object({
   email: z.string().email(),
@@ -413,14 +421,16 @@ The library uses CSS custom properties with OKLCH color space:
 
 ## Best Practices
 
-1. **Always use provided components** - Don't create custom components for existing functionality
-2. **Use semantic size props** - Use 'sm', 'md', 'lg' instead of custom styling
-3. **Leverage compound components** - Use children components (e.g., CardHeader, CardContent) for structure
-4. **Include error handling** - Always pass `error` prop to form components
-5. **Use loading states** - Show LoadingButton, Skeleton, or LoadingState during async operations
-6. **Prefer controlled components** - Use `value` and `onChange` for form state
-7. **Add accessibility labels** - Use `label` prop or aria attributes
-8. **Use asChild for custom triggers** - Pass `asChild` to use custom elements as triggers
+1. **Always use shared-ui components** - Import from `@/shared/components/ui/` instead of creating custom components
+2. **Verify component exists** - Check `src/shared/components/ui/` before importing. If missing, install it first
+3. **Use semantic size props** - Use 'sm', 'md', 'lg' instead of custom styling
+4. **Leverage compound components** - Use children components (e.g., CardHeader, CardContent) for structure
+5. **Include error handling** - Always pass `error` prop to form components
+6. **Use loading states** - Show LoadingButton, Skeleton, or LoadingState during async operations
+7. **Prefer controlled components** - Use `value` and `onChange` for form state
+8. **Add accessibility labels** - Use `label` prop or aria attributes
+9. **Use asChild for custom triggers** - Pass `asChild` to use custom elements as triggers
+10. **Follow import pattern** - Always use `@/shared/components/ui/[component-name]` path
 
 ## Anti-Patterns to Avoid
 
@@ -428,19 +438,22 @@ The library uses CSS custom properties with OKLCH color space:
 // ❌ Don't: Create custom button styles
 <button className="bg-blue-500 px-4 py-2 rounded">Click</button>
 
-// ✅ Do: Use Button component
+// ✅ Do: Use Button component from shared-ui
+import { Button } from '@/shared/components/ui/button';
 <Button variant="default">Click</Button>
 
 // ❌ Don't: Create custom input styling
 <input className="border rounded px-3 py-2" />
 
 // ✅ Do: Use Input component with props
+import { Input } from '@/shared/components/ui/input';
 <Input label="Name" error={errors.name} required />
 
 // ❌ Don't: Create custom modal
 <div className="fixed inset-0 bg-black/50">...</div>
 
 // ✅ Do: Use Dialog component
+import { Dialog, DialogContent } from '@/shared/components/ui/dialog';
 <Dialog open={open} onOpenChange={setOpen}>
   <DialogContent>...</DialogContent>
 </Dialog>
@@ -448,92 +461,95 @@ The library uses CSS custom properties with OKLCH color space:
 
 ## Component Import Reference
 
+**All components are located in `src/shared/components/ui/` and imported using the `@/shared` alias:**
+
 ```tsx
 // Buttons
-import { Button, buttonVariants } from '@/components/ui/button';
-import { LoadingButton } from '@/components/ui/loading-button';
-import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from '@/components/ui/button-group';
+import { Button, buttonVariants } from '@/shared/components/ui/button';
+import { LoadingButton } from '@/shared/components/ui/loading-button';
+import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from '@/shared/components/ui/button-group';
 
 // Form Inputs
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Combobox, type ComboboxOption } from '@/components/ui/combobox';
-import { MultipleCombobox, type MultipleComboboxBaseOption } from '@/components/ui/multiple-combobox';
-import { Checkbox } from '@/components/ui/checkbox';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
+import { Input } from '@/shared/components/ui/input';
+import { Textarea } from '@/shared/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/components/ui/select';
+import { Combobox, type ComboboxOption } from '@/shared/components/ui/combobox';
+import { MultipleCombobox, type MultipleComboboxBaseOption } from '@/shared/components/ui/multiple-combobox';
+import { Checkbox } from '@/shared/components/ui/checkbox';
+import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group';
+import { Switch } from '@/shared/components/ui/switch';
+import { Label } from '@/shared/components/ui/label';
 
 // Date/Time
-import { DatePicker, type DatePickerProps } from '@/components/ui/date-picker';
-import { DateRangePicker, type DateRangePickerProps } from '@/components/ui/date-range-picker';
-import { TimePicker, type TimeValue } from '@/components/ui/time-picker';
-import { MonthPicker, type MonthPickerProps } from '@/components/ui/month-picker';
-import { Calendar } from '@/components/ui/calendar';
+import { DatePicker, type DatePickerProps } from '@/shared/components/ui/date-picker';
+import { DateRangePicker, type DateRangePickerProps } from '@/shared/components/ui/date-range-picker';
+import { TimePicker, type TimeValue } from '@/shared/components/ui/time-picker';
+import { MonthPicker, type MonthPickerProps } from '@/shared/components/ui/month-picker';
+import { Calendar } from '@/shared/components/ui/calendar';
 
 // Layout
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, CardAction } from '@/components/ui/card';
-import { Container } from '@/components/ui/container';
-import { Grid } from '@/components/ui/grid';
-import { Stack } from '@/components/ui/stack';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, CardAction } from '@/shared/components/ui/card';
+import { Container } from '@/shared/components/ui/container';
+import { Grid } from '@/shared/components/ui/grid';
+import { Stack } from '@/shared/components/ui/stack';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/shared/components/ui/tabs';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/shared/components/ui/accordion';
 
 // Sidebar
-import { Sidebar, SidebarContent, SidebarHeader, SidebarFooter, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarProvider, SidebarTrigger, useSidebar } from '@/components/ui/sidebar';
+import { Sidebar, SidebarContent, SidebarHeader, SidebarFooter, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarProvider, SidebarTrigger, useSidebar } from '@/shared/components/ui/sidebar';
 
 // Data Display
-import { DataTable, type ColumnDef } from '@/components/ui/data-table';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableFooter, TableCaption } from '@/components/ui/table';
-import { Badge, badgeVariants } from '@/components/ui/badge';
-import { StatusBadge, type StatusType } from '@/components/ui/status-badge';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, type ChartConfig } from '@/components/ui/chart';
+import { DataTable, type ColumnDef } from '@/shared/components/ui/data-table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableFooter, TableCaption } from '@/shared/components/ui/table';
+import { Badge, badgeVariants } from '@/shared/components/ui/badge';
+import { StatusBadge, type StatusType } from '@/shared/components/ui/status-badge';
+import { Avatar, AvatarImage, AvatarFallback } from '@/shared/components/ui/avatar';
+import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, type ChartConfig } from '@/shared/components/ui/chart';
 
 // Images
-import { ImagePreview, type ImagePreviewItem } from '@/components/ui/image-preview';
-import { ImageLightbox, type ImageLightboxProps } from '@/components/ui/image-lightbox';
-import { FileUpload, type FileUploadProps, type FileUploadFile } from '@/components/ui/file-upload';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { ImagePreview, type ImagePreviewItem } from '@/shared/components/ui/image-preview';
+import { ImageLightbox, type ImageLightboxProps } from '@/shared/components/ui/image-lightbox';
+import { FileUpload, type FileUploadProps, type FileUploadFile } from '@/shared/components/ui/file-upload';
+import { AspectRatio } from '@/shared/components/ui/aspect-ratio';
 
 // Dialogs & Overlays
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from '@/components/ui/dialog';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { ConfirmDialog } from '@/components/ui/confirm-dialog';
-import { DeleteConfirmDialog } from '@/components/ui/delete-confirm-dialog';
-import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/components/ui/sheet';
-import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger, DrawerClose } from '@/components/ui/drawer';
-import { Popover, PopoverContent, PopoverTrigger, PopoverAnchor } from '@/components/ui/popover';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from '@/shared/components/ui/dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/shared/components/ui/alert-dialog';
+import { ConfirmDialog } from '@/shared/components/ui/confirm-dialog';
+import { DeleteConfirmDialog } from '@/shared/components/ui/delete-confirm-dialog';
+import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from '@/shared/components/ui/sheet';
+import { Drawer, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger, DrawerClose } from '@/shared/components/ui/drawer';
+import { Popover, PopoverContent, PopoverTrigger, PopoverAnchor } from '@/shared/components/ui/popover';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/shared/components/ui/hover-card';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/components/ui/tooltip';
 
 // Feedback
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Toaster } from '@/components/ui/sonner';
+import { Alert, AlertDescription, AlertTitle } from '@/shared/components/ui/alert';
+import { Toaster } from '@/shared/components/ui/sonner';
 import { toast } from 'sonner';
-import { Progress } from '@/components/ui/progress';
-import { Spinner } from '@/components/ui/spinner';
-import { Skeleton } from '@/components/ui/skeleton';
-import { LoadingState } from '@/components/ui/loading-state';
-import { EmptyState } from '@/components/ui/empty-state';
-import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty';
-import { ErrorBoundary, type ErrorBoundaryProps } from '@/components/ui/error-boundary';
+import { Progress } from '@/shared/components/ui/progress';
+import { Spinner } from '@/shared/components/ui/spinner';
+import { Skeleton } from '@/shared/components/ui/skeleton';
+import { LoadingState } from '@/shared/components/ui/loading-state';
+import { EmptyState } from '@/shared/components/ui/empty-state';
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/shared/components/ui/empty';
+import { ErrorBoundary, type ErrorBoundaryProps } from '@/shared/components/ui/error-boundary';
 
 // Navigation
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis } from '@/components/ui/breadcrumb';
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuGroup, ContextMenuItem, ContextMenuLabel, ContextMenuPortal, ContextMenuRadioGroup, ContextMenuRadioItem, ContextMenuSeparator, ContextMenuShortcut, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger } from '@/components/ui/context-menu';
-import { Menubar, MenubarCheckboxItem, MenubarContent, MenubarGroup, MenubarItem, MenubarLabel, MenubarMenu, MenubarPortal, MenubarRadioGroup, MenubarRadioItem, MenubarSeparator, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from '@/components/ui/menubar';
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationRange } from '@/components/ui/pagination';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis } from '@/shared/components/ui/breadcrumb';
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport, navigationMenuTriggerStyle } from '@/shared/components/ui/navigation-menu';
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from '@/shared/components/ui/dropdown-menu';
+import { ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuGroup, ContextMenuItem, ContextMenuLabel, ContextMenuPortal, ContextMenuRadioGroup, ContextMenuRadioItem, ContextMenuSeparator, ContextMenuShortcut, ContextMenuSub, ContextMenuSubContent, ContextMenuSubTrigger, ContextMenuTrigger } from '@/shared/components/ui/context-menu';
+import { Menubar, MenubarCheckboxItem, MenubarContent, MenubarGroup, MenubarItem, MenubarLabel, MenubarMenu, MenubarPortal, MenubarRadioGroup, MenubarRadioItem, MenubarSeparator, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from '@/shared/components/ui/menubar';
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationRange } from '@/shared/components/ui/pagination';
 
 // Form Structure
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, useFormField } from '@/components/ui/form';
-import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSeparator, FieldSet, FieldTitle } from '@/components/ui/field';
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText, InputGroupTextarea } from '@/components/ui/input-group';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, useFormField } from '@/shared/components/ui/form';
+import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSeparator, FieldSet, FieldTitle } from '@/shared/components/ui/field';
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText, InputGroupTextarea } from '@/shared/components/ui/input-group';
 
 // React Hook Form Components (RHF)
+// Located in src/shared/components/rhf/
 import { 
   RHFInput, 
   RHFTextArea, 
@@ -551,42 +567,52 @@ import {
   RHFUpload,
   RHFEditor,
   RHFErrorMessage,
-} from '@/components/rhf';
+} from '@/shared/components/rhf';
 
 // Utility
-import { Separator } from '@/components/ui/separator';
-import { Divider } from '@/components/ui/divider';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
-import { Toggle, toggleVariants } from '@/components/ui/toggle';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { Slider } from '@/components/ui/slider';
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/components/ui/input-otp';
-import { Kbd, KbdGroup } from '@/components/ui/kbd';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
-import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut } from '@/components/ui/command';
+import { Separator } from '@/shared/components/ui/separator';
+import { Divider } from '@/shared/components/ui/divider';
+import { ScrollArea, ScrollBar } from '@/shared/components/ui/scroll-area';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/shared/components/ui/collapsible';
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/shared/components/ui/resizable';
+import { Toggle, toggleVariants } from '@/shared/components/ui/toggle';
+import { ToggleGroup, ToggleGroupItem } from '@/shared/components/ui/toggle-group';
+import { Slider } from '@/shared/components/ui/slider';
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@/shared/components/ui/input-otp';
+import { Kbd, KbdGroup } from '@/shared/components/ui/kbd';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/shared/components/ui/carousel';
+import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut } from '@/shared/components/ui/command';
 
 // Items/Lists
-import { Item, ItemActions, ItemContent, ItemDescription, ItemFooter, ItemGroup, ItemHeader, ItemMedia, ItemSeparator, ItemTitle } from '@/components/ui/item';
+import { Item, ItemActions, ItemContent, ItemDescription, ItemFooter, ItemGroup, ItemHeader, ItemMedia, ItemSeparator, ItemTitle } from '@/shared/components/ui/item';
 
 // Rich Text Editor
-import { Editor, type EditorProps } from '@/components/ui/editor';
+import { Editor, type EditorProps } from '@/shared/components/ui/editor';
 ```
 
 ## File Structure
 
+**Components are installed in `src/shared/` directory:**
+
 ```
 src/
-├── components/
-│   ├── ui/           # All shared-ui components
-│   └── rhf/          # React Hook Form wrapper components
-├── constants/
-│   └── form-sizes.ts # Size constants
-├── hooks/
-│   └── use-mobile.ts # Mobile detection hook
-└── lib/
-    ├── utils.ts      # cn() utility function
-    └── format.ts     # Formatting utilities
+└── shared/
+    ├── components/
+    │   ├── ui/           # All shared-ui components (Button, Input, Card, etc.)
+    │   └── rhf/          # React Hook Form wrapper components
+    ├── constants/
+    │   └── form-sizes.ts # Size constants
+    ├── hooks/
+    │   └── use-mobile.ts # Mobile detection hook
+    └── lib/
+        ├── utils.ts      # cn() utility function
+        └── format.ts     # Formatting utilities
 ```
+
+**Import paths use the `@/shared` alias configured in `shared-ui.json`:**
+- `@/shared/components/ui/` → `@src/shared/components/ui/`
+- `@/shared/components/rhf/` → `@src/shared/components/rhf/`
+- `@/shared/lib/` → `@src/shared/lib/`
+- `@/shared/hooks/` → `@src/shared/hooks/`
+- `@/shared/constants/` → `@src/shared/constants/`
 ````
